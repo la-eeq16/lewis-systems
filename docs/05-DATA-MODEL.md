@@ -1,10 +1,10 @@
-# ClientPilot Data Model
+Document Version: 2.0
 
-Document Version: 1.0
+Product Version: 0.2.0
 
-Product Version: 0.1.0
+Status: ✅ Design Approved
 
-Status: Draft
+Implementation Status: ⏳ Pending
 
 Company: Lewis Systems
 
@@ -12,7 +12,9 @@ Product: ClientPilot
 
 Author: La-eeq Lewis
 
-Last Updated: 30 July 2026
+Phase: Phase 2 – Solution Design
+
+Last Updated: 02 August 2026
 
 ---
 
@@ -41,6 +43,11 @@ The ClientPilot data model follows these principles:
 Every business record belongs to an Organization.
 
 ---
+
+> **Implementation Note**
+>
+> This document defines the conceptual business data model.
+> The physical implementation (Airtable tables, field types, relationships, and views) is derived from this model and may contain implementation-specific details while remaining consistent with the business architecture.
 
 # 3. Entity Relationship Overview
 
@@ -396,8 +403,36 @@ Future versions of ClientPilot may introduce:
 
 Phase
 
-System Design
+Phase 2 – Solution Design
 
 Status
 
-🟢 Active Development
+🟢 Database Design Approved
+
+Current Module
+
+CRM Database
+
+Next Task
+
+Build the Companies table in Airtable.
+
+---
+
+# 11. Design Approval
+
+The ClientPilot data model has been reviewed and approved as the foundation for the MVP implementation.
+
+The implementation will begin using Airtable as the initial database platform while maintaining a technology-independent architecture that supports future migration to relational database systems such as PostgreSQL.
+
+The approved CRM implementation consists of the following operational tables:
+
+- Companies
+- Contacts
+- Leads
+- Consultations
+- AI Assessments
+- Workflow Logs
+- Settings
+
+The conceptual business entities defined in this document remain the authoritative data model for ClientPilot. Future changes to the data model must be documented through Architecture Decision Records (ADRs) and version updates.

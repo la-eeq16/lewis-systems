@@ -1,6 +1,6 @@
 # ClientPilot Product Requirements Document (PRD)
 
-Document Version: 1.0
+Document Version: 2.0
 
 Product Version: 0.1.0
 
