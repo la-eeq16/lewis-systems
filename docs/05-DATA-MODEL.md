@@ -1,10 +1,12 @@
-Document Version: 2.0
+# ClientPilot Data Model
+
+Document Version: 2.1
 
 Product Version: 0.2.0
 
-Status: ✅ Design Approved
+Status: ✅ CRM Structure Complete
 
-Implementation Status: ⏳ Pending
+Implementation Status: ✅ Airtable MVP Implemented
 
 Company: Lewis Systems
 
@@ -14,7 +16,7 @@ Author: La-eeq Lewis
 
 Phase: Phase 2 – Solution Design
 
-Last Updated: 02 August 2026
+Last Updated: 03 August 2026
 
 ---
 
@@ -22,7 +24,7 @@ Last Updated: 02 August 2026
 
 This document defines the business data model for ClientPilot.
 
-The data model describes the core business entities, their relationships, and the information required to support ClientPilot's client intake, qualification, scheduling, and communication processes.
+The data model describes the core business entities, their relationships, and the information required to support ClientPilot's client intake, qualification, scheduling, meeting management, workflow automation, and communication processes.
 
 The model is technology-independent and is not tied to any specific database platform.
 
@@ -39,6 +41,7 @@ The ClientPilot data model follows these principles:
 - Scalability
 - Multi-tenant architecture
 - Auditability
+- Automation-first design
 
 Every business record belongs to an Organization.
 
@@ -47,30 +50,32 @@ Every business record belongs to an Organization.
 > **Implementation Note**
 >
 > This document defines the conceptual business data model.
-> The physical implementation (Airtable tables, field types, relationships, and views) is derived from this model and may contain implementation-specific details while remaining consistent with the business architecture.
+>
+> The current MVP implementation uses Airtable as the CRM platform.
+>
+> Where supported by Airtable, relationships are implemented using Linked Record fields rather than manually maintained foreign keys.
+>
+> Logical business identifiers (Company ID, Contact ID, Lead ID, Qualification ID, Meeting ID, Activity ID, Workflow Log ID) remain part of the business model for integrations, reporting, auditing, and future migration to PostgreSQL or another relational database.
+
+---
 
 # 3. Entity Relationship Overview
 
-```
+```text
                     Organization
                          │
         ┌────────────────┼────────────────┐
         │                │                │
         ▼                ▼                ▼
       User           Company           Lead
-                                          │
-                    ┌─────────────────────┼────────────────────┐
-                    │                     │                    │
-                    ▼                     ▼                    ▼
-                 Contact           Qualification          Meeting
-                                                              │
-                                           ┌──────────────────┴──────────────┐
-                                           ▼                                 ▼
-                                     AI Summary                         Activity
-                                                                      │
-                                                                      ▼
-                                                                  Workflow
-```
+                         │                │
+                         │        ┌───────┼──────────┐
+                         │        │       │          │
+                         ▼        ▼       ▼          ▼
+                    Contact Qualification Meeting Activity
+                                         │
+                                         ▼
+                                  Workflow Log
 
 ---
 
@@ -143,6 +148,12 @@ Organization ID
 - Province
 - City
 
+### Airtable Implementation
+
+The Companies table is the primary business entity within the CRM.
+
+Each Company may be linked to multiple Contacts, Leads, Meetings, Activities, and future business records using Airtable Linked Records.
+
 ---
 
 ## 4.4 Contact
@@ -153,10 +164,10 @@ Represents the primary contact person.
 
 Contact ID
 
-### Foreign Keys
+### Relationships
 
-- Organization ID
-- Company ID
+- Organization
+- Company
 
 ### Attributes
 
@@ -168,6 +179,12 @@ Contact ID
 - Decision Maker
 - Preferred Contact Method
 
+### Airtable Implementation
+
+The Company relationship is implemented using an Airtable Linked Record field.
+
+The logical Company ID remains part of the conceptual business model for reporting, integrations, and future database portability.
+
 ---
 
 ## 4.5 Lead
@@ -178,11 +195,11 @@ Represents a client enquiry.
 
 Lead ID
 
-### Foreign Keys
+### Relationships
 
-- Organization ID
-- Company ID
-- Contact ID
+- Organization
+- Company
+- Contact
 
 ### Attributes
 
@@ -193,6 +210,10 @@ Lead ID
 - Assigned Consultant
 - Priority
 - Qualification Status
+
+### Airtable Implementation
+
+Lead records are linked to the Company and Contact tables using Airtable Linked Record fields.
 
 ---
 
@@ -321,7 +342,7 @@ Workflow ID
 # 5. Entity Relationships
 
 | Parent Entity | Relationship | Child Entity |
-|----------------|--------------|--------------|
+|---------------|--------------|--------------|
 | Organization | One-to-Many | Users |
 | Organization | One-to-Many | Companies |
 | Organization | One-to-Many | Leads |
@@ -341,13 +362,16 @@ Workflow ID
 - Every Organization must have a unique Organization ID.
 - Every User belongs to one Organization.
 - Every Lead belongs to one Organization.
-- Every Lead must be linked to a Company.
-- Every Lead must have a primary Contact.
+- Every Lead must be linked to one Company.
+- Every Lead must have one primary Contact.
+- Every Company may have multiple Contacts.
+- Every Contact belongs to one Company.
 - A Lead can only have one active Qualification.
 - A Meeting may only be scheduled for qualified Leads.
 - Every AI Summary must belong to a Meeting.
 - Every Workflow Execution must reference the Lead it processed.
 - Every Activity must include a timestamp.
+- Where supported by the implementation platform, relationships should be maintained using native relational features (such as Airtable Linked Records) rather than manually maintained foreign-key values.
 
 ---
 
@@ -401,21 +425,44 @@ Future versions of ClientPilot may introduce:
 
 # 10. Current Status
 
-Phase
+**Phase**
 
 Phase 2 – Solution Design
 
-Status
+**Status**
 
-🟢 Database Design Approved
+🟢 CRM Database Structure Complete
 
-Current Module
+**Implementation Status**
+
+✅ All MVP CRM tables implemented in Airtable
+
+**Completed**
+
+- CRM business data model approved
+- Companies table implemented
+- Contacts table implemented
+- Leads table implemented
+- Qualifications table implemented
+- Meetings table implemented
+- Activities table implemented
+- Workflow Logs table implemented
+- Settings table implemented
+- Linked record relationships configured
+- Standard views created for all tables
+- Initial QA validation completed across all tables
+
+**Current Module**
 
 CRM Database
 
-Next Task
+**Current Task**
 
-Build the Companies table in Airtable.
+Data validation and workflow integration.
+
+**Next Task**
+
+Design and implement the Google Form client intake process.
 
 ---
 
@@ -423,16 +470,21 @@ Build the Companies table in Airtable.
 
 The ClientPilot data model has been reviewed and approved as the foundation for the MVP implementation.
 
-The implementation will begin using Airtable as the initial database platform while maintaining a technology-independent architecture that supports future migration to relational database systems such as PostgreSQL.
+The MVP implementation is being developed using Airtable as the initial CRM platform while maintaining a technology-independent architecture that supports future migration to relational database systems such as PostgreSQL.
 
-The approved CRM implementation consists of the following operational tables:
+The current CRM implementation consists of the following operational tables:
 
 - Companies
 - Contacts
 - Leads
-- Consultations
-- AI Assessments
+- Qualifications
+- Meetings
+- Activities
 - Workflow Logs
 - Settings
 
-The conceptual business entities defined in this document remain the authoritative data model for ClientPilot. Future changes to the data model must be documented through Architecture Decision Records (ADRs) and version updates.
+All MVP tables have been implemented, linked using Airtable Linked Record fields, and validated through quality assurance checks.
+
+The conceptual business entities defined in this document remain the authoritative data model for ClientPilot.
+
+Future changes to the data model must be be documented through Architecture Decision Records (ADRs) and version updates.
