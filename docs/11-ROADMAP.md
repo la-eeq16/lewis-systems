@@ -1,10 +1,10 @@
 # ClientPilot Roadmap
 
-**Document Version:** 2.0
+**Document Version:** 3.0
 
-**Product Version:** 0.2.0
+**Product Version:** 0.3.0
 
-**Status:** ✅ Active
+**Status:** 🚧 Active Development
 
 **Company:** Lewis Systems
 
@@ -12,7 +12,7 @@
 
 **Author:** La-eeq Lewis
 
-**Last Updated:** 03 August 2026
+**Last Updated:** 04 August 2026
 
 ---
 
@@ -20,17 +20,37 @@
 
 Build an AI-powered Client Intake and Lead Qualification Platform that enables professional service firms to automate client acquisition, qualification, scheduling, and communication through intelligent business systems.
 
+The MVP is focused on **small accounting firms**, with future expansion planned once the platform has been validated in the market.
+
 ---
 
 # 2. Roadmap Overview
 
 The ClientPilot roadmap is divided into six major development phases.
 
-Each phase builds on the previous one, ensuring the platform remains scalable, modular, and well documented.
+Each phase builds upon the previous one, following the Lewis Systems documentation-first engineering methodology.
+
+Every implementation module follows the lifecycle:
+
+```
+Requirements
+      ↓
+Design
+      ↓
+Build
+      ↓
+Test
+      ↓
+Document
+      ↓
+Git Commit
+      ↓
+Git Push
+```
 
 ---
 
-# Phase 1 – Foundation
+# ✅ Phase 1 – Foundation
 
 ## Objective
 
@@ -59,7 +79,7 @@ Establish the engineering foundation for ClientPilot.
 
 ---
 
-# Phase 2 – Solution Design
+# ✅ Phase 2 – Solution Design
 
 ## Objective
 
@@ -68,17 +88,17 @@ Design and implement the CRM foundation.
 ### Deliverables
 
 - CRM Database Design
-- Airtable Base
-- Companies Table
-- Contacts Table
-- Leads Table
-- Qualifications Table
-- Meetings Table
-- Activities Table
-- Workflow Logs Table
-- Settings Table
+- Airtable CRM Implementation
+- Companies
+- Contacts
+- Leads
+- Qualifications
+- Meetings
+- Activities
+- Workflow Logs
+- Settings
 - Linked Record Relationships
-- CRM Views
+- Operational Views
 - QA Validation
 
 ### Status
@@ -87,41 +107,136 @@ Design and implement the CRM foundation.
 
 ---
 
-# Phase 3 – MVP Implementation
+# 🚧 Phase 3 – MVP Implementation
 
 ## Objective
 
-Connect every platform into one working client acquisition system.
+Build the first fully automated ClientPilot workflow.
+
+Development is organised into implementation modules.
+
+---
+
+## Module 1 – CRM Database
+
+### Status
+
+✅ Complete
 
 ### Deliverables
 
-- Google Forms Integration
-- Airtable Automations
-- n8n Workflow Development
-- OpenAI Integration
-- Slack Notifications
-- Calendly Scheduling
-- Email Notifications
-- End-to-End Workflow
+- Airtable CRM
+- Relationships
+- Business IDs
+- Views
+- QA Validation
+- Documentation
+
+---
+
+## Module 2 – Google Forms Client Intake
+
+### Status
+
+🚧 In Progress
+
+### Deliverables
+
+- Google Form
+- Client Intake Questions
+- Validation Rules
+- Google Sheets Integration
+- Airtable Field Mapping
+
+---
+
+## Module 3 – n8n Workflow Automation
+
+### Status
+
+⏳ Pending
+
+### Deliverables
+
+- Workflow Triggers
+- Data Processing
+- Error Handling
+- Workflow Logging
+
+---
+
+## Module 4 – OpenAI Qualification Engine
+
+### Status
+
+⏳ Pending
+
+### Deliverables
+
+- AI Lead Scoring
+- Qualification Recommendation
+- AI Summary
+- Confidence Scoring
+
+---
+
+## Module 5 – Slack Notifications
+
+### Status
+
+⏳ Pending
+
+### Deliverables
+
+- Internal Notifications
+- Consultant Alerts
+- Error Alerts
+
+---
+
+## Module 6 – Calendly Integration
+
+### Status
+
+⏳ Pending
+
+### Deliverables
+
+- Consultation Booking
+- Calendar Synchronisation
+- Meeting Creation
+
+---
+
+## Module 7 – End-to-End MVP Testing
+
+### Status
+
+⏳ Pending
+
+### Deliverables
+
+- Workflow Validation
+- Integration Testing
+- User Acceptance Testing
+- Performance Testing
+
+---
 
 ### Expected Outcome
 
-A fully working MVP capable of automatically:
+A fully functioning MVP capable of:
 
 - Capturing enquiries
 - Creating CRM records
 - Qualifying leads using AI
 - Booking consultations
 - Sending notifications
-- Tracking workflow execution
-
-### Status
-
-🚧 Next Phase
+- Logging workflow execution
 
 ---
 
-# Phase 4 – Integration & Testing
+# ⏳ Phase 4 – Integration & Testing
 
 ## Objective
 
@@ -134,37 +249,36 @@ Validate the complete MVP before pilot release.
 - Error Handling
 - Performance Optimisation
 - Security Testing
-- User Acceptance Testing (UAT)
+- User Acceptance Testing
 - Documentation Updates
 
 ### Status
 
-🔵 Planned
+⏳ Planned
 
 ---
 
-# Phase 5 – Pilot Launch
+# ⏳ Phase 5 – Pilot Launch
 
 ## Objective
 
-Deploy ClientPilot to selected pilot customers.
+Deploy ClientPilot to selected pilot accounting firms.
 
 ### Deliverables
 
-- Pilot Accounting Firms
-- User Feedback Collection
-- Feature Refinements
+- Pilot Customers
+- User Feedback
 - Bug Fixes
-- Performance Improvements
+- Feature Refinement
 - Documentation Updates
 
 ### Status
 
-🔵 Planned
+⏳ Planned
 
 ---
 
-# Phase 6 – Production Release
+# ⏳ Phase 6 – Production Release
 
 ## Objective
 
@@ -173,42 +287,39 @@ Launch ClientPilot Version 1.0.
 ### Deliverables
 
 - Production Infrastructure
-- Public Release
+- Public SaaS Release
 - Customer Onboarding
+- Subscription Management
 - Support Documentation
-- Commercial Launch
-- Version 1.0.0 Release
+- Version 1.0.0
 
 ### Status
 
-⚪ Not Started
+⏳ Planned
 
 ---
 
-# Future Product Roadmap
+# Product Release Roadmap
 
 ## Version 0.3
 
-### Client Intake Automation
+### CRM Foundation & Client Intake
 
-- Google Forms Integration
-- Airtable Automation
-- n8n Workflows
-- AI Qualification
-- Calendly Booking
-- Slack Notifications
+- CRM Database
+- Google Forms
+- Google Sheets
+- Airtable Mapping
 
 ---
 
 ## Version 0.4
 
-### Operational Improvements
+### Workflow Automation
 
-- Workflow Monitoring
-- AI Prompt Optimisation
-- Error Recovery
-- Reporting Improvements
-- Dashboard Prototype
+- n8n
+- OpenAI
+- Slack
+- Calendly
 
 ---
 
@@ -216,10 +327,9 @@ Launch ClientPilot Version 1.0.
 
 ### Business Intelligence
 
-- Executive Dashboard
+- Dashboards
+- Reporting
 - Proposal Generator
-- Email Templates
-- KPI Reporting
 - Analytics
 
 ---
@@ -229,8 +339,8 @@ Launch ClientPilot Version 1.0.
 ### Customer Experience
 
 - Client Portal
-- Secure Document Uploads
-- Automated Status Updates
+- Secure Documents
+- Status Tracking
 - Self-Service Scheduling
 
 ---
@@ -240,7 +350,7 @@ Launch ClientPilot Version 1.0.
 ### Production Release
 
 - Public SaaS Launch
-- Multi-Tenant Architecture
+- Multi-Tenant Platform
 - Subscription Management
 - Team Management
 - Advanced Reporting
@@ -253,9 +363,8 @@ Launch ClientPilot Version 1.0.
 
 ClientPilot will evolve into a complete AI-powered operating system for professional service firms.
 
-Future industry support includes:
+The platform will initially serve accounting firms before expanding into additional professional service industries, including:
 
-- Accounting Firms
 - Law Firms
 - Financial Advisors
 - Insurance Brokers
@@ -263,7 +372,7 @@ Future industry support includes:
 - Business Consultants
 - Engineering Firms
 
-The platform will continue following Lewis Systems' Documentation-First engineering methodology while maintaining a modular architecture that supports future expansion.
+Expansion into additional industries will occur after the accounting-firm MVP has been validated through successful pilot deployments.
 
 ---
 
@@ -271,11 +380,11 @@ The platform will continue following Lewis Systems' Documentation-First engineer
 
 | Item | Status |
 |------|--------|
-| Current Phase | ✅ Phase 2 Complete |
-| Current Version | v0.2.0 |
-| Current Module | CRM Database |
-| Next Phase | MVP Implementation |
-| Next Objective | Google Forms Integration |
+| Product Version | v0.3.0 |
+| Current Phase | 🚧 Phase 3 – MVP Implementation |
+| Current Module | Module 2 – Google Forms Client Intake |
+| Completed Modules | 1 of 7 |
+| Next Module | Module 3 – n8n Workflow Automation |
 
 ---
 
