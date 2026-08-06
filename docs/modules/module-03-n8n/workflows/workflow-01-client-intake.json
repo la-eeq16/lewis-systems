@@ -1,0 +1,294 @@
+{
+  "name": "Workflow 01 - Client Intake",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c98bf379-a933-4a64-bd34-0de3658264c2",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1mdgkkACVxypfAe13kau93r0G78JpIVlIA1Z7vNH31wc",
+          "mode": "list",
+          "cachedResultName": "ClientPilot Client Enquiry Form (Responses)",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdgkkACVxypfAe13kau93r0G78JpIVlIA1Z7vNH31wc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1392898950,
+          "mode": "list",
+          "cachedResultName": "Form responses 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdgkkACVxypfAe13kau93r0G78JpIVlIA1Z7vNH31wc/edit#gid=1392898950"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "2c770c00-0d83-4bf1-aa93-622a196345fb",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "QBiITcdOSxGgjaYY",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "85c316bd-88f0-4a51-8354-aa87f45991ac",
+              "name": "submissionTimestamp",
+              "value": "={{ $json.Timestamp }}",
+              "type": "string"
+            },
+            {
+              "id": "d178981f-c149-473c-98c2-257d5f057ff2",
+              "name": "companyName",
+              "value": "={{ $json['Company Name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "3a2d7c6f-42de-4171-be7d-a23530de3bbd",
+              "name": "firstName",
+              "value": "={{ $json['First Name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "85f12d3c-eebf-4772-9fbc-456ac36adeaf",
+              "name": "lastName",
+              "value": "={{ $json['Last Name'] }}",
+              "type": "string"
+            },
+            {
+              "id": "bcc80d0d-01b5-4123-b164-5d89e38896a9",
+              "name": "email",
+              "value": "={{ $json['Email address'] }}",
+              "type": "string"
+            },
+            {
+              "id": "067f25af-2f4a-4e2c-bfe2-b4f2ed591e6e",
+              "name": "phoneNumber",
+              "value": "={{ $json['Phone Number'] }}",
+              "type": "string"
+            },
+            {
+              "id": "e49c576b-2fbf-48a2-965a-d4a67e1c83ba",
+              "name": "jobTitle",
+              "value": "={{ $json['Job Title'] }}",
+              "type": "string"
+            },
+            {
+              "id": "544d4794-2aa7-4cb6-aba5-b932c4521e86",
+              "name": "annualRevenue",
+              "value": "={{ $json['Annual Revenue'] }}",
+              "type": "string"
+            },
+            {
+              "id": "19226644-e04c-4b34-9e03-7eb1bb9c69ae",
+              "name": "serviceRequired",
+              "value": "={{ $json['Which service are you interested in?'] }}",
+              "type": "string"
+            },
+            {
+              "id": "cead147e-de89-45cc-b534-e860045628a8",
+              "name": "additionalNotes",
+              "value": "={{ $json['Please describe your requirements, current challenges, or any additional information that would help us better understand your enquiry. '] }}",
+              "type": "string"
+            },
+            {
+              "id": "7cfe7899-2dbf-41da-a757-2895632abd2d",
+              "name": "workflowVersion",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "2f0eccd7-5045-49fd-abc8-72eb7aaa89ac",
+              "name": "source",
+              "value": "Google Forms",
+              "type": "string"
+            },
+            {
+              "id": "46bae5ba-77a1-4def-adf9-c671897ead5e",
+              "name": "leadStatus",
+              "value": "New",
+              "type": "string"
+            },
+            {
+              "id": "e9325a72-3ffc-453d-a92c-af239328a17a",
+              "name": "processingStatus",
+              "value": "Pending",
+              "type": "string"
+            },
+            {
+              "id": "ed47e443-3fd0-4709-b48d-52a08fd67838",
+              "name": "urgency",
+              "value": "={{ $json['How soon do you need assistance?'] }}",
+              "type": "string"
+            },
+            {
+              "id": "7ffb5267-4e5b-4800-a3d3-8a9d9e30fa16",
+              "name": "numberofEmployees",
+              "value": "={{ $json['Number  of Employees'] }}",
+              "type": "string"
+            },
+            {
+              "id": "2137eded-284c-49a6-b911-6fb9e35f5847",
+              "name": "createdBy",
+              "value": "ClientPilot",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "aa041d78-ec4e-40bb-a1ac-8cb7e322247a",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "66bc3c28-cdd2-4862-a030-ae9a140e28aa",
+              "leftValue": "={{ $json.firstName }}",
+              "rightValue": "is not empty",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "ef3cefc6-b2a8-4d24-b2a7-147b93503383",
+              "leftValue": "={{ $json.lastName }}",
+              "rightValue": "is not empty",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "5cd98477-8237-485c-a34c-330be0de6d44",
+              "leftValue": "={{ $json.companyName }}",
+              "rightValue": "is not empty",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "2373dc76-53f8-4112-8229-9a55f38b8e56",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "is not empty",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "617dd35c-3e16-4d1f-ae5c-b5419f063abd",
+              "leftValue": "={{ $json.phoneNumber }}",
+              "rightValue": "is not empty",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        560,
+        48
+      ],
+      "id": "2f957cbb-3384-4873-92bf-4f985ddc9078",
+      "name": "If"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f3193557-8c4a-4b97-a97b-e7b49e3b268e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "002730eaa94c057b669bacf10de88bb02baafdb6daa43058f230960ad3d8d1b1"
+  },
+  "nodeGroups": [],
+  "id": "7W50SR5n0ipY2QUM",
+  "tags": []
+}
