@@ -1,6 +1,6 @@
 # ClientPilot Project Documentation Index
 
-**Document Version:** 3.3  
+**Document Version:** 3.4  
 **Product Version:** 0.3.0  
 **Status:** Active Development  
 **Company:** Lewis Systems  
@@ -27,7 +27,7 @@ A listed document must not be treated as complete merely because a file has been
 | 04 | [System Architecture](04-SYSTEM-ARCHITECTURE.md) | System components, boundaries, and integrations | Reviewed; Make rule-based MVP clarified |
 | 05 | [Data Model](05-DATA-MODEL.md) | CRM entities, fields, and relationships | Reviewed; implementation gaps made explicit |
 | 06 | [Development Standards](06-DEVELOPMENT-STANDARDS.md) | Engineering and documentation practices | Reviewed and updated |
-| 07 | [Workflow Design](07-WORKFLOW-DESIGN.md) | Platform-independent workflow behaviour and Make mapping | Reviewed; Make scenarios and exceptions clarified |
+| 07 | [Workflow Design](07-WORKFLOW-DESIGN.md) | Platform-independent workflow behaviour | Reviewed; Make scenarios and exceptions clarified |
 | 08 | [AI Prompts](08-AI-PROMPTS.md) | Prompt inventory and prompt standards | Existing; review when AI module begins |
 | 09 | [API Integrations](09-API-INTEGRATIONS.md) | External service integration specifications | Existing; completeness to verify |
 | 10 | [Testing](10-TESTING.md) | Test strategy, cases, and QA evidence | Existing; evidence to verify |
@@ -42,7 +42,8 @@ A listed document must not be treated as complete merely because a file has been
 | `adr/` | Architecture Decision Records | ADR-004 records Make for the MVP |
 | `modules/module-01-crm-database/` | CRM implementation documentation | Existing; verify against Airtable |
 | `modules/module-02-google-forms/` | Intake form documentation | Existing; verify against live form |
-| `modules/module-03-n8n/` | Earlier n8n design and workflow artefacts, plus legacy Make notes | Legacy folder; restructure planned |
+| [modules/module-03-workflow-automation/](modules/module-03-workflow-automation/README.md) | Canonical platform-neutral workflow module, Make implementation, and n8n migration plan | Current; implementation evidence outstanding |
+| `modules/module-03-n8n/` | Earlier n8n design and workflow artefacts | Legacy reference; not the current execution platform |
 | `api/` | Service-specific API notes | Completeness to verify |
 | `database/` | Airtable tables, sample data, and schema references | Completeness to verify |
 | `integrations/` | Integration-specific implementation notes | Completeness to verify |
@@ -58,7 +59,7 @@ A listed document must not be treated as complete merely because a file has been
 | --- | --- | --- |
 | 1 – CRM Database | Airtable CRM entities, relationships, views, and QA | Documented complete; live configuration should be periodically verified |
 | 2 – Google Forms Client Intake | Form, response capture, validation, and field mapping | Documented complete |
-| 3 – Workflow Automation | WF-001A intake and WF-001B rule-based qualification on Make | Current; in progress |
+| 3 – Workflow Automation | WF-001A intake and WF-001B rule-based qualification on Make | In progress; canonical documentation created, exports and evidence outstanding |
 | 4 – OpenAI Qualification | AI-assisted evaluation | Planned |
 | 5 – Slack Notifications | Internal notifications | Planned |
 | 6 – Calendly Integration | Booking workflow and synchronisation | Planned |
@@ -71,7 +72,6 @@ Make is the selected automation platform for the ClientPilot MVP. n8n is a possi
 See [ADR-004 – Make as the MVP Automation Platform](adr/ADR-004-make-automation-platform.md).
 
 The current Make scenarios are:
-
 - **WF-001A – Client Intake**
 - **WF-001B – Lead Qualification (rule-based)**
 
