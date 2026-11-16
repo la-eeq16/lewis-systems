@@ -1,6 +1,6 @@
 # ClientPilot Project Documentation Index
 
-**Document Version:** 3.2  
+**Document Version:** 3.3  
 **Product Version:** 0.3.0  
 **Status:** Active Development  
 **Company:** Lewis Systems  
@@ -14,7 +14,7 @@
 
 This index is the navigation and governance entry point for ClientPilot's engineering documentation. It identifies the purpose and current state of each document and points contributors to the appropriate implementation records.
 
-The index describes the documentation that exists in the repository. A listed document must not be treated as complete merely because a file has been created.
+A listed document must not be treated as complete merely because a file has been created.
 
 ## 2. Core project documents
 
@@ -22,13 +22,13 @@ The index describes the documentation that exists in the repository. A listed do
 | :-: | --- | --- | --- |
 | 00 | [Project Index](00-PROJECT-INDEX.md) | Documentation navigation and governance | Maintained |
 | 01 | [Master Project](01-MASTER-PROJECT.md) | Company, product, strategy, and project overview | Maintained |
-| 02 | [Product Requirements](02-PRODUCT-REQUIREMENTS.md) | Product scope, users, requirements, and outcomes | Existing; review for alignment |
-| 03 | [Business Requirements](03-BUSINESS-REQUIREMENTS.md) | Business problem, objectives, and requirements | Existing; review for alignment |
-| 04 | [System Architecture](04-SYSTEM-ARCHITECTURE.md) | System components, boundaries, and integrations | Updated for Make MVP |
-| 05 | [Data Model](05-DATA-MODEL.md) | CRM entities, fields, and relationships | Existing; review against Airtable |
-| 06 | [Development Standards](06-DEVELOPMENT-STANDARDS.md) | Engineering and documentation practices | Existing; review |
-| 07 | [Workflow Design](07-WORKFLOW-DESIGN.md) | Platform-independent workflow behaviour and Make mapping | Updated for Make MVP |
-| 08 | [AI Prompts](08-AI-PROMPTS.md) | Prompt inventory and prompt standards | Existing; review |
+| 02 | [Product Requirements](02-PRODUCT-REQUIREMENTS.md) | Product scope, users, requirements, and outcomes | Reviewed and aligned to MVP |
+| 03 | [Business Requirements](03-BUSINESS-REQUIREMENTS.md) | Business problem, objectives, and requirements | Reviewed and aligned to business strategy |
+| 04 | [System Architecture](04-SYSTEM-ARCHITECTURE.md) | System components, boundaries, and integrations | Reviewed; Make rule-based MVP clarified |
+| 05 | [Data Model](05-DATA-MODEL.md) | CRM entities, fields, and relationships | Reviewed; implementation gaps made explicit |
+| 06 | [Development Standards](06-DEVELOPMENT-STANDARDS.md) | Engineering and documentation practices | Reviewed and updated |
+| 07 | [Workflow Design](07-WORKFLOW-DESIGN.md) | Platform-independent workflow behaviour and Make mapping | Reviewed; Make scenarios and exceptions clarified |
+| 08 | [AI Prompts](08-AI-PROMPTS.md) | Prompt inventory and prompt standards | Existing; review when AI module begins |
 | 09 | [API Integrations](09-API-INTEGRATIONS.md) | External service integration specifications | Existing; completeness to verify |
 | 10 | [Testing](10-TESTING.md) | Test strategy, cases, and QA evidence | Existing; evidence to verify |
 | 11 | [Roadmap](11-ROADMAP.md) | Planned milestones and sequencing | Existing; align with status |
@@ -42,7 +42,7 @@ The index describes the documentation that exists in the repository. A listed do
 | `adr/` | Architecture Decision Records | ADR-004 records Make for the MVP |
 | `modules/module-01-crm-database/` | CRM implementation documentation | Existing; verify against Airtable |
 | `modules/module-02-google-forms/` | Intake form documentation | Existing; verify against live form |
-| `modules/module-03-n8n/` | Earlier n8n design and workflow artefacts, plus Make implementation notes | Legacy folder; restructure planned |
+| `modules/module-03-n8n/` | Earlier n8n design and workflow artefacts, plus legacy Make notes | Legacy folder; restructure planned |
 | `api/` | Service-specific API notes | Completeness to verify |
 | `database/` | Airtable tables, sample data, and schema references | Completeness to verify |
 | `integrations/` | Integration-specific implementation notes | Completeness to verify |
@@ -56,7 +56,7 @@ The index describes the documentation that exists in the repository. A listed do
 
 | Module | Scope | Status |
 | --- | --- | --- |
-| 1 – CRM Database | Airtable CRM entities, relationships, views, and QA | Documented complete; live configuration should remain subject to periodic verification |
+| 1 – CRM Database | Airtable CRM entities, relationships, views, and QA | Documented complete; live configuration should be periodically verified |
 | 2 – Google Forms Client Intake | Form, response capture, validation, and field mapping | Documented complete |
 | 3 – Workflow Automation | WF-001A intake and WF-001B rule-based qualification on Make | Current; in progress |
 | 4 – OpenAI Qualification | AI-assisted evaluation | Planned |
@@ -66,7 +66,7 @@ The index describes the documentation that exists in the repository. A listed do
 
 ## 5. Current automation decision
 
-Make is the selected automation platform for the ClientPilot MVP. n8n is a possible future migration target. The workflow requirements, business rules, CRM data model, and expected outcomes should remain independent of the execution platform wherever practical.
+Make is the selected automation platform for the ClientPilot MVP. n8n is a possible future migration target. Workflow requirements, business rules, CRM data definitions, and expected outcomes should remain independent of the execution platform wherever practical.
 
 See [ADR-004 – Make as the MVP Automation Platform](adr/ADR-004-make-automation-platform.md).
 
@@ -82,6 +82,7 @@ The project records these scenarios as built and tested. Their exported Make blu
 | Status | Meaning |
 | --- | --- |
 | Maintained | Reviewed and used as a current project reference |
+| Reviewed | Recently checked and aligned to current scope; further implementation verification may remain |
 | Existing; review | A document exists, but its completeness or alignment still needs review |
 | Planned | Work has not yet been completed |
 | Legacy | Retained for history or reference; not the current implementation |
@@ -90,8 +91,6 @@ The project records these scenarios as built and tested. Their exported Make blu
 Do not use “complete” to describe empty placeholders, unverified configurations, or documents that only describe intended future behaviour.
 
 ## 7. Engineering lifecycle
-
-Every implementation change follows this lifecycle:
 
 ```text
 Requirements
