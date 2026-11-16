@@ -74,7 +74,13 @@ The former `module-03-n8n` README now marks that directory as legacy and points 
 
 The new implementation records are documentation templates populated with currently recorded project facts. They do not independently prove the live Make configuration.
 
-### Stage 4 – Repository quality and consistency\n\nAudited the GitHub remote tree and selected documents. Added root ignore rules, contribution guidance, security standards, a pull request template, and a dedicated Make export directory README. Corrected the root README structure, ADR-004 references, and integration status catalogue. Sanitised environment-specific identifiers in the inactive legacy n8n JSON. Added [19-REPOSITORY-QUALITY-AUDIT.md](19-REPOSITORY-QUALITY-AUDIT.md).\n\nThe audit found 76 zero-byte tracked files out of 129 at inspection time. These were not mass-deleted because some are intentional placeholders or binary asset paths. The empty LICENSE was left unchanged pending an owner/legal decision.\n\n## 4. Module status
+### Stage 4 – Repository quality and consistency
+
+Audited the GitHub remote tree and selected documents. Added root ignore rules, contribution guidance, security standards, a pull request template, and a dedicated Make export directory README. Corrected the root README structure, ADR-004 references, and integration status catalogue. Sanitised environment-specific identifiers in the inactive legacy n8n JSON. Added [19-REPOSITORY-QUALITY-AUDIT.md](19-REPOSITORY-QUALITY-AUDIT.md).
+
+The audit found 76 zero-byte tracked files out of 129 at inspection time. These were not mass-deleted because some are intentional placeholders or binary asset paths. The empty LICENSE was left unchanged pending an owner/legal decision.
+
+## 4. Module status
 
 | Module | Scope | Status |
 | --- | --- | --- |
@@ -130,7 +136,8 @@ Required deliverables:
 | --- | --- |
 | Stage 1 project foundation documentation | Complete |
 | Stage 2 architecture and engineering documentation review | Complete |
-| Stage 3 canonical Module 3 documentation | Complete |\n| Stage 4 repository quality review and hygiene corrections | Complete; owner review of remaining placeholders outstanding |
+| Stage 3 canonical Module 3 documentation | Complete |
+| Stage 4 repository quality review and hygiene corrections | Complete; owner review of remaining placeholders outstanding |
 | WF-001A client intake scenario | Built and tested, per project record |
 | WF-001B rule-based qualification scenario | Built and tested, per project record |
 | Make implementation records | Created; exact configuration details outstanding |
