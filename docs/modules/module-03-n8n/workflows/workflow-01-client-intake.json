@@ -23,17 +23,17 @@
         },
         "documentId": {
           "__rl": true,
-          "value": "1mdgkkACVxypfAe13kau93r0G78JpIVlIA1Z7vNH31wc",
+          "value": "[REDACTED_LEGACY_SPREADSHEET_ID]",
           "mode": "list",
           "cachedResultName": "ClientPilot Client Enquiry Form (Responses)",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdgkkACVxypfAe13kau93r0G78JpIVlIA1Z7vNH31wc/edit?usp=drivesdk"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REDACTED/edit"
         },
         "sheetName": {
           "__rl": true,
-          "value": 1392898950,
+          "value": "[REDACTED_LEGACY_SHEET_ID]",
           "mode": "list",
           "cachedResultName": "Form responses 1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1mdgkkACVxypfAe13kau93r0G78JpIVlIA1Z7vNH31wc/edit#gid=1392898950"
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/REDACTED/edit#gid=REDACTED"
         },
         "event": "rowAdded",
         "options": {}
@@ -48,8 +48,8 @@
       "name": "Google Sheets Trigger",
       "credentials": {
         "googleSheetsTriggerOAuth2Api": {
-          "id": "QBiITcdOSxGgjaYY",
-          "name": "Google Sheets Trigger account"
+          "id": "[REDACTED_CREDENTIAL_ID]",
+          "name": "[REDACTED_CREDENTIAL_NAME]"
         }
       }
     },
@@ -286,7 +286,7 @@
   "versionId": "f3193557-8c4a-4b97-a97b-e7b49e3b268e",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "002730eaa94c057b669bacf10de88bb02baafdb6daa43058f230960ad3d8d1b1"
+    "instanceId": "[REDACTED_INSTANCE_ID]"
   },
   "nodeGroups": [],
   "id": "7W50SR5n0ipY2QUM",
