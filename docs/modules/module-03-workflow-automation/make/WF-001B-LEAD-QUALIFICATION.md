@@ -1,44 +1,54 @@
 # Make Implementation Record – WF-001B Lead Qualification
 
-**Document Version:** 1.0  
+**Document Version:** 1.1  
 **Product Version:** 0.3.0  
-**Status:** Recorded as built and tested; formula and repository evidence outstanding  
-**Platform:** Make  
+**Status:** Recorded as built and tested; live verification and export outstanding  
+**Platform:** Make (EU1, per ADR-004)  
 **Last Updated:** 16 November 2026
 
 ## 1. Purpose
 
-Record the Make scenario that calculates a deterministic lead qualification score and stores the outcome in Airtable.
+Calculate a deterministic qualification score for an eligible Airtable Lead, update the Lead outcome, create the related Qualification record, and run the configured follow-up path.
 
-## 2. Implementation status
+**The current scoring engine is rule-based. OpenAI evaluation is planned, not the current scoring mechanism.**
 
-The project implementation record states that WF-001B has been built and tested as a rule-based qualification workflow. The live scenario and exported blueprint have not been independently checked for this repository update.
+## 2. Recorded scenario configuration
 
-**Important:** Current qualification is documented as rule-based. OpenAI-powered evaluation is a planned enhancement, not the current scoring engine.
+| Item | Recorded value |
+|---|---|
+| Make scenario ID | 7171530 |
+| Scenario name | Lead Qualification |
+| Trigger | Airtable – Watch Records |
+| Trigger filter | Qualification Status = Pending |
+| Maximum records | 10 |
+| Testing state | Both WF-001 scenarios were recorded as on-demand during testing; activate scheduling only after sign-off |
+| Export | Not present in repository |
 
-## 3. Recorded logical sequence
+These values are taken from the implementation note dated 03 November 2026 and must be verified against the live Make account.
 
-1. Watch eligible Airtable Lead records.
-2. Get the full Lead record.
-3. Set component variables: RevenueScore, ServiceScore, BudgetScore, UrgencyScore, EmployeeScore.
-4. Calculate QualificationScore in a separate variable step using the numeric component variables.
-5. Determine Qualification Status using the configured thresholds.
-6. Update the Lead with score and outcome.
-7. Create or update the related Qualification record.
-8. Execute any configured communication / booking hand-off.
-9. Record execution outcome where workflow logging is configured.
+## 3. Recorded logical flow
 
-Confirm exact Make module names, sequence, filters, and field mappings against the export.
+```text
+Watch Records (Pending) → Get Lead → Calculate score → Update Lead
+  → Create Qualification → Workflow Log → Activity
+  → Get Contact → Get Settings → Router
+       ├── Qualified → Create Meeting (Awaiting Booking)
+       │                 → Booking email → Activity (Email Sent)
+       ├── Not Qualified → Follow-up email → Activity (Email Sent)
+       └── Review Required → no email and no meeting
+```
 
-## 4. Documented scoring reference
+The implementation note records emails sent using Make's `google-email` v4 Send an Email module. It records email content/configuration from the Settings table and says emails are skipped when Email Notifications Enabled is false or the Contact has no email. Verify current live configuration.
+
+## 4. Recorded scoring model
 
 | Component | Documented points |
 |---|---:|
-| Revenue | 0 / 10 / 20 / 30 |
-| Service | 5 / 10 / 15 / 20 / 25 |
-| Urgency | 3 / 7 / 11 / 15 |
-| Employee count | 2 / 4 / 6 / 8 / 10 |
-| Budget | 0 in the current documented intake design |
+| Annual revenue | 0 / 10 / 20 / 30 |
+| Service requested | 25 / 20 / 15 / 10 / 5 |
+| Urgency | 15 / 11 / 7 / 3 |
+| Employees | 2 / 4 / 6 / 8 / 10 |
+| Budget | 0 (not collected by the documented form) |
 
 Revenue bands recorded in earlier implementation notes:
 
@@ -49,55 +59,61 @@ Revenue bands recorded in earlier implementation notes:
 | R1,000,000 to less than R5,000,000 | 20 |
 | R5,000,000 or more | 30 |
 
-The exact service, urgency, and employee category mappings are not reproduced here because they require confirmation from the deployed Make expressions and current form options. Do not infer them.
+The exact service, urgency, and employee category-to-point mappings must be copied from the live Make expressions and current form options. Do not infer them from the point ranges.
 
-## 5. Qualification thresholds
+## 5. Outcome thresholds and behaviour
 
-| Total score | Status |
-|---:|---|
-| 64–100 | Qualified |
-| 40–63 | Review Required |
-| 0–39 | Not Qualified |
+| Score | Outcome | Recorded action |
+|---:|---|---|
+| 64 or higher | Qualified | Set Lead Status Qualified; create Meeting with status Awaiting Booking; send booking email |
+| 40–63 | Review Required | Manual staff review; no email or Meeting |
+| Below 40 | Not Qualified | Set Lead Status Not Qualified; send polite follow-up email |
 
-Verify the threshold filters, score maximum, and behaviour for null, empty, text, or out-of-range values.
+The Settings table is recorded as holding a threshold value of 64, but the scenario uses fixed threshold values. Settings-driven thresholds remain outstanding.
 
-## 6. Configuration record – to complete from Make
+A booking link being sent does not mean a consultation has been booked. Calendly event synchronisation and automatic Meeting status updates remain planned.
 
-| Configuration item | Recorded value |
-|---|---|
-| Scenario name | WF-001B – Lead Qualification (confirm exact name) |
-| Scenario ID | Pending |
-| Scenario version / last modified | Pending |
-| Trigger table and field | Pending |
-| Qualification lookup / Get a Record mapping | Pending |
-| Component score formulas | Pending |
-| Total score formula | Numeric component variables; exact expression pending |
-| Outcome filters | Thresholds above; verify exact operators |
-| Airtable update/create mappings | Pending |
-| Error handlers / retries | Pending |
+## 6. Logging and error handling recorded
 
-## 7. Required tests
+The 03 November implementation note records:
+- Workflow Log and Activity records for qualification outcomes.
+- Failed logs and Break-handler retries on Airtable-step errors.
+- Three retries, ten minutes apart.
+- Administrator alert after all retries are exhausted: not yet built in that record.
+- Incomplete executions retain the scenario settings from their originating version; review and clear stale incomplete executions after fixing a scenario rather than blindly re-running them.
 
-- Revenue band boundaries.
-- Every service option and unknown service value.
-- Every urgency option and missing urgency.
-- Employee count boundaries and missing employee count.
-- Budget absent / zero handling.
-- Scores 39, 40, 63, 64, and maximum possible score.
-- Reprocessing the same Lead without duplicate Qualification records.
-- Airtable failure and recovery.
-- Confirmed distinction between booking link sent and appointment booked.
+Verify current settings and behaviour in Make.
 
-Record observed inputs, expected outputs, actual outputs, date, and evidence reference. Do not mark a test Passed without an observed result.
+## 7. Sample test results recorded (03 November 2026)
 
-## 8. Export and security checklist
+| Test lead | Score | Outcome | Result recorded |
+|---|---:|---|---|
+| Harbour Advisory Test | 76 | Qualified | Meeting Awaiting Booking created; booking email received; link and wording checked |
+| Corner Bakery Test | 15 | Not Qualified | Follow-up email received; Lead Status checked |
+| Mid Retail Test | 50 | Review Required | No email or Meeting created |
 
-- [ ] Export current Make scenario blueprint.
-- [ ] Sanitise connection metadata, tokens, credentials, and unnecessary environment-specific identifiers.
-- [ ] Remove private customer data.
-- [ ] Verify formulas and route filters against the live scenario.
-- [ ] Record scenario version and export date.
-- [ ] Commit the sanitised export in the agreed workflow export directory.
+These are historical test results recorded in the implementation note, not a new test run performed during this audit. The note also states the newly expanded industry list had not yet been re-tested.
+
+## 8. Required verification and regression tests
+
+- Verify all component score mappings and formulas.
+- Verify missing, empty, text, and out-of-range values.
+- Test scores 39, 40, 63, and 64.
+- Test maximum possible score and each revenue boundary.
+- Reprocess the same Lead and confirm no duplicate Qualification, Meeting, or email.
+- Test Airtable failure and retry recovery.
+- Confirm disabled email setting and missing Contact email suppress sending.
+- Confirm only Qualified leads create an Awaiting Booking Meeting.
+- Confirm a sent booking link is not recorded as a confirmed appointment.
+
+## 9. Export checklist
+
+- [ ] Export the current WF-001B Make blueprint.
+- [ ] Remove credentials, tokens, connection metadata, unnecessary IDs, and customer data.
+- [ ] Verify formula and filter configuration against the live scenario.
+- [ ] Validate JSON syntax and review the export.
+- [ ] Record export date and scenario version.
+- [ ] Commit to `workflows/make/WF-001B-LEAD-QUALIFICATION.blueprint.json`.
 
 ---
 
