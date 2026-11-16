@@ -1,0 +1,41 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+*_credentials.json
+token.json
+oauth-token.json
+
+# Local tooling and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs, dependencies, build output
+*.log
+logs/
+tmp/
+temp/
+node_modules/
+dist/
+build/
+coverage/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local databases and backups
+*.backup
+*.bak
+*.dump
+*.sqlite
+*.db
