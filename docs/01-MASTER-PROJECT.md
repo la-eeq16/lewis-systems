@@ -1,10 +1,8 @@
-# Lewis Systems
+# Lewis Systems – Master Project Document
 
-# Master Project Document
-
-**Document Version:** 3.1  
+**Document Version:** 3.2  
 **Product Version:** 0.3.0  
-**Status:** 🚧 Active Development  
+**Status:** Active Development  
 **Company:** Lewis Systems  
 **Product:** ClientPilot  
 **Author:** La-eeq Lewis  
@@ -12,360 +10,149 @@
 
 ---
 
-# 1. Purpose
+## 1. Purpose
 
-This document provides a high-level overview of the ClientPilot project.
+This document is the high-level reference for Lewis Systems and its flagship product, ClientPilot. It separates the wider company's business strategy from the specific product scope and records the current development direction.
 
-It defines the project's vision, mission, development methodology, implementation progress, technology stack, and strategic roadmap.
+The Project Status document tracks day-to-day implementation progress. The Project Index provides navigation to the engineering documentation.
 
-This document serves as the primary reference for understanding the overall direction of the ClientPilot platform.
+## 2. About Lewis Systems
 
----
+Lewis Systems is a software and automation business based in Cape Town, South Africa. It develops custom systems that help small businesses improve how they capture information, manage operations, communicate with customers, and deliver services.
 
-# 2. About Lewis Systems
+The business has two complementary objectives:
 
-Lewis Systems is a software and automation company based in Cape Town, South Africa.
+1. Deliver tailored systems and automation services to generate revenue and solve real client problems.
+2. Turn repeatable capabilities and validated solutions into reusable products over time.
 
-Our mission is to design intelligent business systems that help professional service firms automate repetitive work, improve operational efficiency, and deliver exceptional client experiences.
+The initial market is small businesses broadly. Solutions are customised to the client's business process, constraints, and operational needs rather than forcing every client into one generic package.
 
-Rather than creating isolated automations, Lewis Systems develops complete software platforms that combine automation, artificial intelligence, and thoughtful system design.
+## 3. Vision
 
----
+Build a trusted South African provider of practical, intelligent business systems for small businesses, and develop reusable products from proven client needs.
 
-# 3. Vision
+## 4. Mission
 
-To become South Africa's leading provider of intelligent business systems for professional service firms.
+Design and deliver reliable, useful systems that reduce manual work, improve operational visibility, and help businesses operate more effectively.
 
----
+## 5. Operating principles
 
-# 4. Mission
+- **Business first:** understand the problem before selecting technology.
+- **Documentation first:** record requirements, decisions, implementation, and tests.
+- **Practical delivery:** favour solutions that can be maintained and afforded by the client.
+- **Modularity:** separate responsibilities so components can evolve independently.
+- **Reusability:** identify common patterns without ignoring client-specific requirements.
+- **Reliability:** validate inputs, handle failures, and maintain traceability.
+- **Security and privacy:** protect credentials and customer information.
+- **Continuous learning:** review outcomes and improve the delivery process.
 
-Build reliable software that solves real business problems through automation, artificial intelligence, and excellent engineering practices.
+## 6. Business model and service direction
 
----
+Lewis Systems uses a custom-solution service model. Potential work may include business process automation, client intake, CRM setup, lead management, notifications, reporting, and integrations.
 
-# 5. Company Values
+The business should initially prioritise feasible projects that can be delivered with low operating costs and validated with real small-business clients. Reusable components can be developed where repeated client needs justify them.
 
-Every Lewis Systems product is built around the following principles:
+The company-wide target market should not be confused with the initial target market of an individual product.
 
-- Documentation First
-- Business First
-- Simplicity
-- Reliability
-- Modular Design
-- Reusability
-- Continuous Improvement
-- Security by Design
+## 7. Flagship product: ClientPilot
 
-> **If it isn't documented, it isn't complete.**
+ClientPilot is an AI-enabled client intake and lead qualification platform.
 
----
+Its purpose is to streamline the journey from a prospective client's first enquiry to a qualified lead and consultation opportunity. The system combines an intake form, CRM records, workflow automation, qualification rules, communication, and scheduling capabilities.
 
-# 6. Current Product
+### 7.1 Initial target customer
 
-## ClientPilot
+The first ClientPilot release targets small accounting firms in South Africa. This focused initial market allows the product's intake fields, qualification rules, and service workflows to be validated against a specific operating context.
 
-ClientPilot is an AI-powered Client Intake and Lead Qualification Platform.
+Expansion into other service industries should follow evidence from pilot use and customer feedback, not be assumed as part of the initial release.
 
-The platform automates the journey from a prospective client's first enquiry through qualification, consultation booking, workflow automation, and CRM management.
+### 7.2 Core business problem
 
-The MVP is focused on small accounting firms, with future expansion planned for additional professional service industries after successful market validation.
+Small firms can lose time and opportunities through manual enquiry handling, slow responses, inconsistent qualification, fragmented customer information, and limited visibility over prospective clients.
 
----
+### 7.3 Intended outcomes
 
-# 7. Target Market
+- Capture enquiries consistently.
+- Reduce repetitive data entry.
+- Maintain linked company, contact, and lead records.
+- Apply transparent qualification rules.
+- Improve response and follow-up processes.
+- Support consultation booking.
+- Retain a traceable record of workflow activity.
 
-## Primary Market
+## 8. Product scope and boundaries
 
-- Small Accounting Firms
-- Bookkeepers
-- Tax Practitioners
+ClientPilot's initial scope centres on client intake, CRM record management, rule-based lead qualification, and the foundations for communication and consultation scheduling.
 
-## Future Markets
+AI evaluation, Slack notifications, expanded Calendly automation, and end-to-end MVP acceptance testing remain planned work unless the Project Status document records otherwise.
 
-- Law Firms
-- Financial Advisors
-- Insurance Brokers
-- Marketing Agencies
-- Business Consultants
+ClientPilot should not be described as a fully autonomous or production-ready platform until the relevant integrations, safeguards, and end-to-end tests have been completed.
 
----
+## 9. Technology strategy
 
-# 8. Technology Stack
+| Layer | MVP / current choice | Future consideration |
+| --- | --- | --- |
+| CRM and data | Airtable | Reassess as scale and client requirements evolve |
+| Intake | Google Forms | Custom intake interface if justified |
+| Response capture | Google Sheets | Alternative event-driven intake |
+| Workflow automation | Make | n8n migration may be evaluated later |
+| AI | OpenAI planned | Model/provider choice based on cost and performance |
+| Email | Gmail | Additional email providers if required |
+| Notifications | Slack planned | Client-specific communication channels |
+| Scheduling | Calendly | Deeper booking integration |
+| Development | JavaScript, Visual Studio Code | Expand engineering stack as needed |
+| Version control | Git and GitHub | Continue version-controlled delivery |
 
-## Development
+### 9.1 Automation platform decision
 
-- Visual Studio Code
-- JavaScript
-- Git
-- GitHub
+Make is the selected execution platform for the current MVP. n8n is a future migration option, not the active platform for the current workflow.
 
-## CRM
+The business rules, data structures, and workflow specifications should be documented independently of Make so that a future migration does not require redesigning the product's underlying business logic.
 
-- Airtable
+See [ADR-004](adr/ADR-004-make-automation-platform.md).
 
-## Automation
+## 10. Current implementation overview
 
-- Make (MVP)
-- n8n (planned migration once the platform matures – see ADR-004)
+| Component | Current position |
+| --- | --- |
+| Module 1 – CRM Database | Documented complete |
+| Module 2 – Google Forms Client Intake | Documented complete |
+| Module 3 – Workflow Automation | In progress; WF-001A and WF-001B on Make |
+| Module 4 – OpenAI Qualification | Planned |
+| Module 5 – Slack Notifications | Planned |
+| Module 6 – Calendly Integration | Planned |
+| Module 7 – End-to-End MVP Testing | Planned |
 
-## Artificial Intelligence
+WF-001A handles client intake and CRM record creation or updates. WF-001B applies rule-based lead scoring and updates the qualification outcome. The project records both scenarios as built and tested; the exported Make blueprints and implementation evidence still need to be committed to the repository.
 
-- OpenAI
+For the authoritative task-level status and outstanding work, see [13-PROJECT-STATUS.md](13-PROJECT-STATUS.md).
 
-## Scheduling
+## 11. Development lifecycle
 
-- Calendly
-
-## Forms
-
-- Google Forms
-
-## Communication
-
-- Slack
-
-## Email
-
-- Gmail
-
----
-
-# 9. Development Methodology
-
-ClientPilot follows a Documentation-First engineering methodology.
-
-Every implementation module progresses through the following lifecycle:
-
-```
-Requirements
-      ↓
-Design
-      ↓
-Build
-      ↓
-Test
-      ↓
-Document
-      ↓
-Git Commit
-      ↓
-Git Push
+```text
+Discover → Specify → Design → Build → Test → Document → Commit → Push
 ```
 
-A module is only considered complete after successfully passing every stage.
-
----
-
-# 10. Development Principles
-
-Every ClientPilot module follows these engineering principles:
-
-- Business First
-- Documentation First
-- Modular Architecture
-- Reusable Components
-- Security by Design
-- Continuous Improvement
-- Version Control
-- Quality Assurance
-
----
-
-# 11. Current Development Status
-
-| Component | Status |
-|-----------|--------|
-| Lewis Systems | 🟢 Active Development |
-| ClientPilot | 🚧 Phase 3 – MVP Implementation |
-| Documentation Suite | ✅ Complete |
-| CRM Database | ✅ Complete |
-| Airtable CRM | ✅ Complete |
-| CRM QA Validation | ✅ Complete |
-| Module 2 – Google Forms | ✅ Complete |
-| Module 3 – Workflow Automation | 🚧 In Progress |
-| Module 4 – OpenAI Integration | ⏳ Pending |
-| Module 5 – Slack Integration | ⏳ Pending |
-| Module 6 – Calendly Integration | ⏳ Pending |
-| Module 7 – End-to-End Testing | ⏳ Pending |
-
----
-
-# 12. Current Phase
-
-## 🚧 Phase 3 – MVP Implementation
-
-### Current Module
-
-**Module 3 – Workflow Automation**
-
-### Module 2 Status
-
-✅ Completed – Google Form, validation, Google Sheets capture and field mapping.
-
-### Module 1 Status
-
-✅ Completed
-
-Completed deliverables:
-
-- CRM Database
-- Companies
-- Contacts
-- Leads
-- Qualifications
-- Meetings
-- Activities
-- Workflow Logs
-- Settings
-- Linked Relationships
-- Views
-- QA Validation
-- Documentation
-
-### Current Objective
-
-Extend and harden WF-001 – Client Intake & Qualification, implemented on Make for the MVP, by adding AI qualification, Slack notifications, administrator alerts and Calendly integration.
-
----
-
-# 13. Development Roadmap
-
-## ✅ Phase 1 – Foundation
-
-Completed
-
-- Repository Setup
-- Documentation Suite
-- Product Requirements
-- Business Requirements
-- System Architecture
-- Data Model
-- Development Standards
-- Workflow Design
-- AI Prompt Library
-- API Documentation
-- Testing Strategy
-
----
-
-## ✅ Phase 2 – Solution Design
-
-Completed
-
-- CRM Database Design
-- Airtable CRM Implementation
-- CRM QA Validation
-- Database Documentation
-- Repository Organisation
-
----
-
-## 🚧 Phase 3 – MVP Implementation
-
-Current
-
-### Module 1 – CRM Database
-
-✅ Complete
-
-### Module 2 – Google Forms Client Intake
-
-✅ Complete
-
-### Module 3 – Workflow Automation
-
-🚧 In Progress (WF-001 built on Make; AI, Slack and Calendly pending)
-
-### Module 4 – OpenAI Qualification
-
-⏳ Pending
-
-### Module 5 – Slack Notifications
-
-⏳ Pending
-
-### Module 6 – Calendly Integration
-
-⏳ Pending
-
-### Module 7 – End-to-End Testing
-
-⏳ Pending
-
----
-
-## ⏳ Phase 4 – Integration & Testing
-
-- Full System Integration
-- End-to-End Testing
-- Error Handling
-- Performance Optimisation
-
----
-
-## ⏳ Phase 5 – Pilot Launch
-
-- Pilot Accounting Firms
-- User Feedback
-- Product Refinement
-- Feature Improvements
-
----
-
-## ⏳ Phase 6 – Production Release
-
-ClientPilot Version 1.0.0
-
----
-
-# 14. Repository
-
-Repository Name
-
-Lewis Systems
-
-Repository Status
-
-Private
-
-The repository contains:
-
-- Engineering Documentation
-- Source Code
-- Automation Workflows
-- API Specifications
-- CRM Design
-- AI Prompt Library
-- Testing Assets
-- Templates
-- Development Journal
-
----
-
-# 15. Project Information
-
-| Item | Value |
-|------|-------|
-| Product | ClientPilot |
-| Product Version | v0.3.0 |
-| Current Phase | Phase 3 – MVP Implementation |
-| Current Module | Module 3 – Workflow Automation |
-| Repository | Private |
-| License | Proprietary |
-
----
-
-# 16. Next Objective
-
-Complete Module 3 by:
-
-- Adding the administrator alert for workflows that fail all retries
-- Reading the qualification threshold from the Settings table
-- Exporting Make blueprints to the repository
-- Handing over to Module 4 (OpenAI qualification), Module 5 (Slack) and Module 6 (Calendly)
-
-A review of the automation platform (Make → n8n) is scheduled for after the first paying client (see ADR-004).
+A feature is not complete merely because it has been designed or described. Completion requires implementation, appropriate testing, updated documentation, and a version-controlled record.
+
+## 12. Versioning and documentation governance
+
+- Product version and document version are separate.
+- Product version changes should follow the project's release/versioning policy.
+- Each material document change should update its document version, date, and revision history where the document maintains one.
+- The Project Index should reflect actual files and their real state.
+- The Project Status document should be updated when implementation progress changes.
+- Architecture decisions should be recorded in ADRs, including the context, decision, alternatives, and consequences.
+
+## 13. Immediate project priorities
+
+1. Complete and harden the current Make workflows.
+2. Commit sanitised Make blueprint exports and detailed implementation documentation.
+3. Add the planned administrator failure alert and improve operational error handling.
+4. Complete the qualification rules and verify their configuration against the CRM.
+5. Plan and implement the remaining AI, notification, and scheduling capabilities.
+6. Perform end-to-end MVP testing before pilot use.
+7. Reassess the automation platform only when there is a clear business or technical reason.
 
 ---
 
