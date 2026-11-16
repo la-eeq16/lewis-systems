@@ -1,6 +1,6 @@
 # ClientPilot API Integrations
 
-Document Version: 1.1
+Document Version: 1.2
 
 Product Version: 0.3.0
 
@@ -43,11 +43,14 @@ All integrations must:
 | Integration ID | Service | Purpose | Status |
 |----------------|---------|---------|--------|
 | API-001 | Google Forms | Lead Capture | Current MVP |
-| API-002 | Google Sheets | Form response capture | Current MVP |\n| API-003 | Make | Workflow automation and rule-based qualification | Current MVP |
+| API-002 | Google Sheets | Form response capture | Current MVP |
+| API-003 | Make | Workflow automation and rule-based qualification | Current MVP |
 | API-004 | OpenAI | AI processing | Planned |
 | API-005 | Airtable | CRM database | Current MVP |
-| API-006 | Gmail | Prospect outcome emails | Documented in Make workflow record |\n| API-007 | Calendly | Booking-link hand-off | Current link hand-off; event sync planned |
-| API-008 | Slack | Internal notifications | Planned |\n| API-009 | n8n | Future workflow platform | Migration option only |
+| API-006 | Gmail | Prospect outcome emails | Documented in Make workflow record |
+| API-007 | Calendly | Booking-link hand-off | Current link hand-off; event sync planned |
+| API-008 | Slack | Internal notifications | Planned |
+| API-009 | n8n | Future workflow platform | Migration option only |
 
 ---
 
