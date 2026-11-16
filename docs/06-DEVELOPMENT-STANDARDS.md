@@ -1,415 +1,252 @@
 # Lewis Systems Development Standards
 
-Document Version: 1.0
-
-Product Version: Company Standard
-
-Status: Active
-
-Company: Lewis Systems
-
-Author: La-eeq Lewis
-
-Last Updated: 30 July 2026
+**Document Version:** 1.1  
+**Applies To:** All Lewis Systems projects  
+**Status:** Active  
+**Company:** Lewis Systems  
+**Author:** La-eeq Lewis  
+**Last Updated:** 16 November 2026
 
 ---
 
-# 1. Purpose
+## 1. Purpose and Scope
 
-This document defines the engineering, development, documentation, and quality standards followed by Lewis Systems.
+This document defines the minimum engineering, documentation, security, testing, and version-control practices for systems developed or maintained by Lewis Systems. It applies to custom client solutions, internal tools, automations, integrations, and reusable products such as ClientPilot.
 
-These standards apply to every software product, automation, workflow, integration, and internal tool developed by the company.
+## 2. Engineering Principles
 
----
+- Understand the business problem before choosing technology.
+- Design the workflow and data before implementation.
+- Prefer simple, maintainable solutions over unnecessary complexity.
+- Separate business rules from platform-specific implementation.
+- Build reusable components where there is a demonstrated need.
+- Use AI-assisted development with human review.
+- Protect customer data and credentials.
+- Test changes before declaring them complete.
+- Document decisions and known limitations.
 
-# 2. Engineering Philosophy
+## 3. Delivery Lifecycle
 
-Lewis Systems follows these core principles:
-
-- Business Before Technology
-- Documentation Before Development
-- Architecture Before Automation
-- Simplicity Over Complexity
-- Build Once, Scale Many
-- AI-Assisted, Human-Reviewed
-- Security by Design
-- Continuous Improvement
-
-Every engineering decision should support long-term maintainability and business value.
-
----
-
-# 3. Development Lifecycle
-
-Every feature follows the same lifecycle.
-
-Business Idea
-↓
+```text
+Discovery
+   ↓
 Business Requirements
-↓
-Product Requirements
-↓
-System Architecture
-↓
-Data Model
-↓
-Workflow Design
-↓
-Technical Design
-↓
-Development
-↓
-Testing
-↓
+   ↓
+Product / Solution Requirements
+   ↓
+Architecture and Data Design
+   ↓
+Workflow / Technical Design
+   ↓
+Implementation
+   ↓
+Testing and Review
+   ↓
 Documentation Update
-↓
-Git Commit
-↓
-GitHub Push
-↓
-Deployment
-↓
-Monitoring
-↓
-Continuous Improvement
+   ↓
+Git Commit and Push
+   ↓
+Deployment / Handover
+   ↓
+Monitoring and Improvement
+```
 
-No feature should skip any stage.
+The lifecycle is iterative. Small changes may combine stages, but requirements, testing, documentation, and review must not be skipped.
 
----
+## 4. Documentation Standards
 
-# 4. Documentation Standards
+Documents should include, where applicable:
 
-Every project must include:
+- Document title and purpose.
+- Document version and status.
+- Product or project version.
+- Owner / author.
+- Last updated date.
+- Scope and assumptions.
+- Related documents.
+- Revision history for documents with material ongoing changes.
 
-- Master Project
-- Product Requirements
-- Business Requirements
-- System Architecture
-- Data Model
-- Development Standards
-- Workflow Design
-- AI Prompt Library
-- API Integrations
-- Testing
-- Roadmap
-- Changelog
-- Architecture Decision Records (ADR)
+Documentation must distinguish requirements, design proposals, current implementation, verified tests, and future plans. A file or heading existing in Git is not proof that the described feature is implemented.
 
-Every document must include:
+## 5. Architecture and Design Standards
 
-- Document Version
-- Product Version
-- Status
-- Company
-- Author
-- Last Updated
+Systems should:
 
----
+- Be modular, with clear component responsibilities.
+- Separate business logic from vendor-specific configuration.
+- Define inputs, outputs, ownership, and failure behaviour.
+- Minimise unnecessary dependencies.
+- Identify external service and trust boundaries.
+- Consider portability and exit paths.
+- Document significant decisions in ADRs.
 
-# 5. Architecture Standards
+## 6. Data Standards
 
-Every system must:
+- Define entities, attributes, identifiers, and relationships.
+- Use stable identifiers where records cross system boundaries.
+- Validate required fields and controlled values.
+- Avoid unnecessary duplication of personal or business data.
+- Define record ownership and access requirements.
+- Preserve relevant audit history.
+- Define retention and deletion expectations.
+- Do not claim multi-tenant security until tenant isolation is implemented and tested.
 
-- Follow modular architecture.
-- Separate business logic from technology.
-- Support future scalability.
-- Minimize dependencies.
-- Support replacement of third-party services.
-- Define clear responsibilities for each component.
+## 7. Workflow and Automation Standards
 
-Systems are designed around business capabilities, not software tools.
+Every workflow should have:
 
----
+- A unique workflow identifier and clear purpose.
+- A defined trigger and expected inputs.
+- Documented steps, conditions, and outputs.
+- Defined ownership of records and side effects.
+- Validation and duplicate-prevention rules.
+- Error handling and safe retry behaviour.
+- Logging and operational monitoring appropriate to its risk.
+- Test cases for normal, boundary, and failure conditions.
+- A versioned implementation record and, where supported, an exported workflow definition.
 
-# 6. Data Standards
+Retries must be designed to avoid duplicate records, emails, bookings, or other side effects.
 
-Business data is considered a company asset.
+## 8. AI Standards
 
-Requirements:
+AI is optional and should be used only where it adds measurable value. Each AI capability must document:
 
-- Every record must have a unique identifier.
-- Every record belongs to an Organization.
-- Data relationships must be documented.
-- Data duplication should be avoided.
-- Audit history should be preserved.
+- Purpose and use case.
+- Model/provider and version where available.
+- Prompt identifier and version.
+- Inputs and data classification.
+- Output schema and validation.
+- Failure, timeout, and low-confidence behaviour.
+- Human-review or override path.
+- Evaluation cases and known limitations.
 
----
+AI outputs must not be presented as verified facts without appropriate validation. AI should not silently override deterministic business rules unless an approved product decision explicitly defines that behaviour.
 
-# 7. Workflow Standards
+## 9. Coding and Configuration Standards
 
-Every workflow must:
+Code and configuration should be:
 
-- Have a Workflow ID.
-- Be documented before implementation.
-- Have one clearly defined purpose.
-- Handle failures gracefully.
-- Log important events.
-- Support retries where appropriate.
-- Be independently testable.
-- Be reusable where possible.
+- Readable, consistent, modular, and maintainable.
+- Named clearly and structured predictably.
+- Reviewed for duplicated logic and unnecessary complexity.
+- Validated for expected and invalid inputs.
+- Free of committed secrets and unnecessary environment-specific identifiers.
+- Accompanied by tests or documented manual verification appropriate to the change.
 
-Business workflows must remain independent from implementation technologies.
+Keep environment-specific values in configuration or secure connection stores rather than hardcoding them into source.
 
----
+## 10. Version Control Standards
 
-# 8. AI Standards
-
-Artificial Intelligence should assist—not replace—business decision making.
-
-Every AI capability must have:
-
-- Prompt ID
-- Version
-- Purpose
-- Inputs
-- Outputs
-- Expected Behaviour
-- Owner
-- Revision History
-
-Every AI output should be reviewable by users where appropriate.
-
----
-
-# 9. Coding Standards
-
-Lewis Systems code should be:
-
-- Readable
-- Consistent
-- Modular
-- Well-structured
-- Maintainable
-- Secure
-- Documented where necessary
-
-General rules:
-
-- Use meaningful names.
-- Avoid duplicated logic.
-- Keep functions focused on one responsibility.
-- Minimize complexity.
-- Remove unused code.
-- Write code for future developers.
-
----
-
-# 10. Version Control Standards
-
-Git is the official version control system.
-
-GitHub is the official source repository.
-
-Commit messages should follow Conventional Commits.
+- Git is the version-control system.
+- GitHub is the project repository and review location.
+- Use Conventional Commit-style messages where practical.
 
 Examples:
 
+```text
 feat: add lead qualification workflow
-
-fix: correct meeting booking logic
-
+fix: prevent duplicate contact creation
 docs: update system architecture
+refactor: simplify CRM mapping
+test: add qualification boundary cases
+chore: sanitise workflow export
+```
 
-refactor: simplify CRM engine
+- Commit focused, understandable changes.
+- Do not commit credentials, tokens, private customer data, or raw production exports.
+- Review diffs before pushing.
+- Keep the main branch in a coherent state.
+- Use feature branches when a change is substantial or risky.
+- Tag releases when a version is formally released.
 
-test: add qualification unit tests
+## 11. Branch and Release Strategy
 
----
+- `main`: reviewed, coherent project baseline; not automatically proof of production deployment.
+- `feature/<short-name>`: new functionality.
+- `fix/<short-name>`: defect correction.
+- `docs/<short-name>`: documentation-only work.
+- `release/<version>`: optional release preparation.
 
-# 11. Branch Strategy
+Use pull requests for changes that benefit from review. Deployment and release status must be recorded separately from Git merge status.
 
-Main Branch
+## 12. Security and Privacy Standards
 
-main
+- Use least-privilege access.
+- Store credentials in approved secret stores or provider-managed connections.
+- Never commit API keys, OAuth tokens, passwords, or private connection secrets.
+- Use synthetic or anonymised data in examples and tests.
+- Minimise personal information in logs and notifications.
+- Restrict customer data to authorised users and systems.
+- Review third-party permissions and data flows.
+- Define retention, deletion, and incident-response procedures for customer deployments.
 
-Production-ready code only.
+If a secret is committed, removing it from the latest file is insufficient: revoke or rotate it and review repository history.
 
-Feature Branches
+## 13. Testing and Quality Assurance
 
-feature/lead-qualification
+Select tests appropriate to the change:
 
-feature/slack-notifications
+- Unit or rule-level tests.
+- Field mapping and validation tests.
+- Integration tests.
+- Workflow happy-path tests.
+- Boundary and negative tests.
+- Duplicate and retry tests.
+- Regression tests.
+- User acceptance tests.
+- Security and privacy checks.
 
-feature/meeting-summary
+Record test date, environment, test data type, expected result, actual result, pass/fail, and known defects. Never use a test status that has not actually been observed.
 
-Bug Fixes
+## 14. Logging and Error Handling
 
-fix/calendly-timezone
+Important events should be traceable, for example:
 
-Release Branches
+- Lead submitted.
+- Lead created or updated.
+- Qualification completed.
+- Booking link sent.
+- Booking confirmed.
+- Notification sent.
+- Workflow failed or recovered.
 
-release/v1.0.0
+Errors should be classified where practical. Retry transient failures only when safe. Preserve enough context for troubleshooting without logging credentials or unnecessary personal data. Escalate failures requiring human intervention.
 
----
+## 15. Definition of Done
 
-# 12. Security Standards
+A change is complete when all applicable criteria are satisfied:
 
-Lewis Systems follows secure-by-default principles.
+- Requirements and scope are clear.
+- Design and data impacts are reviewed.
+- Implementation is present.
+- Relevant normal, boundary, and failure tests pass.
+- Security and privacy implications are reviewed.
+- Documentation and known limitations are updated.
+- Workflow exports or configuration evidence are stored safely where applicable.
+- Changes are committed and pushed.
+- The Project Status / changelog is updated when the change materially affects project progress.
 
-Requirements:
+A design-only task may be marked design-complete, but must not be labelled implementation-complete.
 
-- Protect API keys.
-- Never hardcode secrets.
-- Apply least-privilege access.
-- Encrypt sensitive information where appropriate.
-- Log security-related events.
-- Separate customer data by Organization.
+## 16. Technology Standards
 
----
+Technology choices are project-specific and recorded in architecture documents and ADRs. For ClientPilot's current MVP:
 
-# 13. Testing Standards
+- Workflow automation: Make.
+- CRM: Airtable.
+- Intake: Google Forms and Google Sheets.
+- Email: Gmail.
+- Booking hand-off: Calendly.
+- AI: OpenAI planned, not part of the current rule-based qualification path.
+- Version control: Git and GitHub.
+- Development environment: Visual Studio Code.
 
-Every feature should be tested before release.
+n8n is a future option for ClientPilot, not a mandatory standard for every Lewis Systems project.
 
-Testing includes:
+## 17. Continuous Improvement
 
-- Functional Testing
-- Integration Testing
-- Workflow Testing
-- AI Prompt Testing
-- User Acceptance Testing
-- Regression Testing
-
-No feature is complete until testing has passed.
-
----
-
-# 14. Logging Standards
-
-Every important business event should be logged.
-
-Examples:
-
-Lead Submitted
-
-Lead Qualified
-
-Meeting Scheduled
-
-Email Sent
-
-Slack Notification
-
-Workflow Failed
-
-Workflow Completed
-
-Logs should support troubleshooting and auditing.
-
----
-
-# 15. Error Handling Standards
-
-Every system should:
-
-- Detect failures.
-- Log failures.
-- Retry transient failures.
-- Notify administrators where appropriate.
-- Preserve business data.
-
-Users should receive meaningful error messages whenever possible.
-
----
-
-# 16. Documentation Principle
-
-Lewis Systems follows one fundamental rule:
-
-> **If it isn't documented, it doesn't exist.**
-
-Documentation is considered part of the product—not an afterthought.
+Review standards as the business gains delivery experience. Changes should improve reliability, security, maintainability, and customer value without introducing unnecessary process overhead.
 
 ---
 
-# 17. Definition of Done
-
-A feature is complete only when:
-
-✓ Business requirements updated
-
-✓ Product requirements updated
-
-✓ Architecture reviewed
-
-✓ Data model updated (if required)
-
-✓ Workflow documented
-
-✓ Code implemented
-
-✓ Testing completed
-
-✓ Documentation updated
-
-✓ Changelog updated
-
-✓ Changes committed to Git
-
-✓ Changes pushed to GitHub
-
----
-
-# 18. Engineering Principles
-
-Every engineer working on Lewis Systems products should follow these principles:
-
-1. Solve business problems.
-2. Keep systems simple.
-3. Build reusable components.
-4. Design for scalability.
-5. Document decisions.
-6. Automate repetitive work.
-7. Respect security and privacy.
-8. Test before deployment.
-9. Learn continuously.
-10. Leave the system better than you found it.
-
----
-
-# 19. Technology Standards
-
-Current Technology Stack
-
-Version Control
-
-- Git
-- GitHub
-
-Development
-
-- Visual Studio Code
-
-Automation
-
-- Make (MVP; n8n planned)
-
-CRM
-
-- Airtable
-
-Artificial Intelligence
-
-- OpenAI
-
-Scheduling
-
-- Calendly
-
-Communication
-
-- Slack
-
-Future technologies may change without affecting the underlying architecture.
-
----
-
-# 20. Current Status
-
-Phase
-
-Engineering Standards
-
-Status
-
-🟢 Active
+© Lewis Systems. All rights reserved.
