@@ -24,7 +24,7 @@ WF-001 – Client Intake & Qualification is implemented on **Make** (EU1 region)
 
 ## Consequences
 
-- Workflow definitions live in Make, not in `workflows/` as n8n JSON. Each scenario must be documented in `docs/modules/module-03-n8n/WF-001-MAKE-IMPLEMENTATION.md`.
+- Workflow definitions live in Make, not in `workflows/` as n8n JSON. Canonical implementation records are maintained in `docs/modules/module-03-workflow-automation/make/`; the older Make note remains in the legacy folder for traceability.
 - Make scenarios cannot be diffed in Git. Export blueprints to `workflows/make/` after every significant change.
 - Make personal-Gmail connections cannot use restricted Google scopes, so email uses the `google-email` v4 "Send an Email" module.
 - If the platform changes again, the business logic in `07-WORKFLOW-DESIGN.md` is the source of truth.
@@ -44,14 +44,14 @@ Revisit this decision **after the first paying client goes live**, or earlier if
 
 Migrating to n8n means rebuilding the scenarios, not migrating data. The Airtable data model, Google Form, scoring rules, email wording and `07-WORKFLOW-DESIGN.md` are platform-independent. To keep the move cheap:
 
-- Keep `WF-001-MAKE-IMPLEMENTATION.md` current as the step-by-step source of truth.
+- Keep the canonical WF-001A and WF-001B implementation records current as the step-by-step references.
 - Export Make blueprints to `workflows/make/` after significant changes.
 - Keep business rules (for example the qualification threshold) in the Airtable Settings table, not hard-coded in Make.
 - Expect to rebuild the error handling (Break retries) in n8n's own error workflow.
 
-If Make is retained, update the README and `04-SYSTEM-ARCHITECTURE.md` to name it as the automation platform.
+The README and `04-SYSTEM-ARCHITECTURE.md` now identify Make as the MVP automation platform.
 
 ## Open Items
 
-- Update README and `04-SYSTEM-ARCHITECTURE.md` technology stack to reflect Make.
-- Decide whether the module folder should be renamed (`module-03-n8n`).
+- Export and sanitise both Make scenarios into `workflows/make/`.
+- Verify scenario IDs, schedules, modules, filters, formulas, mappings, and error handlers against the live Make account.
