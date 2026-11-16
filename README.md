@@ -5,351 +5,131 @@
 ![Status](https://img.shields.io/badge/Status-Active%20Development-brightgreen)
 ![Product](https://img.shields.io/badge/Product-ClientPilot-blue)
 ![Version](https://img.shields.io/badge/Product-v0.3.0-orange)
-![License](https://img.shields.io/badge/Repository-Private-lightgrey)
 
----
+Lewis Systems is a Cape Town, South Africa-based software and automation business that designs custom systems to help small businesses improve operations, manage information, and serve their customers more effectively.
 
-## About Lewis Systems
+The business combines client-specific automation services with the longer-term development of reusable software products. The objective is to generate revenue through practical client solutions while building repeatable capabilities and products over time.
 
-Lewis Systems is a software and automation company based in Cape Town, South Africa.
+## Flagship product: ClientPilot
 
-Our mission is to design intelligent business systems that help professional service firms automate repetitive work, improve operational efficiency, and create exceptional client experiences.
+ClientPilot is an AI-enabled client intake and lead qualification platform. It is being developed initially for small accounting firms in South Africa.
 
-Rather than building one-off automations, we develop complete software solutions that combine automation, artificial intelligence, and thoughtful system design.
+The intended journey is:
 
----
+1. Capture a prospective client's enquiry.
+2. Validate the submitted information.
+3. Create or update the relevant company, contact, and lead records.
+4. Evaluate and qualify the lead.
+5. Communicate the outcome and support consultation booking.
+6. Maintain an auditable CRM record of the process.
 
-# Current Product
+The initial target market is deliberately narrower than the wider Lewis Systems service market. ClientPilot will be validated with small accounting firms before expansion to other service industries is considered.
 
-## ClientPilot
+## Current development status
 
-ClientPilot is an AI-powered Client Intake & Lead Qualification Platform.
+| Area | Current position |
+| --- | --- |
+| Product version | v0.3.0 |
+| Development phase | Phase 3 – MVP implementation |
+| Current module | Module 3 – Workflow automation |
+| CRM and intake foundation | Documented as complete |
+| Workflow platform | Make for the MVP |
+| Qualification | Rule-based scoring in WF-001B; AI evaluation planned |
+| n8n | Future migration option, not the current implementation |
+| Notifications and scheduling | Slack and further Calendly automation planned |
+| End-to-end validation | Pending |
 
-It automates the journey from a prospective client's first enquiry to a qualified consultation booking.
+### Current workflow
 
-The initial release is focused on **small accounting firms**, with future versions expanding to additional professional service industries.
+WF-001 is split into two Make scenarios:
 
----
+- **WF-001A – Client Intake:** captures the form response, validates required information, and creates or updates CRM records.
+- **WF-001B – Lead Qualification:** applies rule-based scoring and updates the lead qualification outcome.
 
-# Current Development Focus
+The project documentation records both scenarios as built and tested. The Make blueprint exports and implementation evidence still need to be committed to this repository. See [ADR-004](docs/adr/ADR-004-make-automation-platform.md) for the platform decision.
 
-Current Phase
+## Technology
 
-🚧 Phase 3 – MVP Implementation
+| Concern | Current / planned technology |
+| --- | --- |
+| CRM and data store | Airtable |
+| Intake form | Google Forms |
+| Response capture | Google Sheets |
+| MVP automation | Make |
+| AI evaluation | OpenAI (planned) |
+| Email | Gmail |
+| Notifications | Slack (planned) |
+| Consultation scheduling | Calendly |
+| Future automation option | n8n |
+| Development and version control | JavaScript, Visual Studio Code, Git, GitHub |
 
-Current Module
+The business workflow and data model should remain as platform-independent as practical. Make is the selected MVP execution platform; n8n is a possible later migration, not a parallel implementation requirement.
 
-Module 3 – Workflow Automation
+## Repository structure
 
-Current Sprint
-
-Sprint 2 – Workflow Automation (WF-001 Client Intake & Qualification)
-
-Current Objective
-
-Harden and extend WF-001, which is built on Make for the MVP, by adding AI qualification, Slack notifications, administrator alerts and Calendly integration.
-
-Next Milestone
-
-Add the AI evaluation step (Module 4) and the administrator alert for failed workflows. A later migration from Make to n8n is planned once the platform matures (see ADR-004).
-
----
-
-# Vision
-
-To become South Africa's leading provider of intelligent business systems for professional service businesses.
-
----
-
-# Mission
-
-Build reliable software that solves real business problems.
-
----
-
-# Core Principles
-
-Every product developed by Lewis Systems follows these principles:
-
-- Documentation First
-- Business First
-- Simplicity
-- Reliability
-- Modular Design
-- Reusability
-- Continuous Improvement
-- Security by Design
-
-> **If it isn't documented, it isn't complete.**
-
----
-
-## Technology Stack
-
-### Development
-
-- Visual Studio Code
-- Git
-- GitHub
-- JavaScript
-
-### Automation
-
-- Make (MVP; n8n planned)
-
-### Database / CRM
-
-- Airtable
-
-### Artificial Intelligence
-
-- OpenAI
-
-### Forms
-
-- Google Forms
-
-### Scheduling
-
-- Calendly
-
-### Communication
-
-- Slack (planned)
-
-### Email
-
-- Gmail
-
----
-
-# Repository Structure
+This tree reflects the directories currently present on the remote `main` branch. Some directories contain planned or incomplete assets.
 
 ```text
 lewis-systems/
-│
+├── .github/
 ├── api/
-│   └── API documentation
-│
 ├── assets/
 │   ├── branding/
-│   ├── diagrams/
-│   └── screenshots/
-│
+│   └── diagrams/
+├── database/
+│   ├── airtable/
+│   ├── sample-data/
+│   └── schema/
 ├── docs/
 │   ├── adr/
-│   ├── 00-PROJECT-INDEX.md
-│   ├── 01-MASTER-PROJECT.md
-│   ├── 02-PRODUCT-REQUIREMENTS.md
-│   ├── 03-BUSINESS-REQUIREMENTS.md
-│   ├── 04-SYSTEM-ARCHITECTURE.md
-│   ├── 05-DATA-MODEL.md
-│   ├── 06-DEVELOPMENT-STANDARDS.md
-│   ├── 07-WORKFLOW-DESIGN.md
-│   ├── 08-AI-PROMPTS.md
-│   ├── 09-API-INTEGRATIONS.md
-│   ├── 10-TESTING.md
-│   ├── 11-ROADMAP.md
-│   ├── 12-CHANGELOG.md
-│   ├── 13-PROJECT-STATUS.md
-│   ├── 14-CONTRIBUTING.md
-│   ├── 15-CODING-STANDARDS.md
-│   ├── 16-SECURITY.md
-│   ├── 17-DEPLOYMENT.md
-│   ├── 18-DATABASE-STANDARDS.md
-│   └── modules/
-│
-├── examples/
-|
+│   ├── modules/
+│   │   ├── module-01-crm-database/
+│   │   ├── module-02-google-forms/
+│   │   └── module-03-n8n/       # legacy platform-specific documentation
+│   └── numbered project documents
 ├── integrations/
-│
-├── javascript/
-│
 ├── journal/
-│
+│   └── 2026/
 ├── prompts/
-│
 ├── scripts/
-│
 ├── templates/
-│
-├── testing/
-│
-├── workflows/
-│
-├── .gitignore
 └── README.md
 ```
 
----
+The Module 3 directory name is a known documentation-structure issue. The planned restructuring is to use a platform-neutral workflow-automation module with separate Make and n8n areas. Until that migration is completed, the existing directory is retained for traceability and should not be interpreted as proof that n8n is the active platform.
 
-# Development Status
+## Engineering principles
 
-| Component                       | Status                          |
-| ------------------------------- | ------------------------------- |
-| Lewis Systems                   | 🟢 Active Development           |
-| ClientPilot                     | 🚧 Phase 3 – MVP Implementation |
-| Documentation Suite             | ✅ Complete                      |
-| Module 1 – CRM Database         | ✅ Complete                      |
-| Module 2 – Google Forms         | ✅ Complete                      |
-| Module 3 – Workflow Automation  | 🚧 In Progress                  |
-| Module 4 – OpenAI Integration   | ⏳ Pending                       |
-| Module 5 – Slack Integration    | ⏳ Pending                       |
-| Module 6 – Calendly Integration | ⏳ Pending                       |
-| Module 7 – End-to-End Testing   | ⏳ Pending                       |
-| Pilot Launch                    | ⏳ Pending                       |
+- Business requirements before tool selection.
+- Documentation alongside implementation.
+- Modular, reusable, and maintainable design.
+- Data integrity and traceability.
+- Security and privacy by design.
+- Test before declaring a feature complete.
+- Version-control implementation changes and relevant workflow exports.
 
----
+A feature is not considered complete solely because its documentation or placeholder file exists. Its implementation, testing evidence, and repository record must agree.
 
-# Development Roadmap
+## Development lifecycle
 
-## ✅ Phase 1 – Foundation
-
-- Repository Setup
-- Engineering Documentation
-- Product Requirements
-- Business Requirements
-- System Architecture
-- Development Standards
-
----
-
-## ✅ Phase 2 – Solution Design
-
-- CRM Database Design
-- Airtable CRM Implementation
-- CRM QA Validation
-- Repository Organisation
-
----
-
-## 🚧 Phase 3 – MVP Implementation
-
-✅ Module 1 – CRM Database
-
-✅ Module 2 – Google Forms
-
-🚧 Module 3 – Workflow Automation
-
-⏳ Module 4 – OpenAI Qualification
-
-⏳ Module 5 – Slack Notifications
-
-⏳ Module 6 – Calendly Integration
-
-⏳ Module 7 – End-to-End Testing
-
----
-
-# Current Progress
-
-## ✅ Completed
-
-- Engineering documentation
-- System architecture
-- CRM data model
-- Airtable CRM implementation
-- Companies table
-- Contacts table
-- Leads table
-- Qualifications table
-- Meetings table
-- Activities table
-- Workflow Logs table
-- Settings table
-- QA validation
-- Airtable views
-- CRM Database Module
-- Airtable relationships
-- Workflow Logs
-- Settings
-- Module 1 documentation
-
----
-
-## 🚧 Current Work
-
-- WF-001A Client Intake (Make) – built and tested
-- WF-001B Lead Qualification (Make) – built and tested (rule-based scoring)
-- Administrator alert for failed workflows
-- Documentation alignment across all modules
-
----
-
-## 🔵 Upcoming
-
-- Make → n8n migration review (after the first paying client)
-- OpenAI lead qualification
-- Slack notifications
-- Calendly scheduling
-- End-to-end workflow testing
-
-# Development Methodology
-
-Every ClientPilot module follows the same engineering lifecycle.
-
-```
-Requirements
-      ↓
-Design
-      ↓
-Build
-      ↓
-Test
-      ↓
-Document
-      ↓
-Git Commit
-      ↓
-Git Push
+```text
+Requirements → Design → Build → Test → Document → Commit → Push
 ```
 
-A feature is considered complete only after every stage has been successfully completed.
+## Project documentation
 
----
+Start with the [Project Documentation Index](docs/00-PROJECT-INDEX.md), then consult the [Master Project Document](docs/01-MASTER-PROJECT.md) and [Project Status](docs/13-PROJECT-STATUS.md).
 
-# Documentation Standards
+## Repository visibility and rights
 
-Every feature added to ClientPilot must include:
+This GitHub repository is publicly visible. Public visibility does not by itself grant permission to reuse, modify, or distribute the contents. No open-source licence is currently granted by this README; the repository's licence file and legal notice should be completed and reviewed separately.
 
-- Purpose
-- Business Requirements
-- Technical Design
-- Workflow Documentation
-- Testing
-- Revision History
+## Founder
 
----
-
-# Founder
-
-**La-eeq Lewis**
-
-Founder & Software Automation Developer
-
+**La-eeq Lewis**  
+Founder – Lewis Systems  
 Cape Town, South Africa
 
 ---
-
-# Repository Information
-
-**Repository Status:** Private
-
-This repository contains the engineering documentation, source code, automation workflows, CRM implementation, API specifications, AI prompt library, testing assets, and development resources for Lewis Systems and its flagship product, ClientPilot.
-
-Development follows a documentation-first engineering methodology. Modules 1 (CRM Database) and 2 (Google Forms) have been completed, tested, and validated. Development is currently focused on Module 3 (Workflow Automation): WF-001 is implemented on Make for the MVP, with AI qualification, Slack and Calendly to follow. A future migration to n8n is planned (ADR-004).
-
----
-
-## Project Information
-
-| Item            | Value                                 |
-| --------------- | ------------------------------------- |
-| Product Version | v0.3.0                                |
-| Current Phase   | 🚧 Phase 3 – MVP Implementation       |
-| Current Module  | Module 3 – Workflow Automation        |
-| Repository      | Private                               |
-| License         | Proprietary                           |
-
 
 © Lewis Systems. All rights reserved.
