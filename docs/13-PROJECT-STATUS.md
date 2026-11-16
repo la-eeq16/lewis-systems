@@ -1,6 +1,6 @@
 # ClientPilot Project Status
 
-**Document Version:** 3.4  
+**Document Version:** 3.5  
 **Product Version:** 0.3.0  
 **Status:** Active Development  
 **Company:** Lewis Systems  
@@ -35,18 +35,16 @@ The project foundation and architecture/engineering documentation reviews have b
 ### Stage 1 – Project foundation
 
 Updated and aligned:
-
 - README.md
 - 00-PROJECT-INDEX.md
 - 01-MASTER-PROJECT.md
 - 13-PROJECT-STATUS.md
 
-The documents now distinguish the wider Lewis Systems strategy (custom systems for small businesses) from ClientPilot's initial accounting-firm target market. Make is identified as the current MVP platform and n8n as a future option.
+The documents distinguish the wider Lewis Systems strategy (custom systems for small businesses) from ClientPilot's initial accounting-firm target market. Make is identified as the current MVP platform and n8n as a future option.
 
 ### Stage 2 – Architecture and engineering
 
 Reviewed and updated:
-
 - 02-PRODUCT-REQUIREMENTS.md
 - 03-BUSINESS-REQUIREMENTS.md
 - 04-SYSTEM-ARCHITECTURE.md
@@ -56,7 +54,25 @@ Reviewed and updated:
 
 The updates clarify that the current qualification path is rule-based, not AI-driven; distinguish current MVP functionality from planned extensions; document the conceptual data model separately from the Airtable implementation; identify incomplete multi-tenancy; and describe WF-001A/WF-001B with exception and recovery requirements.
 
-This is a documentation review. It does not independently verify the live Airtable base or Make scenarios.
+This was a documentation review. It did not independently verify the live Airtable base or Make scenarios.
+
+### Stage 3 – Module 3 implementation documentation
+
+Created the canonical platform-neutral directory:
+`docs/modules/module-03-workflow-automation/`
+
+New documents:
+- README.md – module entry point and status conventions.
+- WORKFLOW-ARCHITECTURE.md – current logical system architecture.
+- WORKFLOW-SPECIFICATIONS.md – WF-001A and WF-001B behaviour and test requirements.
+- FIELD-MAPPING.md – logical mapping baseline and verification gaps.
+- make/WF-001A-CLIENT-INTAKE.md – Make intake implementation record.
+- make/WF-001B-LEAD-QUALIFICATION.md – Make qualification implementation record.
+- n8n/MIGRATION-PLAN.md – future migration criteria and approach.
+
+The former `module-03-n8n` README now marks that directory as legacy and points to the canonical Module 3 documentation. Existing legacy files have been preserved rather than deleted.
+
+The new implementation records are documentation templates populated with currently recorded project facts. They do not independently prove the live Make configuration.
 
 ## 4. Module status
 
@@ -64,7 +80,7 @@ This is a documentation review. It does not independently verify the live Airtab
 | --- | --- | --- |
 | 1 – CRM Database | Airtable CRM structure, relationships, views, and QA | Documented complete; live configuration verification remains advisable |
 | 2 – Google Forms Client Intake | Form, response capture, validation, and field mapping | Documented complete |
-| 3 – Workflow Automation | WF-001A intake and WF-001B qualification on Make | In progress |
+| 3 – Workflow Automation | WF-001A intake and WF-001B qualification on Make | In progress; documentation created, exports and evidence outstanding |
 | 4 – OpenAI Qualification | AI-assisted lead evaluation | Pending |
 | 5 – Slack Notifications | Internal workflow notifications | Pending |
 | 6 – Calendly Integration | Booking workflow and synchronisation | Pending |
@@ -78,7 +94,7 @@ This is a documentation review. It does not independently verify the live Airtab
 
 The scenario is intended to receive a form response, validate fields, find or create a company, find or create a contact, and create a linked lead.
 
-The company/contact decision paths and the exception case for a contact found under a different company are described in [07-WORKFLOW-DESIGN.md](07-WORKFLOW-DESIGN.md).
+Exact Make modules, router filters, Airtable mappings, error handlers, and observed test evidence remain to be captured from the live scenario or sanitised export.
 
 ### 5.2 WF-001B – Lead Qualification (Make)
 
@@ -98,30 +114,26 @@ The component point mapping, missing-value handling, maximum score, and threshol
 
 ### 5.3 Repository evidence outstanding
 
-The GitHub repository does not yet contain exported Make blueprints for WF-001A and WF-001B. Detailed scenario implementation documents and test evidence are also outstanding.
+The GitHub repository does not yet contain exported Make blueprints for WF-001A and WF-001B. Detailed scenario implementation records now exist, but their configuration tables and test evidence remain to be completed.
 
 Required deliverables:
-
 - Export and sanitise the WF-001A Make blueprint.
 - Export and sanitise the WF-001B Make blueprint.
-- Add scenario-specific implementation documents and field mappings.
+- Complete exact module, filter, formula, and field mappings.
 - Record scenario versions and change history.
 - Add test cases and representative, non-sensitive test evidence.
 - Confirm exports contain no secrets, personal customer data, or unnecessary environment-specific identifiers.
 
 ## 6. Current sprint – Sprint 2: Workflow Automation
 
-### Objective
-
-Harden and document WF-001 on Make so that intake and rule-based qualification are reliable, traceable, and ready for integrated MVP testing.
-
 | Task | Status |
 | --- | --- |
 | Stage 1 project foundation documentation | Complete |
 | Stage 2 architecture and engineering documentation review | Complete |
+| Stage 3 canonical Module 3 documentation | Complete |
 | WF-001A client intake scenario | Built and tested, per project record |
 | WF-001B rule-based qualification scenario | Built and tested, per project record |
-| Make implementation documents | Outstanding |
+| Make implementation records | Created; exact configuration details outstanding |
 | Sanitised Make blueprint exports | Outstanding |
 | Verify live Airtable fields and linked relationships | Outstanding |
 | Verify score mappings and boundary cases | Outstanding |
@@ -130,46 +142,15 @@ Harden and document WF-001 on Make so that intake and rule-based qualification a
 | Workflow logging and recovery verification | Outstanding |
 | End-to-end regression testing | Pending |
 
-## 7. Planned modules and dependencies
-
-### Module 4 – OpenAI Qualification
-
-- Define AI evaluation requirements and output schema.
-- Decide how AI recommendations complement rule-based scoring.
-- Handle unavailable, invalid, or low-confidence responses.
-- Retain a human-review path for uncertain decisions.
-- Test outputs against representative cases.
-
-### Module 5 – Slack Notifications
-
-- Define notification events and recipients.
-- Avoid exposing unnecessary customer information in messages.
-- Test successful and failed workflow notifications.
-
-### Module 6 – Calendly Integration
-
-- Define booking-link and booking-confirmation behaviour.
-- Map booking information to the relevant lead and meeting records.
-- Test rescheduling and cancellation handling where supported.
-
-### Module 7 – End-to-End MVP Testing
-
-- Test the full intake-to-qualification journey.
-- Test duplicate company and contact scenarios.
-- Test missing or invalid intake fields.
-- Test failure handling and recovery.
-- Verify CRM relationships and workflow logs.
-- Record acceptance results and known limitations.
-
-## 8. Architecture decision: Make and n8n
+## 7. Architecture decision: Make and n8n
 
 Make is the selected automation platform for the MVP. A future migration to n8n may be considered after the first paying client or earlier if a concrete cost, control, hosting, or client requirement justifies it.
 
 The workflow design and business rules remain the platform-independent reference. See [ADR-004](adr/ADR-004-make-automation-platform.md).
 
-The existing `module-03-n8n` directory is a legacy documentation location and must not be interpreted as the current execution platform. Restructuring it into a platform-neutral Module 3 with separate Make and n8n sections remains planned.
+The canonical Module 3 documentation is in `modules/module-03-workflow-automation/`. The former `module-03-n8n` directory is retained as legacy reference material and is not the current execution platform.
 
-## 9. Risks and controls
+## 8. Risks and controls
 
 | Risk | Control / next action |
 | --- | --- |
@@ -177,32 +158,18 @@ The existing `module-03-n8n` directory is a legacy documentation location and mu
 | Live configuration may differ from documentation | Recheck Make and Airtable configuration during implementation verification |
 | Qualification thresholds may be hard-coded or inconsistent | Verify source of truth and test boundary values |
 | Workflow failures may go unnoticed | Complete administrator alerts, logging, and recovery tests |
-| Legacy n8n documentation may cause confusion | Mark as legacy and restructure Module 3 |
+| Legacy n8n documentation may cause confusion | Legacy notice added; preserve old files as reference |
 | Customer information or credentials could be exposed | Use synthetic test data and sanitise exports before committing |
 | Documentation may overstate completion | Require implementation and test evidence before closing tasks |
 
-## 10. Next milestones
+## 9. Next milestones
 
-1. Create the platform-neutral Module 3 documentation structure.
-2. Add Make WF-001A and WF-001B implementation documents and sanitised exports.
+1. Export and sanitise Make WF-001A and WF-001B blueprints.
+2. Complete exact module-level implementation and field mappings.
 3. Verify both scenarios against the live Make configuration and Airtable base.
-4. Complete failure alerts, logging, recovery, and threshold configuration.
-5. Complete OpenAI, Slack, and Calendly work according to approved scope.
-6. Execute and document end-to-end MVP tests.
-7. Review pilot readiness and outstanding risks.
-8. Reassess n8n migration only when ADR-004 review criteria are met.
-
-## 11. Completion criteria
-
-A module may be marked complete only when:
-
-- Its requirements and scope are documented.
-- Its implementation is present and configured.
-- Required tests have passed and evidence is recorded.
-- Failure and recovery behaviour have been considered.
-- Relevant documentation and diagrams are current.
-- Changes and appropriate implementation assets are committed and pushed.
-- Known limitations are explicitly recorded.
+4. Complete failure alerts, logging, idempotency, and recovery checks.
+5. Run and record end-to-end regression tests.
+6. Reassess readiness for a controlled pilot.
 
 ---
 
