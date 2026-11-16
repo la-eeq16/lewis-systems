@@ -1,6 +1,6 @@
 # ClientPilot Project Status
 
-**Document Version:** 3.5  
+**Document Version:** 3.6  
 **Product Version:** 0.3.0  
 **Status:** Active Development  
 **Company:** Lewis Systems  
@@ -74,7 +74,7 @@ The former `module-03-n8n` README now marks that directory as legacy and points 
 
 The new implementation records are documentation templates populated with currently recorded project facts. They do not independently prove the live Make configuration.
 
-## 4. Module status
+### Stage 4 – Repository quality and consistency\n\nAudited the GitHub remote tree and selected documents. Added root ignore rules, contribution guidance, security standards, a pull request template, and a dedicated Make export directory README. Corrected the root README structure, ADR-004 references, and integration status catalogue. Sanitised environment-specific identifiers in the inactive legacy n8n JSON. Added [19-REPOSITORY-QUALITY-AUDIT.md](19-REPOSITORY-QUALITY-AUDIT.md).\n\nThe audit found 76 zero-byte tracked files out of 129 at inspection time. These were not mass-deleted because some are intentional placeholders or binary asset paths. The empty LICENSE was left unchanged pending an owner/legal decision.\n\n## 4. Module status
 
 | Module | Scope | Status |
 | --- | --- | --- |
@@ -114,7 +114,7 @@ The component point mapping, missing-value handling, maximum score, and threshol
 
 ### 5.3 Repository evidence outstanding
 
-The GitHub repository does not yet contain exported Make blueprints for WF-001A and WF-001B. Detailed scenario implementation records now exist, but their configuration tables and test evidence remain to be completed.
+The GitHub repository does not yet contain exported Make blueprints for WF-001A and WF-001B. The canonical implementation records now carry forward the 03 November scenario IDs, trigger settings, documented routes, logging/retry details, email behaviour, and historical sample test outcomes. These are recorded project facts and still require live Make verification.
 
 Required deliverables:
 - Export and sanitise the WF-001A Make blueprint.
@@ -130,7 +130,7 @@ Required deliverables:
 | --- | --- |
 | Stage 1 project foundation documentation | Complete |
 | Stage 2 architecture and engineering documentation review | Complete |
-| Stage 3 canonical Module 3 documentation | Complete |
+| Stage 3 canonical Module 3 documentation | Complete |\n| Stage 4 repository quality review and hygiene corrections | Complete; owner review of remaining placeholders outstanding |
 | WF-001A client intake scenario | Built and tested, per project record |
 | WF-001B rule-based qualification scenario | Built and tested, per project record |
 | Make implementation records | Created; exact configuration details outstanding |
