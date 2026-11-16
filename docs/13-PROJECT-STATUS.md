@@ -1,346 +1,203 @@
 # ClientPilot Project Status
 
-**Document Version:** 3.2  
+**Document Version:** 3.3  
 **Product Version:** 0.3.0  
-**Status:** 🟢 Active Development  
+**Status:** Active Development  
 **Company:** Lewis Systems  
 **Product:** ClientPilot  
 **Author:** La-eeq Lewis  
-**Phase:** Phase 3 – MVP Implementation  
 **Last Updated:** 16 November 2026
 
 ---
 
-# Project Overview
+## 1. Purpose
 
-ClientPilot has successfully completed the Foundation and Solution Design phases.
+This document is the operational status record for ClientPilot. It records the current development phase, completed and active work, outstanding deliverables, dependencies, and next milestones.
 
-The CRM Database (Module 1) has been fully implemented, tested, quality assured, and documented within Airtable.
+Status statements distinguish between work documented as implemented, work present in the GitHub repository, and work that still requires evidence or verification.
 
-Development has now entered **Phase 3 – MVP Implementation**, beginning with the Google Forms client intake workflow.
+## 2. Overall status
 
-All development follows the Lewis Systems engineering lifecycle:
+| Item | Current status |
+| --- | --- |
+| Development phase | Phase 3 – MVP Implementation |
+| Current module | Module 3 – Workflow Automation |
+| Current sprint | Sprint 2 – Workflow Automation |
+| Product version | 0.3.0 |
+| MVP automation platform | Make |
+| Future platform option | n8n, subject to later review |
+| Pilot launch | Not yet ready; end-to-end validation remains |
 
-> Requirements → Design → Build → Test → Document → Git Commit → Git Push
+ClientPilot has completed its initial foundation and solution-design work and is implementing the MVP workflow layer.
 
----
+## 3. Module status
 
-# Current Phase
+| Module | Scope | Status |
+| --- | --- | --- |
+| 1 – CRM Database | Airtable CRM structure, relationships, views, and QA | Documented complete |
+| 2 – Google Forms Client Intake | Form, response capture, validation, and field mapping | Documented complete |
+| 3 – Workflow Automation | WF-001A intake and WF-001B qualification on Make | In progress |
+| 4 – OpenAI Qualification | AI-assisted lead evaluation | Pending |
+| 5 – Slack Notifications | Internal workflow notifications | Pending |
+| 6 – Calendly Integration | Booking workflow and synchronisation | Pending |
+| 7 – End-to-End MVP Testing | Integrated testing and acceptance | Pending |
 
-## 🚧 Phase 3 – MVP Implementation
+“Documented complete” reflects the current project records. External Airtable and Google configuration should be rechecked whenever changes are made; repository documentation alone is not proof that a live service remains correctly configured.
 
-### Current Module
+## 4. Current workflow implementation
 
-Module 3 – Workflow Automation
+### 4.1 WF-001A – Client Intake (Make)
 
-### Module Status
+**Recorded status:** Built and tested.
 
-| Module                                 | Status     |
-| -------------------------------------- | ---------- |
-| Module 1 – CRM Database                | ✅ Complete |
-| Module 2 – Google Forms Client Intake  | ✅ Complete |
-| Module 3 – Workflow Automation     | 🚧 Current |
-| Module 4 – OpenAI Qualification Engine | ⏳ Pending  |
-| Module 5 – Slack Integration           | ⏳ Pending  |
-| Module 6 – Calendly Integration        | ⏳ Pending  |
-| Module 7 – End-to-End MVP Testing      | ⏳ Pending  |
+The scenario is intended to:
 
----
+1. Receive a new Google Forms response through the response spreadsheet.
+2. Map the submitted information into standardised variables.
+3. Validate required intake fields.
+4. Search for an existing company.
+5. Update an existing company or create a new company.
+6. Search for an existing contact.
+7. Update an existing contact or create a new contact.
+8. Create the lead and associate it with the relevant CRM records.
 
-# Current Sprint
+The company/contact decision paths must preserve the following outcomes:
 
-Sprint 2 – Workflow Automation
+- Existing company and existing contact: update both, then create the lead.
+- Existing company and new contact: update the company, create the contact, then create the lead.
+- New company: create the company and contact, then create the lead.
 
-### Sprint Goal
+### 4.2 WF-001B – Lead Qualification (Make)
 
-Design and implement the ClientPilot automation workflow. For the MVP the workflow runs on Make; a migration to n8n is planned once the platform matures (ADR-004).
+**Recorded status:** Built and tested using rule-based scoring.
 
-This module connects Google Forms, Google Sheets, Airtable and Gmail into a unified pipeline, with AI, Slack and Calendly to follow.
+The scenario is intended to:
 
-### Sprint Tasks
+1. Detect a lead requiring qualification.
+2. Retrieve the relevant lead data.
+3. Calculate the component scores.
+4. Calculate the overall qualification score.
+5. assign a qualification outcome.
+6. Update the lead and create the associated qualification record.
 
-- ✅ Design workflow architecture (WF-001A / WF-001B)
-- ✅ Configure Google Sheets trigger
-- ✅ Connect Airtable CRM
-- ✅ Company lookup
-- ✅ Contact lookup
-- ✅ Lead creation workflow
-- ✅ Rule-based qualification scoring
-- ✅ Booking and follow-up emails
-- ✅ Workflow and activity logging, retry handling
-- ⏳ Administrator alert on failed workflows
-- ⏳ Settings-driven qualification threshold
-- ⏳ OpenAI evaluation (Module 4)
-- ⏳ Slack notifications (Module 5)
-- ⏳ Calendly integration (Module 6)
-- ⏳ Export Make blueprints to the repository
-- 🚧 Update documentation
-- ⏳ Git Commit
-- ⏳ Git Push
+The documented outcome thresholds are:
 
----
+| Score | Outcome |
+| --- | --- |
+| 64–100 | Qualified |
+| 40–63 | Review Required |
+| 0–39 | Not Qualified |
 
-# Completed Milestones
+The scoring rules and thresholds must be verified against the live Make scenario and Airtable configuration before being treated as final production rules. AI evaluation is a later enhancement and is not the current qualification mechanism.
 
-## ✅ Milestone 1 – Foundation
+### 4.3 Repository evidence still outstanding
 
-### Repository
+The GitHub repository does not yet contain the exported Make blueprints for WF-001A and WF-001B, and the referenced detailed Make implementation document is not yet present at its documented path.
 
-- Professional repository structure
-- GitHub repository established
-- README completed
-- Documentation standards established
+Outstanding repository deliverables:
 
-### Documentation
+- Export and sanitise the WF-001A Make blueprint.
+- Export and sanitise the WF-001B Make blueprint.
+- Add the scenario-specific implementation documents.
+- Record the module and scenario versions.
+- Add test cases and representative, non-sensitive test evidence.
+- Confirm the exports contain no secrets, personal customer data, or unnecessary environment-specific identifiers.
 
-- Project Index
-- Master Project Document
-- Product Requirements
-- Business Requirements
-- System Architecture
-- Data Model
-- Development Standards
-- Workflow Design
-- AI Prompt Library
-- API Integrations
-- Testing Strategy
-- Product Roadmap
-- Changelog
-- Project Status
+Do not commit credentials, access tokens, private customer data, or live connection secrets.
 
-### Project Assets
+## 5. Current sprint – Sprint 2: Workflow Automation
 
-- Prompt Library
-- Templates
-- ADR Documentation
-- Repository Standards
+### Sprint objective
 
-**Status**
+Harden and document WF-001 on Make so that the intake and rule-based qualification pipeline is reliable, traceable, and ready for integrated MVP testing.
 
-✅ Complete
+### Work tracking
 
----
+| Task | Status |
+| --- | --- |
+| Workflow architecture for WF-001A / WF-001B | Complete in documentation |
+| WF-001A client intake scenario | Built and tested, per project record |
+| WF-001B rule-based qualification scenario | Built and tested, per project record |
+| Make implementation document | Outstanding in repository |
+| Sanitised Make blueprint exports | Outstanding |
+| Administrator alert for failed workflows | Outstanding |
+| Verify Settings-driven qualification threshold | Outstanding |
+| Confirm workflow logging and recovery behaviour | Outstanding |
+| End-to-end regression testing | Pending |
 
-## ✅ Milestone 2 – CRM Database
+## 6. Planned modules and dependencies
 
-### CRM Implementation
+### Module 4 – OpenAI Qualification
 
-- Companies
-- Contacts
-- Leads
-- Qualifications
-- Meetings
-- Activities
-- Workflow Logs
-- Settings
+- Define the AI evaluation requirements and output schema.
+- Decide how AI recommendations complement rule-based scoring.
+- Handle unavailable, invalid, or low-confidence AI responses.
+- Retain a human-review path for uncertain decisions.
+- Test outputs against representative cases.
 
-### Airtable Implementation
+### Module 5 – Slack Notifications
 
-- Linked-record relationships
-- Standardized field structures
-- Business ID conventions
-- Operational views
-- Sample data
-- QA validation
-- Data model verification
+- Define notification events and recipients.
+- Avoid exposing unnecessary customer information in messages.
+- Test successful and failed workflow notifications.
 
-### Documentation
+### Module 6 – Calendly Integration
 
-- CRM specification updated
-- Data Model updated
-- Changelog updated
-- Repository documentation updated
+- Define booking-link and booking-confirmation behaviour.
+- Map booking information to the relevant lead and meeting records.
+- Test rescheduling and cancellation handling where supported.
 
-**Status**
+### Module 7 – End-to-End MVP Testing
 
-✅ Complete
+- Test the full intake-to-qualification journey.
+- Test duplicate company and contact scenarios.
+- Test missing or invalid intake fields.
+- Test failure handling and recovery.
+- Verify CRM relationships and workflow logs.
+- Record acceptance results and known limitations.
 
----
+## 7. Architecture decision: Make and n8n
 
-## ✅ Milestone 3 – Google Forms Module
+Make is the selected automation platform for the MVP. A future migration to n8n may be considered after the first paying client or earlier if a concrete cost, control, hosting, or client requirement justifies it.
 
-### Completed
+The workflow design and business rules remain the platform-independent reference. See [ADR-004](adr/ADR-004-make-automation-platform.md).
 
-- Google Form designed
-- Five-section client intake workflow
-- Response validation configured
-- Mobile-friendly form completed
-- Confirmation message configured
-- Airtable field mapping completed
+The existing `module-03-n8n` directory is a legacy documentation location and must not be interpreted as the current execution platform. Restructuring it into a platform-neutral Module 3 with separate Make and n8n sections is planned.
 
-### Documentation
+## 8. Risks and controls
 
-- Module README
-- Module Specification
-- Field Mapping
-- Implementation Plan
-- QA Report
-- Implementation Notes
+| Risk | Control / next action |
+| --- | --- |
+| Make blueprint exports are absent from GitHub | Export, sanitise, document, and commit both scenarios |
+| Live configuration may differ from documentation | Recheck Make and Airtable configuration during testing |
+| Qualification thresholds may be hard-coded or inconsistent | Verify the source of truth and test boundary values |
+| Workflow failures may go unnoticed | Complete administrator alerts, logging, and recovery tests |
+| Legacy n8n documentation may cause confusion | Mark as legacy and restructure Module 3 |
+| Customer information or credentials could be exposed | Use synthetic test data and sanitise exports before committing |
+| Documentation may overstate completion | Require implementation and test evidence before closing tasks |
 
-**Status**
+## 9. Next milestones
 
-✅ Complete
+1. Commit the sanitised Make blueprints and scenario implementation documentation.
+2. Verify WF-001A and WF-001B against the live Make scenarios and Airtable base.
+3. Complete failure alerts, logging, and qualification threshold configuration.
+4. Complete OpenAI, Slack, and Calendly work according to approved scope.
+5. Execute and document end-to-end MVP tests.
+6. Review pilot readiness and outstanding risks.
+7. Reassess n8n migration only when the review criteria in ADR-004 are met.
 
----
+## 10. Completion criteria
 
-## 🚧 Milestone 4 – Workflow Automation (WF-001 on Make)
+A module may be marked complete only when:
 
-### Completed
-
-- WF-001A Client Intake
-- WF-001B Lead Qualification (rule-based)
-- Booking email, follow-up email and consultation meeting creation
-- Workflow Logs, Activities and retry handling
-
-### Documentation
-
-- WF-001 Make implementation document
-- ADR-004 – Make as the MVP automation platform
-
-**Status**
-
-🚧 In Progress
+- Its requirements and scope are documented.
+- Its implementation is present and configured.
+- Required tests have passed and evidence is recorded.
+- Failure and recovery behaviour have been considered.
+- Relevant documentation and diagrams are current.
+- Changes and appropriate implementation assets are committed and pushed.
+- Known limitations are explicitly recorded.
 
 ---
 
-# Current Version
-
-| Item | Value |
-|------|-------|
-| Repository Version | v0.3.0 |
-| Project Status | Phase 3 – MVP Implementation |
-| Current Module | Module 3 – Workflow Automation |
-
----
-
-# Development Methodology
-
-Every implementation module follows the Lewis Systems engineering lifecycle.
-
-```text
-Requirements
-      ↓
-Design
-      ↓
-Build
-      ↓
-Test
-      ↓
-Document
-      ↓
-Git Commit
-      ↓
-Git Push
-```
-
-A module is only considered complete after every stage has been successfully completed.
-
----
-
-# Definition of Done
-
-Every module must satisfy the following requirements before completion.
-
-- ✅ Requirements Completed
-- ✅ Designed
-- ✅ Built
-- ✅ Tested
-- ✅ Documented
-- ✅ Committed to Git
-- ✅ Pushed to GitHub
-
----
-
-# Upcoming Modules
-
-Development will continue in the following order.
-
-1. Module 3 – Workflow Automation
-2. Module 4 – OpenAI Qualification Engine
-3. Module 5 – Slack Integration
-4. Module 6 – Calendly Integration
-5. Module 7 – End-to-End MVP Testing
-
----
-
-# Future Phases
-
-## ⏳ Phase 4 – Integration & Testing
-
-- Integrate Google Forms
-- Integrate Airtable
-- Integrate Make (n8n planned)
-- Integrate OpenAI
-- Integrate Slack
-- Integrate Calendly
-- End-to-end workflow testing
-- Error handling
-- Performance optimisation
-
----
-
-## ⏳ Phase 5 – Pilot Launch
-
-- Pilot accounting firms
-- User testing
-- Client feedback
-- Product refinement
-- Documentation updates
-
----
-
-## ⏳ Phase 6 – Production Release
-
-- ClientPilot v1.0.0
-- Public deployment
-- Commercial onboarding
-
----
-
-# Notes
-
-The CRM Database module has been successfully completed and serves as the operational foundation of ClientPilot.
-
-Completed implementation includes:
-
-- Companies
-- Contacts
-- Leads
-- Qualifications
-- Meetings
-- Activities
-- Workflow Logs
-- Settings
-
-All operational tables include:
-
-- Standardized field naming
-- Linked-record relationships
-- Operational views
-- Sample records
-- QA validation
-
-The Google Forms module has been completed and approved.
-
-WF-001 is built on Make for the MVP. Remaining work in this module connects OpenAI, Slack and Calendly and adds administrator alerts.
-
-The completed Google Forms module now serves as the primary entry point into the ClientPilot MVP.
-
-The successful completion of Modules 1 and 2 establishes a stable foundation for automation development.
-
-Module 3 will transform the completed CRM database and Google Forms client intake into a fully automated workflow capable of processing enquiries, maintaining CRM records, and preparing leads for AI-powered qualification.
-
----
-
-# Next Session
-
-## Objective
-
-Complete Module 3 and prepare Module 4.
-
-### Expected Outcome
-
-- Administrator alert implemented
-- Qualification threshold read from Settings
-- Make blueprints exported to `workflows/make/`
-- Documentation committed and pushed
+© Lewis Systems. All rights reserved.
