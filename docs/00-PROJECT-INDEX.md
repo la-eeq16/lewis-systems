@@ -1,6 +1,6 @@
 # ClientPilot Project Documentation Index
 
-**Document Version:** 3.4  
+**Document Version:** 3.5  
 **Product Version:** 0.3.0  
 **Status:** Active Development  
 **Company:** Lewis Systems  
@@ -33,7 +33,7 @@ A listed document must not be treated as complete merely because a file has been
 | 10 | [Testing](10-TESTING.md) | Test strategy, cases, and QA evidence | Existing; evidence to verify |
 | 11 | [Roadmap](11-ROADMAP.md) | Planned milestones and sequencing | Existing; align with status |
 | 12 | [Changelog](12-CHANGELOG.md) | Project change history | Maintained |
-| 13 | [Project Status](13-PROJECT-STATUS.md) | Current milestones, sprint, and blockers | Maintained |
+| 13 | [Project Status](13-PROJECT-STATUS.md) | Current milestones, sprint, and blockers | Maintained |\n| 19 | [Repository Quality Audit](19-REPOSITORY-QUALITY-AUDIT.md) | Repository hygiene findings and corrective actions | Stage 4 reviewed; outstanding actions remain |
 
 ## 3. Supporting documentation
 
@@ -42,7 +42,7 @@ A listed document must not be treated as complete merely because a file has been
 | `adr/` | Architecture Decision Records | ADR-004 records Make for the MVP |
 | `modules/module-01-crm-database/` | CRM implementation documentation | Existing; verify against Airtable |
 | `modules/module-02-google-forms/` | Intake form documentation | Existing; verify against live form |
-| [modules/module-03-workflow-automation/](modules/module-03-workflow-automation/README.md) | Canonical platform-neutral workflow module, Make implementation, and n8n migration plan | Current; implementation evidence outstanding |
+| [modules/module-03-workflow-automation/](modules/module-03-workflow-automation/README.md) | Canonical platform-neutral workflow module, Make implementation, and n8n migration plan | Current; Make exports outstanding |
 | `modules/module-03-n8n/` | Earlier n8n design and workflow artefacts | Legacy reference; not the current execution platform |
 | `api/` | Service-specific API notes | Completeness to verify |
 | `database/` | Airtable tables, sample data, and schema references | Completeness to verify |
@@ -110,7 +110,7 @@ Git Push
 
 A module can be marked complete only when its scope, implementation, tests, documentation, and version-control records are consistent.
 
-## 8. Repository governance
+## 8. Repository quality\n\nSee [19-REPOSITORY-QUALITY-AUDIT.md](19-REPOSITORY-QUALITY-AUDIT.md) for the 16 November 2026 audit. It records 76 zero-byte files at audit time, the missing Make exports, legacy n8n artefacts, and repository hygiene corrections.\n\n## 9. Repository governance
 
 - Keep this index aligned with the actual repository tree.
 - Keep the Project Status document as the operational progress record.
