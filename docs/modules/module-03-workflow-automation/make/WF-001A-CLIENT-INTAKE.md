@@ -1,81 +1,105 @@
 # Make Implementation Record – WF-001A Client Intake
 
-**Document Version:** 1.0  
+**Document Version:** 1.1  
 **Product Version:** 0.3.0  
-**Status:** Recorded as built and tested; repository evidence outstanding  
-**Platform:** Make  
+**Status:** Recorded as built and tested; live verification and export outstanding  
+**Platform:** Make (EU1, per ADR-004)  
 **Last Updated:** 16 November 2026
 
 ## 1. Purpose
 
-Record the deployed Make implementation of WF-001A, which processes an intake submission and creates or links Company, Contact, and Lead records in Airtable.
+Receive a Google Forms enquiry through Google Sheets, validate it, find or create the Company and Contact records, and create a linked Lead in Airtable.
 
-## 2. Implementation status
+## 2. Recorded scenario configuration
 
-The project implementation record states that the Company, Contact, and Lead creation paths have been built and tested. This document does not independently verify the live scenario. No sanitised Make blueprint is currently attached to this record.
-
-## 3. Recorded logical sequence
-
-The documented scenario flow is:
-
-1. Google Forms / Google Sheets response trigger.
-2. Set Multiple Variables for normalised intake values.
-3. Validate required intake fields.
-4. Search Companies in Airtable.
-5. Route according to Company match.
-6. Update or create Company as appropriate.
-7. Search for Contact and verify its Company relationship.
-8. Update or create Contact as appropriate.
-9. Create Lead linked to the correct Company and Contact.
-
-Exact Make module names, module numbers, filters, and route configuration must be transcribed from the current scenario export.
-
-## 4. Required route verification
-
-| Company | Contact | Expected action |
-|---|---|---|
-| Found | Found and associated | Update Company / Contact as required; create Lead |
-| Found | Not found | Update Company; create Contact; create Lead |
-| Not found | Not found | Create Company; create Contact; create Lead |
-| Not found | Found | Exception: verify Company relationship; do not create an unsafe association |
-
-Confirm whether the fourth case is technically reachable under the actual search logic and document its implemented route.
-
-## 5. Configuration record – to complete from Make
-
-| Configuration item | Recorded value |
+| Item | Recorded value |
 |---|---|
-| Scenario name | WF-001A – Client Intake (confirm exact name) |
-| Scenario ID | Pending |
-| Scenario version / last modified | Pending |
-| Trigger type and source | Google Sheets response trigger (verify exact module and configuration) |
-| Airtable base and tables | Pending verification |
-| Search formulas and limits | Pending |
-| Router filters | Pending |
-| Error handlers / retry settings | Pending |
-| Workflow logging | Pending |
+| Make scenario ID | 6907653 |
+| Scenario name | Client Intake |
+| Trigger | Google Sheets – Watch Rows |
+| Trigger interval | Every 15 minutes |
+| Testing state | Both WF-001 scenarios were recorded as on-demand during testing; activate scheduling only after sign-off |
+| Export | Not present in repository |
 
-## 6. Test evidence
+These details come from the Make implementation record dated 03 November 2026. Verify them in the live Make account before changing schedules or configuration.
 
-Attach or reference sanitised evidence for:
+## 3. Recorded logical flow
+
+```text
+Google Sheets – Watch Rows
+        ↓
+Set Variables / normalise intake values
+        ↓
+Router – Valid submission?
+   ├── Valid → Search Company → Search Contact
+   │             → Create / Update Company and Contact
+   │             → Create Lead
+   │             → Workflow Log (Completed)
+   │             → Activity (Lead Created)
+   └── Invalid → Workflow Log (Failed: validation failure)
+```
+
+Exact Make module numbers, router filters, and mapping expressions still require the exported blueprint.
+
+## 4. Validation and normalisation recorded
+
+Required values documented in the 03 November implementation note:
+- First name and last name.
+- Company name.
+- Email and phone.
+- Annual revenue.
+- Service required.
+- Industry.
+- Consent.
+
+Email format check recorded as:
+
+`^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$`
+
+The implementation note also records normalisation of revenue band, employee band, urgency, and industry. Industry values are mapped to the approved list; unknown values become `Other`, with the original text appended to Lead notes. Airtable select writes use typecast disabled, so invalid option labels should fail rather than silently create new options.
+
+## 5. Company and Contact handling
+
+| Company match | Contact match | Recorded expected handling |
+|---|---|---|
+| Not found | Not found / no match | Create Company, create Contact, create Lead |
+| Found | Not found | Create Contact, create Lead |
+| Found | Found | Update Contact, create Lead |
+
+The legacy implementation note does not fully specify the case where the Company is not found but the Contact search returns an existing Contact. Treat this as an exception until the live router logic and association rules are verified. Do not link a Contact to an unrelated Company.
+
+## 6. Logging and error handling recorded
+
+The 03 November implementation note records:
+- Workflow Log written for Completed and Failed outcomes.
+- Activity record for Lead Created.
+- Airtable-step error handlers that write a Failed log.
+- Break handler configured for three retries, ten minutes apart.
+- Administrator alert after retries are exhausted: not yet built in that record.
+- Stored incomplete executions retain the settings of the scenario version that created them; the note advises deleting them after a scenario fix rather than re-running stale executions.
+
+Verify all of these settings against the live scenario.
+
+## 7. Test evidence recorded
+
+The earlier implementation record documents three qualification-path tests, but it does not provide a complete independent WF-001A intake regression matrix. Required intake retests:
 - New Company + new Contact.
 - Existing Company + existing Contact.
 - Existing Company + new Contact.
 - Contact / Company association exception.
-- Missing required data.
-- Duplicate search results.
-- Safe retry without duplicate records.
+- Missing required fields and invalid email.
+- Unknown industry normalisation.
+- Duplicate submissions and safe retry.
 
-No test result should be marked Passed until an observed result is recorded.
+Record observed inputs, expected and actual outputs, date, and sanitised evidence. Do not mark a test Passed without an observed result.
 
-## 7. Export and security checklist
+## 8. Export checklist
 
-- [ ] Export the current Make scenario blueprint.
-- [ ] Remove credentials, tokens, private connection metadata, and unnecessary IDs.
-- [ ] Remove real customer data and replace with synthetic examples.
-- [ ] Confirm the sanitised blueprint can be imported or reviewed.
+- [ ] Export the current WF-001A Make blueprint.
+- [ ] Remove credentials, tokens, connection metadata, unnecessary IDs, and customer data.
+- [ ] Validate JSON syntax and review the export.
 - [ ] Record export date and scenario version.
-- [ ] Commit the sanitised export under the agreed workflow export directory.
+- [ ] Commit to `workflows/make/WF-001A-CLIENT-INTAKE.blueprint.json`.
 
 ---
 
