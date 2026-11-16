@@ -1,12 +1,14 @@
 # WF-001 – Client Intake & Qualification: Make Implementation
 
+> **Historical implementation record.** This document is retained for traceability. The canonical current records are [WF-001A](../module-03-workflow-automation/make/WF-001A-CLIENT-INTAKE.md) and [WF-001B](../module-03-workflow-automation/make/WF-001B-LEAD-QUALIFICATION.md). Verify every configuration detail against the live Make account before relying on it.
+
 **Module:** 03 – Workflow Automation
 **Workflow ID:** WF-001
 **Platform:** Make (EU1)
 **Document Version:** 1.0
 **Last Updated:** 03 November 2026
 **Author:** La-eeq Lewis
-**Status:** Built and tested (rule-based scoring; AI step pending)
+**Status:** Historical record dated 03 November 2026; not independently re-verified
 
 ---
 
