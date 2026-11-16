@@ -42,12 +42,12 @@ All integrations must:
 
 | Integration ID | Service | Purpose | Status |
 |----------------|---------|---------|--------|
-| API-001 | Google Forms | Lead Capture | Planned |
-| API-002 | Make (n8n planned) | Workflow Automation | Active (MVP) |
-| API-003 | OpenAI | AI Processing | Planned |
-| API-004 | Airtable | CRM Database | Planned |
-| API-005 | Calendly | Meeting Scheduling | Planned |
-| API-006 | Slack | Internal Notifications | Planned |
+| API-001 | Google Forms | Lead Capture | Current MVP |
+| API-002 | Google Sheets | Form response capture | Current MVP |\n| API-003 | Make | Workflow automation and rule-based qualification | Current MVP |
+| API-004 | OpenAI | AI processing | Planned |
+| API-005 | Airtable | CRM database | Current MVP |
+| API-006 | Gmail | Prospect outcome emails | Documented in Make workflow record |\n| API-007 | Calendly | Booking-link hand-off | Current link hand-off; event sync planned |
+| API-008 | Slack | Internal notifications | Planned |\n| API-009 | n8n | Future workflow platform | Migration option only |
 
 ---
 
@@ -110,11 +110,11 @@ Public form submission.
 
 ---
 
-# 5. API-002 — Make (n8n planned)
+# 5. API-003 — Make
 
 ## Business Purpose
 
-Automate ClientPilot workflows. The MVP runs on Make; a migration to n8n is planned (ADR-004).
+Automate ClientPilot workflows. Make is the selected MVP workflow platform. n8n is a future migration option, not a current execution dependency.
 
 ---
 
@@ -149,7 +149,7 @@ API Keys / Credentials (depending on connected service).
 
 ---
 
-# 6. API-003 — OpenAI
+# 6. API-004 — OpenAI
 
 ## Business Purpose
 
@@ -202,7 +202,7 @@ API Key.
 
 ---
 
-# 7. API-004 — Airtable
+# 7. API-005 — Airtable
 
 ## Business Purpose
 
@@ -253,7 +253,7 @@ Personal Access Token.
 
 ---
 
-# 8. API-005 — Calendly
+# 8. API-007 — Calendly
 
 ## Business Purpose
 
@@ -302,7 +302,7 @@ OAuth / API Token.
 
 ---
 
-# 9. API-006 — Slack
+# 9. API-008 — Slack
 
 ## Business Purpose
 
