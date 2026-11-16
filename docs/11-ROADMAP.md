@@ -1,6 +1,6 @@
 # ClientPilot Roadmap
 
-**Document Version:** 3.0
+**Document Version:** 3.1
 
 **Product Version:** 0.3.0
 
@@ -12,7 +12,7 @@
 
 **Author:** La-eeq Lewis
 
-**Last Updated:** 04 August 2026
+**Last Updated:** 16 November 2026
 
 ---
 
@@ -138,7 +138,7 @@ Development is organised into implementation modules.
 
 ### Status
 
-🚧 In Progress
+✅ Complete
 
 ### Deliverables
 
@@ -150,18 +150,25 @@ Development is organised into implementation modules.
 
 ---
 
-## Module 3 – n8n Workflow Automation
+## Module 3 – Workflow Automation
 
 ### Status
 
-⏳ Pending
+🚧 In Progress
+
+### Platform
+
+Make for the MVP. A migration to n8n is planned once the platform matures (ADR-004).
 
 ### Deliverables
 
-- Workflow Triggers
-- Data Processing
-- Error Handling
-- Workflow Logging
+- WF-001A Client Intake ✅
+- WF-001B Lead Qualification (rule-based scoring) ✅
+- Workflow Logging and Activity Logging ✅
+- Retry handling ✅
+- Administrator Alert ⏳
+- Settings-driven qualification threshold ⏳
+- Blueprint export to the repository ⏳
 
 ---
 
@@ -316,7 +323,7 @@ Launch ClientPilot Version 1.0.
 
 ### Workflow Automation
 
-- n8n
+- Make (MVP; n8n planned)
 - OpenAI
 - Slack
 - Calendly
@@ -382,9 +389,9 @@ Expansion into additional industries will occur after the accounting-firm MVP ha
 |------|--------|
 | Product Version | v0.3.0 |
 | Current Phase | 🚧 Phase 3 – MVP Implementation |
-| Current Module | Module 2 – Google Forms Client Intake |
-| Completed Modules | 1 of 7 |
-| Next Module | Module 3 – n8n Workflow Automation |
+| Current Module | Module 3 – Workflow Automation |
+| Completed Modules | 2 of 7 |
+| Next Module | Module 4 – OpenAI Qualification Engine |
 
 ---
 

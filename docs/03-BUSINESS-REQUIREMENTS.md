@@ -1,16 +1,18 @@
 # ClientPilot Business Requirements Document (BRD)
 
-Document Version: 2.0
+Document Version: 2.1
 
-Product Version: 0.1.0
+Product Version: 0.3.0
 
-Status: Draft
+Status: Active
 
 Company: Lewis Systems
 
 Product: ClientPilot
 
 Author: La-eeq Lewis
+
+Last Updated: 16 November 2026
 
 ---
 

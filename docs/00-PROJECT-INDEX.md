@@ -1,16 +1,16 @@
 # ClientPilot Project Documentation Index
 
-**Document Version:** 3.0  
+**Document Version:** 3.1  
 **Product Version:** 0.3.0  
 **Status:** 🚧 Active Development  
 **Company:** Lewis Systems  
 **Product:** ClientPilot  
 **Author:** La-eeq Lewis  
-**Last Updated:** 04 August 2026
+**Last Updated:** 16 November 2026
 
 ---
 
-# 1. Purpose
+## 1. Purpose
 
 This document serves as the master index for all ClientPilot engineering documentation.
 
@@ -20,40 +20,45 @@ The documentation suite supports the Lewis Systems documentation-first engineeri
 
 ---
 
-# 2. Documentation Suite
+## 2. Documentation Suite
 
-| No. | Document | Purpose | Status |
-|:---:|----------|---------|:------:|
-| 00 | PROJECT-INDEX.md | Documentation index and navigation | ✅ Active |
-| 01 | MASTER-PROJECT.md | Project overview, development status, and repository information | ✅ Active |
-| 02 | PRODUCT-REQUIREMENTS.md | Product Requirements Specification (PRD) | ✅ Active |
-| 03 | BUSINESS-REQUIREMENTS.md | Business Requirements Specification (BRD) | ✅ Active |
-| 04 | SYSTEM-ARCHITECTURE.md | System architecture and technical design | ✅ Active |
-| 05 | DATA-MODEL.md | Business data model and CRM entity relationships | ✅ Active |
-| 06 | DEVELOPMENT-STANDARDS.md | Development standards, coding practices, and documentation guidelines | ✅ Active |
-| 07 | WORKFLOW-DESIGN.md | Business workflows and automation design | ✅ Active |
-| 08 | AI-PROMPTS.md | AI prompt library and prompt engineering standards | ✅ Active |
-| 09 | API-INTEGRATIONS.md | External API integrations and API specifications | ✅ Active |
-| 10 | TESTING.md | Testing strategy, QA procedures, and validation standards | ✅ Active |
-| 11 | ROADMAP.md | Product roadmap and development milestones | ✅ Active |
-| 12 | CHANGELOG.md | Version history and release notes | ✅ Active |
-| 13 | PROJECT-STATUS.md | Live project progress, milestones, and implementation tracking | ✅ Active |
+| No. | Document                 | Purpose                                                               |     Status     |
+| :-: | ------------------------ | --------------------------------------------------------------------- | :------------: |
+| 00  | PROJECT-INDEX.md         | Documentation index and navigation                                    |   ✅ Active    |
+| 01  | MASTER-PROJECT.md        | Project overview, development status, and repository information      |   ✅ Active    |
+| 02  | PRODUCT-REQUIREMENTS.md  | Product Requirements Specification (PRD)                              |   ✅ Active    |
+| 03  | BUSINESS-REQUIREMENTS.md | Business Requirements Specification (BRD)                             |   ✅ Active    |
+| 04  | SYSTEM-ARCHITECTURE.md   | System architecture and technical design                              |   ✅ Active    |
+| 05  | DATA-MODEL.md            | Business data model and CRM entity relationships                      |   ✅ Active    |
+| 06  | DEVELOPMENT-STANDARDS.md | Development standards, coding practices, and documentation guidelines |   ✅ Active    |
+| 07  | WORKFLOW-DESIGN.md       | Business workflows and automation design                              |   ✅ Active    |
+| 08  | AI-PROMPTS.md            | AI prompt library and prompt engineering standards                    |   ✅ Active    |
+| 09  | API-INTEGRATIONS.md      | External API integrations and API specifications                      |   ✅ Active    |
+| 10  | TESTING.md               | Testing strategy, QA procedures, and validation standards             |   ✅ Active    |
+| 11  | ROADMAP.md               | Product roadmap and development milestones                            |   ✅ Active    |
+| 12  | CHANGELOG.md             | Version history and release notes                                     |   ✅ Active    |
+| 13  | PROJECT-STATUS.md        | Live project progress, milestones, and implementation tracking        |   ✅ Active    |
+| 14  | CONTRIBUTING.md          | Contribution guidelines                                               | ⏳ Placeholder |
+| 15  | CODING-STANDARDS.md      | Coding standards                                                      | ⏳ Placeholder |
+| 16  | SECURITY.md              | Security policy and practices                                         | ⏳ Placeholder |
+| 17  | DEPLOYMENT.md            | Deployment and environments                                           | ⏳ Placeholder |
+| 18  | DATABASE-STANDARDS.md    | Database standards                                                    | ⏳ Placeholder |
 
 ---
 
-# 3. Documentation Status
+## 3. Documentation Status
 
 ## Current Status
 
-| Category | Status |
-|----------|--------|
-| Documentation Suite | ✅ Complete |
-| Engineering Standards | ✅ Complete |
-| System Architecture | ✅ Complete |
-| CRM Data Model | ✅ Complete |
-| CRM Implementation | ✅ Complete |
-| Module Documentation | 🚧 Active |
-| MVP Development | 🚧 In Progress |
+| Category              | Status         |
+| --------------------- | -------------- |
+| Documentation Suite   | ✅ Complete    |
+| Engineering Standards | ✅ Complete    |
+| System Architecture   | ✅ Complete    |
+| CRM Data Model        | ✅ Complete    |
+| CRM Implementation    | ✅ Complete    |
+| Module Documentation  | 🚧 Active      |
+| MVP Development       | 🚧 In Progress |
 
 ---
 
@@ -77,40 +82,40 @@ The ClientPilot engineering documentation suite is complete and now supports act
 
 ---
 
-# 4. Current Implementation Modules
+## 4. Current Implementation Modules
 
-| Module | Status |
-|---------|--------|
-| Module 1 – CRM Database | ✅ Complete |
-| Module 2 – Google Forms Client Intake | 🚧 In Progress |
-| Module 3 – n8n Workflow Automation | ⏳ Pending |
-| Module 4 – OpenAI Qualification Engine | ⏳ Pending |
-| Module 5 – Slack Notifications | ⏳ Pending |
-| Module 6 – Calendly Integration | ⏳ Pending |
-| Module 7 – End-to-End MVP Testing | ⏳ Pending |
-
----
-
-# 5. Supporting Directories
-
-| Directory | Purpose |
-|-----------|---------|
-| **adr/** | Architecture Decision Records |
-| **api/** | API documentation |
-| **assets/** | Branding, diagrams, screenshots, and project assets |
-| **examples/** | Example implementations and reference material |
-| **integrations/** | Third-party integration configurations |
-| **javascript/** | JavaScript source code |
-| **journal/** | Development journal and engineering notes |
-| **prompts/** | AI prompt specifications |
-| **scripts/** | Utility and automation scripts |
-| **templates/** | Reusable project templates |
-| **testing/** | Test assets and quality assurance resources |
-| **workflows/** | n8n workflow files and automation assets |
+| Module                                            | Status         |
+| ------------------------------------------------- | -------------- |
+| Module 1 – CRM Database                           | ✅ Complete    |
+| Module 2 – Google Forms Client Intake             | ✅ Complete    |
+| Module 3 – Workflow Automation (Make for the MVP) | 🚧 In Progress |
+| Module 4 – OpenAI Qualification Engine            | ⏳ Pending     |
+| Module 5 – Slack Notifications                    | ⏳ Pending     |
+| Module 6 – Calendly Integration                   | ⏳ Pending     |
+| Module 7 – End-to-End MVP Testing                 | ⏳ Pending     |
 
 ---
 
-# 6. Documentation Governance
+## 5. Supporting Directories
+
+| Directory         | Purpose                                                                                           |
+| ----------------- | ------------------------------------------------------------------------------------------------- |
+| **adr/**          | Architecture Decision Records (ADR-001 to ADR-004)                                                |
+| **api/**          | API documentation                                                                                 |
+| **assets/**       | Branding, diagrams, screenshots, and project assets                                               |
+| **examples/**     | Example implementations and reference material                                                    |
+| **integrations/** | Third-party integration configurations                                                            |
+| **javascript/**   | JavaScript source code                                                                            |
+| **journal/**      | Development journal and engineering notes                                                         |
+| **prompts/**      | AI prompt specifications                                                                          |
+| **scripts/**      | Utility and automation scripts                                                                    |
+| **templates/**    | Reusable project templates                                                                        |
+| **testing/**      | Test assets and quality assurance resources                                                       |
+| **workflows/**    | Automation workflow assets (Make blueprints for the MVP; n8n workflows for the planned migration) |
+
+---
+
+## 6. Documentation Governance
 
 ClientPilot follows the Lewis Systems documentation-first engineering methodology.
 
@@ -144,7 +149,7 @@ No implementation is considered complete until:
 
 ---
 
-# 7. Repository Standards
+## 7. Repository Standards
 
 All engineering documentation must:
 
@@ -158,7 +163,7 @@ The documentation suite remains the authoritative source for project architectur
 
 ---
 
-# 8. Notes
+## 8. Notes
 
 This document serves as the master navigation reference for the ClientPilot engineering documentation.
 

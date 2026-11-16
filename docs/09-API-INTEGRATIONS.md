@@ -1,10 +1,10 @@
 # ClientPilot API Integrations
 
-Document Version: 1.0
+Document Version: 1.1
 
-Product Version: 0.1.0
+Product Version: 0.3.0
 
-Status: Draft
+Status: Active
 
 Company: Lewis Systems
 
@@ -12,7 +12,7 @@ Product: ClientPilot
 
 Author: La-eeq Lewis
 
-Last Updated: 30 July 2026
+Last Updated: 16 November 2026
 
 ---
 
@@ -43,7 +43,7 @@ All integrations must:
 | Integration ID | Service | Purpose | Status |
 |----------------|---------|---------|--------|
 | API-001 | Google Forms | Lead Capture | Planned |
-| API-002 | n8n | Workflow Automation | Planned |
+| API-002 | Make (n8n planned) | Workflow Automation | Active (MVP) |
 | API-003 | OpenAI | AI Processing | Planned |
 | API-004 | Airtable | CRM Database | Planned |
 | API-005 | Calendly | Meeting Scheduling | Planned |
@@ -110,11 +110,11 @@ Public form submission.
 
 ---
 
-# 5. API-002 — n8n
+# 5. API-002 — Make (n8n planned)
 
 ## Business Purpose
 
-Automate ClientPilot workflows.
+Automate ClientPilot workflows. The MVP runs on Make; a migration to n8n is planned (ADR-004).
 
 ---
 
@@ -360,7 +360,7 @@ Google Forms
 
 ↓
 
-n8n
+Make
 
 ↓
 

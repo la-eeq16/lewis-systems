@@ -1,10 +1,10 @@
 # ClientPilot Workflow Design
 
-Document Version: 1.0
+Document Version: 1.1
 
-Product Version: 0.1.0
+Product Version: 0.3.0
 
-Status: Draft
+Status: Active
 
 Company: Lewis Systems
 
@@ -12,7 +12,7 @@ Product: ClientPilot
 
 Author: La-eeq Lewis
 
-Last Updated: 30 July 2026
+Last Updated: 16 November 2026
 
 ---
 
@@ -44,7 +44,7 @@ All ClientPilot workflows must:
 
 | Workflow ID | Name | Status |
 |--------------|--------------------------------------|-----------|
-| WF-001 | Client Intake & Qualification | Active |
+| WF-001 | Client Intake & Qualification | Active (implemented on Make as WF-001A and WF-001B) |
 | WF-002 | Consultation Booking | Planned |
 | WF-003 | AI Meeting Preparation | Planned |
 | WF-004 | Lead Follow-up | Planned |
@@ -220,15 +220,19 @@ Qualification Engine
 
 ### Decision
 
-Is the lead qualified?
+What is the qualification result?
 
-If YES:
+If **Qualified**:
 
 Proceed to consultation booking.
 
-If NO:
+If **Not Qualified**:
 
 Proceed to follow-up communication.
+
+If **Review Required** (score between the two thresholds):
+
+No email or meeting is created. Staff review the lead manually.
 
 ---
 
@@ -334,6 +338,29 @@ Workflow Complete
 
 ---
 
+# 5A. Implementation (MVP – Make)
+
+WF-001 is implemented as two Make scenarios. This section is the mapping between the design above and the build. Full detail is in `docs/modules/module-03-n8n/WF-001-MAKE-IMPLEMENTATION.md`.
+
+| Step | Implemented in |
+|---|---|
+| 1–2 Receive enquiry, create Lead | WF-001A – Client Intake (Google Sheets trigger) |
+| 3 Validate | WF-001A – checks required fields, valid email format, industry, consent |
+| 4 AI decision | WF-001B – **rule-based scoring in v1**; AI evaluation planned (Module 4) |
+| 5 Decision | WF-001B – Qualified ≥ 64, Review Required 40–63, Not Qualified < 40 |
+| 6A–7A Booking link, Lead and Meeting status | WF-001B – booking link from Settings; Meeting created as *Awaiting Booking* |
+| 8A Confirmation email, activity | WF-001B – Gmail; Activity "Email Sent". **Slack staff notification planned (Module 5)** |
+| 9A AI meeting summary | Planned (Module 4) |
+| 6B–7B Follow-up email, Lead Status | WF-001B – Gmail; Lead Status *Not Qualified* |
+
+Differences from the design:
+
+- The validation list includes **Budget** and **Decision Maker**, but the MVP form does not collect them. Budget scores 0.
+- Industry is validated but does not affect the score in v1.
+- Email content and booking link come from the Settings table and must describe the **client firm**, not Lewis Systems.
+
+---
+
 # 6. Error Handling
 
 The workflow must handle:
@@ -415,8 +442,8 @@ Every ClientPilot workflow must:
 
 Phase
 
-Workflow Design
+Phase 3 – MVP Implementation
 
 Status
 
-🟢 Active Development
+🟢 Active Development – WF-001 built and tested on Make

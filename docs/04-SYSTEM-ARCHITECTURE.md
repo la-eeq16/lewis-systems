@@ -1,16 +1,18 @@
 # ClientPilot System Architecture
 
-Document Version: 2.0
+Document Version: 2.1
 
-Product Version: 0.1.0
+Product Version: 0.3.0
 
-Status: Draft
+Status: Active
 
 Company: Lewis Systems
 
 Product: ClientPilot
 
 Author: La-eeq Lewis
+
+Last Updated: 16 November 2026
 
 ---
 
@@ -120,6 +122,22 @@ Qualification Factors:
 - Urgency
 - Decision Maker Status
 
+### MVP Implementation (rule-based v1)
+
+WF-001B scores each lead out of 100 using:
+
+| Factor | Points |
+|---|---|
+| Annual revenue band | 0 / 10 / 20 / 30 |
+| Service requested | 25 / 20 / 15 / 10 / 5 |
+| Urgency | 15 / 11 / 7 / 3 |
+| Number of employees | 2 / 4 / 6 / 8 / 10 |
+| Budget | 0 (not collected by the MVP form) |
+
+Industry and decision-maker status do not affect the score in v1.
+
+Outcomes: **Qualified ≥ 64**, **Review Required 40–63**, **Not Qualified < 40**. The AI Decision Engine (Module 4) will supplement or replace this scoring.
+
 ---
 
 ## 4.3 AI Decision Engine
@@ -143,7 +161,8 @@ Outputs:
 
 Current Technology:
 
-- OpenAI
+- Rule-based scoring in the MVP (WF-001B)
+- OpenAI (planned, Module 4)
 
 Future Technology:
 
@@ -190,7 +209,7 @@ Responsibilities:
 
 Current Technology:
 
-- Calendly
+- Calendly booking link sent by email (automated booking sync planned, Module 6)
 
 Future Technology:
 
@@ -213,8 +232,8 @@ Responsibilities:
 
 Current Technology:
 
-- Slack
-- Email
+- Email (Gmail)
+- Slack (planned, Module 5)
 
 Future Technology:
 
@@ -239,11 +258,11 @@ Responsibilities:
 
 Current Technology:
 
-- n8n
+- Make (MVP)
 
 Future Technology:
 
-- n8n + Custom Services
+- n8n + Custom Services (planned migration – see ADR-004)
 
 ---
 
@@ -397,7 +416,13 @@ These capabilities will integrate into the existing architecture without changin
 
 ---
 
-# 8. Current Status
+# 8. Implementation Note
+
+For the MVP the Workflow Engine is implemented on **Make** (EU region). The architecture is technology-independent, and a migration to n8n is planned once the platform matures (ADR-004). Business rules should be kept in the Airtable Settings table where possible so that they survive a platform change.
+
+---
+
+# 9. Current Status
 
 Phase
 

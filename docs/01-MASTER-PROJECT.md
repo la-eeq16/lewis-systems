@@ -2,13 +2,13 @@
 
 # Master Project Document
 
-**Document Version:** 3.0  
+**Document Version:** 3.1  
 **Product Version:** 0.3.0  
 **Status:** 🚧 Active Development  
 **Company:** Lewis Systems  
 **Product:** ClientPilot  
 **Author:** La-eeq Lewis  
-**Last Updated:** 04 August 2026
+**Last Updated:** 16 November 2026
 
 ---
 
@@ -106,7 +106,8 @@ The MVP is focused on small accounting firms, with future expansion planned for 
 
 ## Automation
 
-- n8n
+- Make (MVP)
+- n8n (planned migration once the platform matures – see ADR-004)
 
 ## Artificial Intelligence
 
@@ -181,8 +182,8 @@ Every ClientPilot module follows these engineering principles:
 | CRM Database | ✅ Complete |
 | Airtable CRM | ✅ Complete |
 | CRM QA Validation | ✅ Complete |
-| Module 2 – Google Forms | 🚧 In Progress |
-| Module 3 – n8n Automation | ⏳ Pending |
+| Module 2 – Google Forms | ✅ Complete |
+| Module 3 – Workflow Automation | 🚧 In Progress |
 | Module 4 – OpenAI Integration | ⏳ Pending |
 | Module 5 – Slack Integration | ⏳ Pending |
 | Module 6 – Calendly Integration | ⏳ Pending |
@@ -196,7 +197,11 @@ Every ClientPilot module follows these engineering principles:
 
 ### Current Module
 
-**Module 2 – Google Forms Client Intake**
+**Module 3 – Workflow Automation**
+
+### Module 2 Status
+
+✅ Completed – Google Form, validation, Google Sheets capture and field mapping.
 
 ### Module 1 Status
 
@@ -220,7 +225,7 @@ Completed deliverables:
 
 ### Current Objective
 
-Design and implement the ClientPilot client intake workflow beginning with Google Forms.
+Extend and harden WF-001 – Client Intake & Qualification, implemented on Make for the MVP, by adding AI qualification, Slack notifications, administrator alerts and Calendly integration.
 
 ---
 
@@ -266,11 +271,11 @@ Current
 
 ### Module 2 – Google Forms Client Intake
 
-🚧 In Progress
+✅ Complete
 
-### Module 3 – n8n Workflow Automation
+### Module 3 – Workflow Automation
 
-⏳ Pending
+🚧 In Progress (WF-001 built on Make; AI, Slack and Calendly pending)
 
 ### Module 4 – OpenAI Qualification
 
@@ -345,7 +350,7 @@ The repository contains:
 | Product | ClientPilot |
 | Product Version | v0.3.0 |
 | Current Phase | Phase 3 – MVP Implementation |
-| Current Module | Module 2 – Google Forms Client Intake |
+| Current Module | Module 3 – Workflow Automation |
 | Repository | Private |
 | License | Proprietary |
 
@@ -353,18 +358,14 @@ The repository contains:
 
 # 16. Next Objective
 
-Complete Module 2 by:
+Complete Module 3 by:
 
-- Designing the Google Form
-- Building the Google Form
-- Connecting Google Sheets
-- Mapping fields to Airtable
-- Preparing the n8n workflow
-- Testing the intake process
-- Updating documentation
-- Committing changes to Git
+- Adding the administrator alert for workflows that fail all retries
+- Reading the qualification threshold from the Settings table
+- Exporting Make blueprints to the repository
+- Handing over to Module 4 (OpenAI qualification), Module 5 (Slack) and Module 6 (Calendly)
 
-This will establish the first live entry point into the ClientPilot platform and lay the foundation for end-to-end workflow automation.
+A review of the automation platform (Make → n8n) is scheduled for after the first paying client (see ADR-004).
 
 ---
 

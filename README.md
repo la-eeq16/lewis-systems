@@ -39,19 +39,19 @@ Current Phase
 
 Current Module
 
-Module 2 – Google Forms Client Intake
+Module 3 – Workflow Automation
 
 Current Sprint
 
-Sprint 1 – Client Intake Workflow
+Sprint 2 – Workflow Automation (WF-001 Client Intake & Qualification)
 
 Current Objective
 
-Design, build, and validate the ClientPilot client intake workflow using Google Forms as the primary entry point into the CRM.
+Harden and extend WF-001, which is built on Make for the MVP, by adding AI qualification, Slack notifications, administrator alerts and Calendly integration.
 
 Next Milestone
 
-Complete the Google Forms → Google Sheets → Airtable integration and prepare the n8n automation workflow.
+Add the AI evaluation step (Module 4) and the administrator alert for failed workflows. A later migration from Make to n8n is planned once the platform matures (see ADR-004).
 
 ---
 
@@ -95,7 +95,7 @@ Every product developed by Lewis Systems follows these principles:
 
 ### Automation
 
-- n8n
+- Make (MVP; n8n planned)
 
 ### Database / CRM
 
@@ -115,7 +115,7 @@ Every product developed by Lewis Systems follows these principles:
 
 ### Communication
 
-- Slack
+- Slack (planned)
 
 ### Email
 
@@ -151,7 +151,13 @@ lewis-systems/
 │   ├── 10-TESTING.md
 │   ├── 11-ROADMAP.md
 │   ├── 12-CHANGELOG.md
-│   └── 13-PROJECT-STATUS.md
+│   ├── 13-PROJECT-STATUS.md
+│   ├── 14-CONTRIBUTING.md
+│   ├── 15-CODING-STANDARDS.md
+│   ├── 16-SECURITY.md
+│   ├── 17-DEPLOYMENT.md
+│   ├── 18-DATABASE-STANDARDS.md
+│   └── modules/
 │
 ├── examples/
 |
@@ -185,8 +191,8 @@ lewis-systems/
 | ClientPilot                     | 🚧 Phase 3 – MVP Implementation |
 | Documentation Suite             | ✅ Complete                      |
 | Module 1 – CRM Database         | ✅ Complete                      |
-| Module 2 – Google Forms         | 🚧 In Progress                  |
-| Module 3 – n8n Automation       | ⏳ Pending                       |
+| Module 2 – Google Forms         | ✅ Complete                      |
+| Module 3 – Workflow Automation  | 🚧 In Progress                  |
 | Module 4 – OpenAI Integration   | ⏳ Pending                       |
 | Module 5 – Slack Integration    | ⏳ Pending                       |
 | Module 6 – Calendly Integration | ⏳ Pending                       |
@@ -221,9 +227,9 @@ lewis-systems/
 
 ✅ Module 1 – CRM Database
 
-🚧 Module 2 – Google Forms
+✅ Module 2 – Google Forms
 
-⏳ Module 3 – n8n Workflow Automation
+🚧 Module 3 – Workflow Automation
 
 ⏳ Module 4 – OpenAI Qualification
 
@@ -263,16 +269,16 @@ lewis-systems/
 
 ## 🚧 Current Work
 
-- Google Forms specification
-- Google Form field mapping
-- Client intake workflow
-- Google Sheets integration planning
+- WF-001A Client Intake (Make) – built and tested
+- WF-001B Lead Qualification (Make) – built and tested (rule-based scoring)
+- Administrator alert for failed workflows
+- Documentation alignment across all modules
 
 ---
 
 ## 🔵 Upcoming
 
-- n8n automation
+- Make → n8n migration review (after the first paying client)
 - OpenAI lead qualification
 - Slack notifications
 - Calendly scheduling
@@ -331,7 +337,7 @@ Cape Town, South Africa
 
 This repository contains the engineering documentation, source code, automation workflows, CRM implementation, API specifications, AI prompt library, testing assets, and development resources for Lewis Systems and its flagship product, ClientPilot.
 
-Development follows a documentation-first engineering methodology. Module 1 (CRM Database) has been completed, tested, and validated. Development is currently focused on Module 2 (Google Forms Client Intake), which will become the first live entry point into the ClientPilot platform.
+Development follows a documentation-first engineering methodology. Modules 1 (CRM Database) and 2 (Google Forms) have been completed, tested, and validated. Development is currently focused on Module 3 (Workflow Automation): WF-001 is implemented on Make for the MVP, with AI qualification, Slack and Calendly to follow. A future migration to n8n is planned (ADR-004).
 
 ---
 
@@ -341,7 +347,7 @@ Development follows a documentation-first engineering methodology. Module 1 (CRM
 | --------------- | ------------------------------------- |
 | Product Version | v0.3.0                                |
 | Current Phase   | 🚧 Phase 3 – MVP Implementation       |
-| Current Module  | Module 2 – Google Forms Client Intake |
+| Current Module  | Module 3 – Workflow Automation        |
 | Repository      | Private                               |
 | License         | Proprietary                           |
 

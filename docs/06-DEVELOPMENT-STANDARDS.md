@@ -382,7 +382,7 @@ Development
 
 Automation
 
-- n8n
+- Make (MVP; n8n planned)
 
 CRM
 

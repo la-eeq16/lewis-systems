@@ -1,8 +1,8 @@
 # ClientPilot Data Model
 
-Document Version: 2.1
+Document Version: 2.2
 
-Product Version: 0.2.0
+Product Version: 0.3.0
 
 Status: ✅ CRM Structure Complete
 
@@ -14,9 +14,9 @@ Product: ClientPilot
 
 Author: La-eeq Lewis
 
-Phase: Phase 2 – Solution Design
+Phase: Phase 3 – MVP Implementation
 
-Last Updated: 03 August 2026
+Last Updated: 16 November 2026
 
 ---
 
@@ -206,10 +206,22 @@ Lead ID
 - Lead Status
 - Lead Source
 - Services Requested
-- Submission Date
-- Assigned Consultant
-- Priority
+- Estimated Annual Revenue
+- Number of Employees
+- Urgency
+- Budget
+- Decision Maker Confirmed
+- Qualification Score
 - Qualification Status
+- Qualification Reason
+- AI Recommendation
+- AI Summary
+- Qualification Date
+- Assigned Consultant
+- Consultation Booked
+- Calendly Booking
+- Notes
+- Created Time
 
 ### Airtable Implementation
 
@@ -237,9 +249,14 @@ Lead ID
 - Urgency Score
 - Decision Maker Score
 - Total Score
-- Qualified (Yes/No)
+- Qualification Result (Qualified / Review Required / Not Qualified)
+- Assessment Status
 - AI Recommendation
 - Qualification Reason
+- Confidence Score
+- Manual Override, Reviewed By, Review Date
+
+> In the MVP (rule-based v1) the service and employee points are included in Total Score and written into Qualification Reason. They do not yet have dedicated score fields.
 
 ---
 
@@ -255,21 +272,28 @@ Meeting ID
 
 - Organization ID
 - Lead ID
+- Company, Contact and Qualification (Airtable linked records)
 
 ### Attributes
 
+- Meeting Name
+- Meeting Type
 - Meeting Date
 - Meeting Time
 - Calendly Event ID
 - Assigned Consultant
-- Meeting Status
+- Meeting Status (including Awaiting Booking)
 - Meeting Notes
+- AI Meeting Brief
+- Outcome
 
 ---
 
 ## 4.8 AI Summary
 
 Stores AI-generated meeting preparation.
+
+> Airtable implementation: not a separate table. The AI Summary is held in the Leads table (AI Summary) and the Meetings table (AI Meeting Brief). Generation is planned for Module 4.
 
 ### Primary Key
 
@@ -316,7 +340,7 @@ Activity ID
 
 ## 4.10 Workflow
 
-Stores workflow execution information.
+Stores workflow execution information. Implemented as the **Workflow Logs** table.
 
 ### Primary Key
 
@@ -349,11 +373,25 @@ Workflow ID
 | Company | One-to-Many | Contacts |
 | Company | One-to-Many | Leads |
 | Contact | One-to-Many | Leads |
-| Lead | One-to-One | Qualification |
-| Lead | One-to-One | Meeting |
+| Lead | One-to-Many (latest result is current) | Qualification |
+| Lead | One-to-Many (MVP creates one initial consultation per qualified lead) | Meeting |
 | Meeting | One-to-One | AI Summary |
 | Lead | One-to-Many | Activities |
 | Lead | One-to-Many | Workflow Executions |
+
+---
+
+# 5A. Airtable Implementation Notes
+
+The MVP implementation differs from the conceptual model in the following ways.
+
+- **Organization** is not a table. `Organization ID` is a text field on Companies and Settings only. Multi-tenancy (an Organization ID on every record) is planned before the first multi-client deployment.
+- **Settings** is a single wide configuration table (Setting Group, Company Name, Default Consultant, Qualification Threshold, Booking Link, notification switches, OpenAI Model). It must hold the **client firm's** details, not Lewis Systems'.
+- **Industry** is a single-select field with a standard list shared by the Google Form, Airtable and Make: Accounting, Agriculture, Business Coaching, Construction, Consulting, Education, Financial Services, Healthcare, Hospitality & Food, Insurance, Law, Manufacturing, Marketing, Mining, Real Estate, Retail, Technology, Transport & Logistics, Other.
+- **Consent** is validated by the workflow but is not stored on the Lead.
+- **Referral Source** is collected by the form but is not yet stored. Lead Source is set to "Google Forms".
+- **Qualification Threshold** exists in Settings. WF-001B currently uses fixed thresholds (64 / 40); reading them from Settings is planned.
+- Select values are written with typecast disabled, so every option must exist in Airtable with identical spelling.
 
 ---
 
@@ -451,18 +489,20 @@ Phase 2 – Solution Design
 - Linked record relationships configured
 - Standard views created for all tables
 - Initial QA validation completed across all tables
+- Google Form client intake (Module 2) mapped to the CRM
+- Qualification, Meeting and Settings fields extended for WF-001 (Booking Link, Awaiting Booking, Not Qualified)
 
 **Current Module**
 
-CRM Database
+Module 3 – Workflow Automation
 
 **Current Task**
 
-Data validation and workflow integration.
+WF-001 is implemented on Make and tested. Remaining: multi-tenancy fields, score fields for service and employees, AI summary storage.
 
 **Next Task**
 
-Design and implement the Google Form client intake process.
+Module 4 – OpenAI qualification.
 
 ---
 

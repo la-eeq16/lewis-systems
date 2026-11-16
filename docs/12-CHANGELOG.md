@@ -6,6 +6,39 @@ This project follows the principles of **Keep a Changelog** and **Semantic Versi
 
 ---
 
+# [Unreleased] - 16 November 2026
+
+## Added
+
+### Module 3 – Workflow Automation (WF-001 on Make)
+
+- Built WF-001A (Client Intake) and WF-001B (Lead Qualification) on Make.
+- Intake validation: required fields, email format, industry and consent.
+- Standard industry list (19 industries plus Other) shared by Airtable, the Google Form and Make.
+- Rule-based qualification scoring (Qualified ≥ 64, Review Required 40–63, Not Qualified < 40).
+- Qualified path: consultation Meeting (*Awaiting Booking*) and booking email. Not Qualified path: polite follow-up email.
+- Workflow Logs, Activities and Break-handler retries (3 attempts, 10 minutes apart).
+- Booking Link field in the Settings table.
+- ADR-002, ADR-003 and ADR-004; Module 3 decision log entries 011–014.
+- WF-001 Make implementation document.
+
+## Changed
+
+- Automation platform for the MVP changed from n8n to Make (ADR-004). A migration to n8n is planned after the first paying client.
+- Documentation aligned across the repository: module statuses (Modules 1 and 2 complete, Module 3 in progress), product and document versions, field mappings (Module 1 table specifications, Module 2 and Module 3 field mappings), workflow structure (WF-001A/B), scoring and thresholds.
+- Module 3 documents rewritten for the Make implementation.
+
+## Fixed
+
+- Retry Count 422 error in completion logs.
+- Gmail connection error for personal Google accounts.
+
+## Pending
+
+- Administrator alert, Settings-driven threshold, Make blueprint export, AI evaluation, Slack notifications, Calendly integration.
+
+---
+
 # [0.3.0] - 05 August 2026
 
 ## Added
@@ -36,7 +69,7 @@ Completed the complete engineering documentation for Module 2:
 
 - Mapped every Google Form field to the ClientPilot Airtable CRM.
 - Verified compatibility with the ClientPilot Data Model.
-- Prepared the form for n8n automation.
+- Prepared the form for workflow automation.
 - Prepared the form for future OpenAI processing.
 
 ### Documentation
@@ -80,7 +113,7 @@ Completed validation of the Google Forms module, including:
 
 ### Next Milestone
 
-- Begin Module 3 – n8n Workflow Automation.
+- Begin Module 3 – Workflow Automation.
 - Design the automation workflow architecture.
 - Connect Google Forms to Airtable.
 - Implement Company and Contact lookup.

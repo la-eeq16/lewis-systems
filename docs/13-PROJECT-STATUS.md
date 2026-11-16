@@ -1,13 +1,13 @@
 # ClientPilot Project Status
 
-**Document Version:** 3.1  
+**Document Version:** 3.2  
 **Product Version:** 0.3.0  
 **Status:** 🟢 Active Development  
 **Company:** Lewis Systems  
 **Product:** ClientPilot  
 **Author:** La-eeq Lewis  
 **Phase:** Phase 3 – MVP Implementation  
-**Last Updated:** 05 August 2026
+**Last Updated:** 16 November 2026
 
 ---
 
@@ -31,7 +31,7 @@ All development follows the Lewis Systems engineering lifecycle:
 
 ### Current Module
 
-Module 3 – n8n Workflow Automation
+Module 3 – Workflow Automation
 
 ### Module Status
 
@@ -39,7 +39,7 @@ Module 3 – n8n Workflow Automation
 | -------------------------------------- | ---------- |
 | Module 1 – CRM Database                | ✅ Complete |
 | Module 2 – Google Forms Client Intake  | ✅ Complete |
-| Module 3 – n8n Workflow Automation     | 🚧 Current |
+| Module 3 – Workflow Automation     | 🚧 Current |
 | Module 4 – OpenAI Qualification Engine | ⏳ Pending  |
 | Module 5 – Slack Integration           | ⏳ Pending  |
 | Module 6 – Calendly Integration        | ⏳ Pending  |
@@ -49,26 +49,32 @@ Module 3 – n8n Workflow Automation
 
 # Current Sprint
 
-Sprint 2 – n8n Workflow Automation
+Sprint 2 – Workflow Automation
 
 ### Sprint Goal
 
-Design and implement the ClientPilot automation workflow using n8n.
+Design and implement the ClientPilot automation workflow. For the MVP the workflow runs on Make; a migration to n8n is planned once the platform matures (ADR-004).
 
-This module will connect Google Forms, Airtable, and future integrations into a unified automation pipeline.
+This module connects Google Forms, Google Sheets, Airtable and Gmail into a unified pipeline, with AI, Slack and Calendly to follow.
 
 ### Sprint Tasks
 
-- 🚧 Design n8n workflow architecture
-- ⏳ Configure Google Forms trigger
-- ⏳ Connect Airtable CRM
-- ⏳ Create company lookup
-- ⏳ Create contact lookup
-- ⏳ Create lead creation workflow
-- ⏳ Prepare OpenAI node
-- ⏳ Configure Slack notifications
-- ⏳ Test automation
-- ⏳ Update documentation
+- ✅ Design workflow architecture (WF-001A / WF-001B)
+- ✅ Configure Google Sheets trigger
+- ✅ Connect Airtable CRM
+- ✅ Company lookup
+- ✅ Contact lookup
+- ✅ Lead creation workflow
+- ✅ Rule-based qualification scoring
+- ✅ Booking and follow-up emails
+- ✅ Workflow and activity logging, retry handling
+- ⏳ Administrator alert on failed workflows
+- ⏳ Settings-driven qualification threshold
+- ⏳ OpenAI evaluation (Module 4)
+- ⏳ Slack notifications (Module 5)
+- ⏳ Calendly integration (Module 6)
+- ⏳ Export Make blueprints to the repository
+- 🚧 Update documentation
 - ⏳ Git Commit
 - ⏳ Git Push
 
@@ -177,13 +183,33 @@ This module will connect Google Forms, Airtable, and future integrations into a 
 
 ---
 
+## 🚧 Milestone 4 – Workflow Automation (WF-001 on Make)
+
+### Completed
+
+- WF-001A Client Intake
+- WF-001B Lead Qualification (rule-based)
+- Booking email, follow-up email and consultation meeting creation
+- Workflow Logs, Activities and retry handling
+
+### Documentation
+
+- WF-001 Make implementation document
+- ADR-004 – Make as the MVP automation platform
+
+**Status**
+
+🚧 In Progress
+
+---
+
 # Current Version
 
 | Item | Value |
 |------|-------|
 | Repository Version | v0.3.0 |
 | Project Status | Phase 3 – MVP Implementation |
-| Current Module | Module 3 – n8n Workflow Automation |
+| Current Module | Module 3 – Workflow Automation |
 
 ---
 
@@ -229,7 +255,7 @@ Every module must satisfy the following requirements before completion.
 
 Development will continue in the following order.
 
-1. Module 3 – n8n Workflow Automation
+1. Module 3 – Workflow Automation
 2. Module 4 – OpenAI Qualification Engine
 3. Module 5 – Slack Integration
 4. Module 6 – Calendly Integration
@@ -243,7 +269,7 @@ Development will continue in the following order.
 
 - Integrate Google Forms
 - Integrate Airtable
-- Integrate n8n
+- Integrate Make (n8n planned)
 - Integrate OpenAI
 - Integrate Slack
 - Integrate Calendly
@@ -296,7 +322,7 @@ All operational tables include:
 
 The Google Forms module has been completed and approved.
 
-The next stage of development focuses on building the automation layer using n8n. This module will connect Google Forms, Airtable, OpenAI, Slack, and Calendly into a complete client intake workflow.
+WF-001 is built on Make for the MVP. Remaining work in this module connects OpenAI, Slack and Calendly and adds administrator alerts.
 
 The completed Google Forms module now serves as the primary entry point into the ClientPilot MVP.
 
@@ -310,16 +336,11 @@ Module 3 will transform the completed CRM database and Google Forms client intak
 
 ## Objective
 
-Begin Module 3 – n8n Workflow Automation.
+Complete Module 3 and prepare Module 4.
 
 ### Expected Outcome
 
-- n8n workflow designed
-- Google Forms trigger configured
-- Airtable connected
-- Company lookup implemented
-- Contact lookup implemented
-- Lead creation implemented
-- Documentation updated
-- Git commit completed
-- Git push completed
+- Administrator alert implemented
+- Qualification threshold read from Settings
+- Make blueprints exported to `workflows/make/`
+- Documentation committed and pushed
