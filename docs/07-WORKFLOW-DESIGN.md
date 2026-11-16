@@ -1,449 +1,218 @@
 # ClientPilot Workflow Design
 
-Document Version: 1.1
-
-Product Version: 0.3.0
-
-Status: Active
-
-Company: Lewis Systems
-
-Product: ClientPilot
-
-Author: La-eeq Lewis
-
-Last Updated: 16 November 2026
+**Document Version:** 1.2  
+**Product Version:** 0.3.0  
+**Status:** Active – MVP Implementation  
+**Company:** Lewis Systems  
+**Product:** ClientPilot  
+**Author:** La-eeq Lewis  
+**Last Updated:** 16 November 2026
 
 ---
 
-# 1. Purpose
+## 1. Purpose
 
-This document defines the business workflows that power ClientPilot.
+This document defines ClientPilot's business workflows independently of a specific automation platform. It describes triggers, inputs, process steps, decisions, outputs, data changes, and failure expectations.
 
-Each workflow describes the business process, the participating business engines, the data exchanged, and the expected outcome.
+Make is the current MVP implementation platform. Scenario-specific module mappings and exported blueprints belong in the Module 3 implementation documentation.
 
-The workflows are implementation-independent and serve as the blueprint for automation.
+## 2. Workflow Principles
 
----
+Every workflow should:
 
-# 2. Workflow Principles
-
-All ClientPilot workflows must:
-
-- Start with a business event.
-- Follow a defined sequence of activities.
-- Use modular business engines.
-- Log important events.
-- Handle failures gracefully.
-- Support multi-tenancy.
-- Be documented before implementation.
-
----
-
-# 3. Workflow Catalogue
-
-| Workflow ID | Name | Status |
-|--------------|--------------------------------------|-----------|
-| WF-001 | Client Intake & Qualification | Active (implemented on Make as WF-001A and WF-001B) |
-| WF-002 | Consultation Booking | Planned |
-| WF-003 | AI Meeting Preparation | Planned |
-| WF-004 | Lead Follow-up | Planned |
-| WF-005 | Lead Nurturing | Planned |
-| WF-006 | Client Onboarding | Planned |
-| WF-007 | Reporting & Analytics | Planned |
-| WF-008 | Administration | Planned |
-
----
-
-# 4. Workflow WF-001 – Client Intake & Qualification
-
-## Purpose
-
-To automate the journey from a new client enquiry to a qualified consultation.
-
----
-
-## Business Trigger
-
-A prospective client submits an enquiry.
-
----
-
-## Workflow Overview
-
-```
-
-Prospective Client
-        │
-        ▼
-Intake Engine
-        │
-        ▼
-Lead Created
-        │
-        ▼
-Qualification Engine
-        │
-        ▼
-AI Decision Engine
-        │
-        ▼
-Qualification Result
-        │
-        ▼
-Decision
-        │
- ┌──────┴──────────────┐
- │                     │
- ▼                     ▼
-
-Qualified         Not Qualified
-
- │                     │
-
- ▼                     ▼
-
-Scheduling      Communication
-
- │                     │
-
- ▼                     ▼
-
-CRM Update       CRM Update
-
- │
-
- ▼
-
-Slack Notification
-
- │
-
- ▼
-
-AI Meeting Summary
-
- │
-
- ▼
-
-Workflow Complete
-
-```
-
----
-
-# 5. Workflow Steps
-
-## Step 1
-
-### Business Engine
-
-Intake Engine
-
-### Action
-
-Receive a client enquiry.
-
-### Input
-
-- Client submission
-
-### Output
-
-- New Lead
-
----
-
-## Step 2
-
-### Business Engine
-
-CRM Engine
-
-### Action
-
-Create a Lead record.
-
-### Output
-
-- Lead ID
-- Organization ID
-
----
-
-## Step 3
-
-### Business Engine
-
-Qualification Engine
-
-### Action
-
-Validate the submission.
-
-Checks include:
-
-- Required fields
-- Industry
-- Revenue
-- Budget
-- Services Requested
-- Decision Maker
-
----
-
-## Step 4
-
-### Business Engine
-
-AI Decision Engine
-
-### Action
-
-Evaluate the lead.
-
-Outputs:
-
-- Qualification Score
-- AI Recommendation
-- Qualification Reason
-- Confidence Score
-
----
-
-## Step 5
-
-### Business Engine
-
-Qualification Engine
-
-### Decision
-
-What is the qualification result?
-
-If **Qualified**:
-
-Proceed to consultation booking.
-
-If **Not Qualified**:
-
-Proceed to follow-up communication.
-
-If **Review Required** (score between the two thresholds):
-
-No email or meeting is created. Staff review the lead manually.
-
----
-
-## Step 6A – Qualified Lead
-
-### Business Engine
-
-Scheduling Engine
-
-### Action
-
-Provide a consultation booking link.
-
----
-
-## Step 7A
-
-### Business Engine
-
-CRM Engine
-
-### Update
-
-Lead Status:
-
-Qualified
-
-Meeting Status:
-
-Awaiting Booking
-
----
-
-## Step 8A
-
-### Business Engine
-
-Communication Engine
-
-### Actions
-
-- Send confirmation email
-- Notify staff
-- Record activity
-
----
-
-## Step 9A
-
-### Business Engine
-
-AI Decision Engine
-
-### Action
-
-Generate a meeting preparation summary.
-
-Outputs:
-
-- Executive Summary
-- Client Background
-- Recommended Services
-- Risks
-- Suggested Questions
-
----
-
-## Step 10A
-
-Workflow Complete
-
----
-
-## Step 6B – Not Qualified Lead
-
-### Business Engine
-
-Communication Engine
-
-### Action
-
-Send a polite follow-up email.
-
----
-
-## Step 7B
-
-### Business Engine
-
-CRM Engine
-
-### Update
-
-Lead Status:
-
-Not Qualified
-
----
-
-## Step 8B
-
-Workflow Complete
-
----
-
-# 5A. Implementation (MVP – Make)
-
-WF-001 is implemented as two Make scenarios. This section is the mapping between the design above and the build. Full detail is in `docs/modules/module-03-n8n/WF-001-MAKE-IMPLEMENTATION.md`.
-
-| Step | Implemented in |
-|---|---|
-| 1–2 Receive enquiry, create Lead | WF-001A – Client Intake (Google Sheets trigger) |
-| 3 Validate | WF-001A – checks required fields, valid email format, industry, consent |
-| 4 AI decision | WF-001B – **rule-based scoring in v1**; AI evaluation planned (Module 4) |
-| 5 Decision | WF-001B – Qualified ≥ 64, Review Required 40–63, Not Qualified < 40 |
-| 6A–7A Booking link, Lead and Meeting status | WF-001B – booking link from Settings; Meeting created as *Awaiting Booking* |
-| 8A Confirmation email, activity | WF-001B – Gmail; Activity "Email Sent". **Slack staff notification planned (Module 5)** |
-| 9A AI meeting summary | Planned (Module 4) |
-| 6B–7B Follow-up email, Lead Status | WF-001B – Gmail; Lead Status *Not Qualified* |
-
-Differences from the design:
-
-- The validation list includes **Budget** and **Decision Maker**, but the MVP form does not collect them. Budget scores 0.
-- Industry is validated but does not affect the score in v1.
-- Email content and booking link come from the Settings table and must describe the **client firm**, not Lewis Systems.
-
----
-
-# 6. Error Handling
-
-The workflow must handle:
-
-- Missing required information
-- AI service unavailable
-- CRM unavailable
-- Scheduling unavailable
-- Communication failure
-
-For each error:
-
-- Record the event.
-- Retry where appropriate.
-- Notify administrators if retries fail.
-- Preserve workflow state.
-
----
-
-# 7. Activity Logging
-
-The following events should be logged:
-
-- Lead Submitted
-- Lead Created
-- Qualification Completed
-- AI Evaluation Completed
-- CRM Updated
-- Meeting Scheduled
-- Email Sent
-- Slack Notification Sent
-- Workflow Completed
-
----
-
-# 8. Workflow Metrics
-
-Monitor:
-
-- Workflow execution time
-- Qualification accuracy
-- Booking conversion rate
-- AI response time
-- Workflow failures
-- Retry frequency
-
----
-
-# 9. Future Workflows
-
-Future versions of ClientPilot will include:
-
-- Proposal Generation
-- Client Onboarding
-- Document Collection
-- Invoice Automation
-- Annual Client Reviews
-- Tax Deadline Reminders
-- WhatsApp Communication
-- Voice AI Receptionist
-
----
-
-# 10. Workflow Standards
-
-Every ClientPilot workflow must:
-
-- Have a unique Workflow ID.
-- Be version controlled.
-- Be documented before implementation.
+- Have a clear business trigger and outcome.
+- Validate input before creating downstream records.
+- Maintain correct relationships between CRM records.
+- Avoid unintended duplicate side effects.
+- Record important events and execution failures.
+- Define safe retry and manual recovery behaviour.
+- Protect customer data and credentials.
 - Be independently testable.
-- Support multi-tenancy.
-- Log important business events.
-- Follow Lewis Systems Development Standards.
+- Remain portable across workflow platforms where practical.
+
+## 3. Workflow Catalogue
+
+| ID | Workflow | Purpose | Status |
+| --- | --- | --- | --- |
+| WF-001A | Client Intake | Validate enquiry and create/update CRM records | Recorded as built and tested on Make; exports/evidence outstanding |
+| WF-001B | Lead Qualification | Score a lead and store its qualification outcome | Recorded as built and tested on Make; exports/evidence outstanding |
+| WF-002 | Consultation Booking | Receive and synchronise booking events | Planned |
+| WF-003 | AI Meeting Preparation | Generate a consultation brief | Planned |
+| WF-004 | Lead Follow-up | Manage follow-up tasks and messages | Planned |
+| WF-005 | Lead Nurturing | Manage longer-term prospect communication | Planned |
+| WF-006 | Client Onboarding | Convert an accepted prospect into an onboarded client | Planned |
+| WF-007 | Reporting and Analytics | Measure pipeline and workflow performance | Planned |
+| WF-008 | Administration | Manage configuration and operational controls | Planned |
+
+WF-001A and WF-001B together form the initial WF-001 intake-to-qualification process.
+
+## 4. WF-001A – Client Intake
+
+### Trigger
+
+A prospective client submits the Google Form and a new response becomes available to the workflow.
+
+### Inputs
+
+The form's configured business and contact fields, including company details, contact details, service requirements, revenue, employee count, urgency, and other required validation fields.
+
+The exact live form schema is authoritative for implementation mapping and must be maintained in the implementation record.
+
+### Business process
+
+1. Receive the new response.
+2. Map response values into standardised workflow variables.
+3. Validate required fields and applicable formats.
+4. If required information is invalid or missing, stop record creation and record/route the validation outcome.
+5. Search Airtable Companies using the approved company matching rule.
+6. If the company exists, update it; otherwise create it.
+7. Search Airtable Contacts using the approved contact matching rule and company relationship.
+8. If the contact exists, update it; otherwise create it.
+9. Create a Lead linked to the correct Company and primary Contact.
+10. Record the processing result and make the new Lead available for qualification.
+
+### Company/contact outcomes
+
+| Company | Contact | Expected action |
+| --- | --- | --- |
+| Found | Found | Update Company; update Contact; create Lead |
+| Found | Not found | Update Company; create Contact; create Lead |
+| Not found | Not found | Create Company; create Contact; create Lead |
+| Not found | Found | Treat as an exception: verify the contact's company association before creating or linking records |
+
+The fourth case must not silently attach a contact to an unrelated company. The matching logic and exception route should be documented and tested.
+
+### Outputs
+
+- Company record ID.
+- Contact record ID.
+- Lead record ID.
+- Validation and processing outcome.
+- Workflow execution trace where configured.
+
+## 5. WF-001B – Rule-Based Lead Qualification
+
+### Trigger
+
+A newly created or eligible Lead is detected by the qualification scenario.
+
+### Inputs
+
+The lead's mapped revenue, services requested, urgency, employee count, and any other fields required by the approved scoring rules.
+
+### Business process
+
+1. Retrieve the Lead record.
+2. Validate that the scoring inputs are available and usable.
+3. Calculate the Revenue Score.
+4. Calculate the Service Score.
+5. Calculate the Urgency Score.
+6. Calculate the Employee Score.
+7. Set Budget Score to zero in the current documented MVP because the form does not collect budget.
+8. Calculate the total Qualification Score.
+9. Determine the qualification outcome using the approved thresholds.
+10. Update the Lead with the score, status, reason, and qualification date.
+11. Create or update the related Qualification record.
+12. For Qualified leads, perform the configured booking-link hand-off and relevant email/activity steps where enabled.
+13. For Not Qualified leads, perform the configured follow-up email/activity steps where enabled.
+14. For Review Required leads, retain the lead for staff review; do not automatically treat it as booked or rejected.
+15. Record the workflow outcome and any error requiring recovery.
+
+### Documented score outcome bands
+
+| Total score | Outcome |
+| --- | --- |
+| 64–100 | Qualified |
+| 40–63 | Review Required |
+| 0–39 | Not Qualified |
+
+The architecture records the current scoring components as revenue (0/10/20/30), service (25/20/15/10/5), urgency (15/11/7/3), employee count (2/4/6/8/10), and budget (0). The exact category-to-points mapping and missing-value rules must be confirmed from the live Make scenario before these values are treated as final. The maximum possible score and score boundaries must be tested.
+
+### Outputs
+
+- Total qualification score.
+- Qualification status.
+- Qualification reason.
+- Qualification record linked to the Lead.
+- Relevant email / booking-link hand-off outcome, if enabled.
+- Workflow execution result.
+
+## 6. Qualification Decision Behaviour
+
+- **Qualified:** eligible for the firm's configured consultation booking hand-off.
+- **Review Required:** retained for manual review; no automatic approval or rejection.
+- **Not Qualified:** handled according to the firm's configured follow-up policy.
+
+A booking link being sent does not mean a meeting has been booked. A Meeting record with status Awaiting Booking is not a confirmed appointment.
+
+## 7. Data and Field Mapping
+
+The authoritative logical data definitions are in [05-DATA-MODEL.md](05-DATA-MODEL.md). The live Airtable base and Google Form determine exact field names and select-option values.
+
+Key relationships:
+
+- Lead → Company (one linked Company).
+- Lead → primary Contact (one linked Contact).
+- Qualification → Lead (one linked Lead).
+- Meeting → Lead (one linked Lead, when a meeting record is created).
+- Activity / Workflow Log → relevant Lead where applicable.
+
+The implementation record must document source field, destination field, transformation, default, validation, and error behaviour for each mapping.
+
+## 8. Error Handling and Recovery Requirements
+
+| Failure | Required behaviour |
+| --- | --- |
+| Missing or invalid required intake data | Stop downstream record creation; record validation result |
+| Company or contact search returns multiple matches | Do not guess; route for manual resolution |
+| Airtable unavailable | Preserve execution context; retry safely where appropriate |
+| Create/update step fails | Prevent duplicate follow-on actions; record failure |
+| Qualification input missing | Do not invent a score; mark for review or error handling |
+| Email send fails | Record failure and provide a safe manual retry path |
+| Scenario is retried | Prevent duplicate leads, activities, emails, or qualification records where possible |
+
+The exact Make error handlers and retry settings must be confirmed in the exported blueprint and live scenario.
+
+## 9. Activity and Workflow Logging
+
+Events that should be recorded include:
+
+- Lead Submitted.
+- Company Created / Updated.
+- Contact Created / Updated.
+- Lead Created.
+- Qualification Completed.
+- Lead Updated.
+- Booking Link Sent.
+- Email Sent.
+- Workflow Failed.
+- Workflow Recovered.
+
+Each log should include a timestamp and relevant record reference. Avoid storing secrets or unnecessary personal information in logs.
+
+## 10. Implementation Record
+
+The current Make implementation details should be maintained in a dedicated Module 3 implementation area. The existing reference to `docs/modules/module-03-n8n/WF-001-MAKE-IMPLEMENTATION.md` is a legacy/missing path and must not be treated as a valid current implementation document.
+
+Required Module 3 implementation artefacts:
+
+- WF-001A Make scenario description and field mapping.
+- WF-001B Make scenario description and scoring mapping.
+- Sanitised Make blueprint exports.
+- Test cases and observed results.
+- Error handling and recovery notes.
+- Change history for scenario updates.
+
+Do not commit Make credentials, access tokens, real customer data, or sensitive connection metadata.
+
+## 11. Future Workflows
+
+WF-002 consultation booking synchronisation, WF-003 AI meeting preparation, notifications, lead nurturing, onboarding, analytics, and administration remain future workflow areas until separately designed, implemented, and tested.
+
+## 12. Definition of Workflow Completion
+
+A workflow is complete only when its trigger, inputs, logic, data mappings, normal paths, exception paths, retry behaviour, outputs, and tests are documented and verified against the deployed implementation. A design document or scenario outline alone is not evidence of completion.
 
 ---
 
-# 11. Current Status
-
-Phase
-
-Phase 3 – MVP Implementation
-
-Status
-
-🟢 Active Development – WF-001 built and tested on Make
+© Lewis Systems. All rights reserved.

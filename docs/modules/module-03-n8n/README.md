@@ -1,189 +1,44 @@
-# Module 3 – n8n Workflow Automation
+# Legacy Module 3 – Earlier n8n Workflow Automation Design
 
-**Module:** 03 – n8n Workflow Automation
+<badge>LEGACY – NOT THE CURRENT MVP PLATFORM</badge>
 
-**Document Version:** 1.0
+**Document Version:** 1.1  
+**Product Version:** 0.3.0  
+**Status:** Archived reference  
+**Last Updated:** 16 November 2026
 
-**Product Version:** 0.3.0
+## 1. Legacy notice
 
-**Status:** 🚧 In Progress
+This directory contains earlier n8n-oriented design documents and workflow artefacts. It is retained for historical reference and must not be interpreted as the current ClientPilot implementation.
 
-**Company:** Lewis Systems
+**Make is the selected automation platform for the current MVP.** The canonical, platform-neutral Module 3 documentation is now located at [docs/modules/module-03-workflow-automation/README.md](../module-03-workflow-automation/README.md).
 
-**Product:** ClientPilot
+## 2. How to use this directory
 
-**Author:** La-eeq Lewis
+- Treat documents here as historical design inputs, not verified current specifications.
+- Do not assume an n8n workflow is deployed or active.
+- Review and selectively reuse useful concepts only after comparing them with the canonical workflow requirements.
+- Do not use legacy n8n JSON exports as production workflows without inspection, sanitisation, and testing.
+- Keep current Make implementation records in the canonical Module 3 directory.
 
-**Phase:** Phase 3 – MVP Implementation
+## 3. Current references
 
-**Last Updated:** 05 August 2026
+- [Canonical Module 3](../module-03-workflow-automation/README.md)
+- [Workflow Architecture](../module-03-workflow-automation/WORKFLOW-ARCHITECTURE.md)
+- [Workflow Specifications](../module-03-workflow-automation/WORKFLOW-SPECIFICATIONS.md)
+- [Field Mapping](../module-03-workflow-automation/FIELD-MAPPING.md)
+- [Make WF-001A](../module-03-workflow-automation/make/WF-001A-CLIENT-INTAKE.md)
+- [Make WF-001B](../module-03-workflow-automation/make/WF-001B-LEAD-QUALIFICATION.md)
+- [n8n Future Migration Plan](../module-03-workflow-automation/n8n/MIGRATION-PLAN.md)
 
----
+## 4. Legacy artefact handling
 
-# 1. Purpose
-
-This module implements the automation layer of ClientPilot using n8n.
-
-The workflow automates the processing of client enquiries received through Google Forms, synchronises data with Airtable, performs AI-powered lead qualification, and triggers notifications and scheduling workflows.
-
-The automation layer serves as the central orchestration engine connecting all external services used by ClientPilot.
-
----
-
-# 2. Overview
-
-The n8n Workflow Automation module coordinates the complete client intake process by integrating:
-
-- Google Forms
-- Google Sheets
-- Airtable
-- OpenAI
-- Slack
-- Calendly
-
-The workflow transforms manual client intake into a fully automated process while maintaining data integrity, traceability, and scalability.
-
----
-
-# 3. Objectives
-
-This module aims to:
-
-- Automate client intake.
-- Validate incoming enquiries.
-- Synchronise data with the CRM.
-- Prevent duplicate company and contact records.
-- Create new lead records.
-- Prepare leads for AI qualification.
-- Notify internal staff.
-- Support consultation scheduling.
-- Maintain workflow execution logs.
-
----
-
-# 4. Scope
-
-The module includes:
-
-- Google Sheets trigger
-- Data validation
-- Company lookup
-- Contact lookup
-- Lead creation
-- AI qualification preparation
-- Slack notifications
-- Calendly preparation
-- Error handling
-- Workflow logging
-
----
-
-# 5. Technology Stack
-
-## Automation Platform
-
-- n8n
-
-## Integrated Services
-
-- Google Forms
-- Google Sheets
-- Airtable
-- OpenAI
-- Slack
-- Calendly
-
----
-
-# 6. Workflow Architecture
-
-The automation layer is divided into multiple workflows.
-
-| Workflow | Purpose |
-|----------|---------|
-| Workflow 1 | Client Intake |
-| Workflow 2 | CRM Processing |
-| Workflow 3 | AI Qualification |
-| Workflow 4 | Notifications |
-| Workflow 5 | Scheduling |
-
-This modular architecture improves maintainability, testing, and scalability.
-
----
-
-# 7. Dependencies
-
-This module depends on:
-
-- Module 1 – CRM Database
-- Module 2 – Google Forms Client Intake
-
-Future modules depending on this implementation include:
-
-- Module 4 – OpenAI Qualification Engine
-- Module 5 – Slack Integration
-- Module 6 – Calendly Integration
-- Module 7 – End-to-End MVP Testing
-
----
-
-# 8. Module Deliverables
-
-The completed module will include:
-
-- Workflow Architecture
-- Node Specifications
-- Field Mapping
-- Workflow JSON exports
-- QA Report
-- Implementation Notes
-
----
-
-# 9. Module Status
-
-| Deliverable | Status |
-|-------------|--------|
-| README | ✅ Complete |
-| Workflow Specification | ⏳ Pending |
-| Workflow Architecture | ⏳ Pending |
-| Node Specifications | ⏳ Pending |
-| Field Mapping | ⏳ Pending |
-| Implementation Plan | ⏳ Pending |
-| QA Report | ⏳ Pending |
-| Implementation Notes | ⏳ Pending |
-| n8n Workflow | ⏳ Pending |
-
----
-
-# 10. Expected Outcome
-
-When complete, this module will provide a fully automated client intake pipeline capable of:
-
-- Receiving Google Form submissions.
-- Processing client information.
-- Updating the Airtable CRM.
-- Preparing AI lead qualification.
-- Sending notifications.
-- Initiating consultation scheduling.
-
----
-
-# 11. Next Document
-
-The next document in this module is:
-
-**SPECIFICATION.md**
-
-This document defines the technical requirements, workflow standards, integration rules, and implementation approach for the ClientPilot automation layer.
-
----
-
-# Revision History
-
-| Version | Date | Description |
-|---------|------|-------------|
-| 1.0 | 05 August 2026 | Initial n8n Workflow Automation README. |
+Before reusing any workflow JSON or technical note:
+1. Inspect its nodes, credentials references, IDs, and active state.
+2. Confirm whether it contains environment-specific identifiers or personal data.
+3. Compare its behaviour with the current platform-independent specification.
+4. Sanitise and test it in a non-production environment.
+5. Record any adopted implementation in the canonical Module 3 documentation.
 
 ---
 
