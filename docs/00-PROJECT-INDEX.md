@@ -1,8 +1,8 @@
 # ClientPilot Project Documentation Index
 
-**Document Version:** 3.1  
+**Document Version:** 3.2  
 **Product Version:** 0.3.0  
-**Status:** 🚧 Active Development  
+**Status:** Active Development  
 **Company:** Lewis Systems  
 **Product:** ClientPilot  
 **Author:** La-eeq Lewis  
@@ -12,171 +12,114 @@
 
 ## 1. Purpose
 
-This document serves as the master index for all ClientPilot engineering documentation.
+This index is the navigation and governance entry point for ClientPilot's engineering documentation. It identifies the purpose and current state of each document and points contributors to the appropriate implementation records.
 
-It provides a central navigation point for the project's documentation suite and ensures every engineering document is maintained, version controlled, and easily accessible throughout the software development lifecycle.
+The index describes the documentation that exists in the repository. A listed document must not be treated as complete merely because a file has been created.
 
-The documentation suite supports the Lewis Systems documentation-first engineering methodology.
+## 2. Core project documents
 
----
+| No. | Document | Purpose | Current state |
+| :-: | --- | --- | --- |
+| 00 | [Project Index](00-PROJECT-INDEX.md) | Documentation navigation and governance | Maintained |
+| 01 | [Master Project](01-MASTER-PROJECT.md) | Company, product, strategy, and project overview | Maintained |
+| 02 | [Product Requirements](02-PRODUCT-REQUIREMENTS.md) | Product scope, users, requirements, and outcomes | Existing; review for alignment |
+| 03 | [Business Requirements](03-BUSINESS-REQUIREMENTS.md) | Business problem, objectives, and requirements | Existing; review for alignment |
+| 04 | [System Architecture](04-SYSTEM-ARCHITECTURE.md) | System components, boundaries, and integrations | Updated for Make MVP |
+| 05 | [Data Model](05-DATA-MODEL.md) | CRM entities, fields, and relationships | Existing; review against Airtable |
+| 06 | [Development Standards](06-DEVELOPMENT-STANDARDS.md) | Engineering and documentation practices | Existing; review |
+| 07 | [Workflow Design](07-WORKFLOW-DESIGN.md) | Platform-independent workflow behaviour and Make mapping | Updated for Make MVP |
+| 08 | [AI Prompts](08-AI-PROMPTS.md) | Prompt inventory and prompt standards | Existing; review |
+| 09 | [API Integrations](09-API-INTEGRATIONS.md) | External service integration specifications | Existing; completeness to verify |
+| 10 | [Testing](10-TESTING.md) | Test strategy, cases, and QA evidence | Existing; evidence to verify |
+| 11 | [Roadmap](11-ROADMAP.md) | Planned milestones and sequencing | Existing; align with status |
+| 12 | [Changelog](12-CHANGELOG.md) | Project change history | Maintained |
+| 13 | [Project Status](13-PROJECT-STATUS.md) | Current milestones, sprint, and blockers | Maintained |
 
-## 2. Documentation Suite
+## 3. Supporting documentation
 
-| No. | Document                 | Purpose                                                               |     Status     |
-| :-: | ------------------------ | --------------------------------------------------------------------- | :------------: |
-| 00  | PROJECT-INDEX.md         | Documentation index and navigation                                    |   ✅ Active    |
-| 01  | MASTER-PROJECT.md        | Project overview, development status, and repository information      |   ✅ Active    |
-| 02  | PRODUCT-REQUIREMENTS.md  | Product Requirements Specification (PRD)                              |   ✅ Active    |
-| 03  | BUSINESS-REQUIREMENTS.md | Business Requirements Specification (BRD)                             |   ✅ Active    |
-| 04  | SYSTEM-ARCHITECTURE.md   | System architecture and technical design                              |   ✅ Active    |
-| 05  | DATA-MODEL.md            | Business data model and CRM entity relationships                      |   ✅ Active    |
-| 06  | DEVELOPMENT-STANDARDS.md | Development standards, coding practices, and documentation guidelines |   ✅ Active    |
-| 07  | WORKFLOW-DESIGN.md       | Business workflows and automation design                              |   ✅ Active    |
-| 08  | AI-PROMPTS.md            | AI prompt library and prompt engineering standards                    |   ✅ Active    |
-| 09  | API-INTEGRATIONS.md      | External API integrations and API specifications                      |   ✅ Active    |
-| 10  | TESTING.md               | Testing strategy, QA procedures, and validation standards             |   ✅ Active    |
-| 11  | ROADMAP.md               | Product roadmap and development milestones                            |   ✅ Active    |
-| 12  | CHANGELOG.md             | Version history and release notes                                     |   ✅ Active    |
-| 13  | PROJECT-STATUS.md        | Live project progress, milestones, and implementation tracking        |   ✅ Active    |
-| 14  | CONTRIBUTING.md          | Contribution guidelines                                               | ⏳ Placeholder |
-| 15  | CODING-STANDARDS.md      | Coding standards                                                      | ⏳ Placeholder |
-| 16  | SECURITY.md              | Security policy and practices                                         | ⏳ Placeholder |
-| 17  | DEPLOYMENT.md            | Deployment and environments                                           | ⏳ Placeholder |
-| 18  | DATABASE-STANDARDS.md    | Database standards                                                    | ⏳ Placeholder |
+| Location | Purpose | Current state |
+| --- | --- | --- |
+| `adr/` | Architecture Decision Records | ADR-004 records Make for the MVP |
+| `modules/module-01-crm-database/` | CRM implementation documentation | Existing; verify against Airtable |
+| `modules/module-02-google-forms/` | Intake form documentation | Existing; verify against live form |
+| `modules/module-03-n8n/` | Earlier n8n design and workflow artefacts, plus Make implementation notes | Legacy folder; restructure planned |
+| `api/` | Service-specific API notes | Completeness to verify |
+| `database/` | Airtable tables, sample data, and schema references | Completeness to verify |
+| `integrations/` | Integration-specific implementation notes | Completeness to verify |
+| `prompts/` | Prompt assets | Completeness to verify |
+| `scripts/` | Utility scripts | Completeness to verify |
+| `templates/` | Reusable documentation templates | Completeness to verify |
+| `assets/` | Branding, diagrams, and other assets | Completeness to verify |
+| `journal/2026/` | Development journal | Ongoing |
 
----
+## 4. Implementation modules
 
-## 3. Documentation Status
+| Module | Scope | Status |
+| --- | --- | --- |
+| 1 – CRM Database | Airtable CRM entities, relationships, views, and QA | Documented complete; live configuration should remain subject to periodic verification |
+| 2 – Google Forms Client Intake | Form, response capture, validation, and field mapping | Documented complete |
+| 3 – Workflow Automation | WF-001A intake and WF-001B rule-based qualification on Make | Current; in progress |
+| 4 – OpenAI Qualification | AI-assisted evaluation | Planned |
+| 5 – Slack Notifications | Internal notifications | Planned |
+| 6 – Calendly Integration | Booking workflow and synchronisation | Planned |
+| 7 – End-to-End MVP Testing | Integrated acceptance and regression testing | Planned |
 
-## Current Status
+## 5. Current automation decision
 
-| Category              | Status         |
-| --------------------- | -------------- |
-| Documentation Suite   | ✅ Complete    |
-| Engineering Standards | ✅ Complete    |
-| System Architecture   | ✅ Complete    |
-| CRM Data Model        | ✅ Complete    |
-| CRM Implementation    | ✅ Complete    |
-| Module Documentation  | 🚧 Active      |
-| MVP Development       | 🚧 In Progress |
+Make is the selected automation platform for the ClientPilot MVP. n8n is a possible future migration target. The workflow requirements, business rules, CRM data model, and expected outcomes should remain independent of the execution platform wherever practical.
 
----
+See [ADR-004 – Make as the MVP Automation Platform](adr/ADR-004-make-automation-platform.md).
 
-## Completed Documents
+The current Make scenarios are:
 
-- Master Project
-- Product Requirements
-- Business Requirements
-- System Architecture
-- Data Model
-- Development Standards
-- Workflow Design
-- AI Prompt Library
-- API Integrations
-- Testing Strategy
-- Product Roadmap
-- Changelog
-- Project Status
+- **WF-001A – Client Intake**
+- **WF-001B – Lead Qualification (rule-based)**
 
-The ClientPilot engineering documentation suite is complete and now supports active MVP implementation.
+The project records these scenarios as built and tested. Their exported Make blueprints and complete implementation evidence are not yet present in the repository and remain outstanding version-control deliverables.
 
----
+## 6. Documentation status definitions
 
-## 4. Current Implementation Modules
+| Status | Meaning |
+| --- | --- |
+| Maintained | Reviewed and used as a current project reference |
+| Existing; review | A document exists, but its completeness or alignment still needs review |
+| Planned | Work has not yet been completed |
+| Legacy | Retained for history or reference; not the current implementation |
+| Complete | Deliverable has been implemented and its required testing/evidence has been recorded |
 
-| Module                                            | Status         |
-| ------------------------------------------------- | -------------- |
-| Module 1 – CRM Database                           | ✅ Complete    |
-| Module 2 – Google Forms Client Intake             | ✅ Complete    |
-| Module 3 – Workflow Automation (Make for the MVP) | 🚧 In Progress |
-| Module 4 – OpenAI Qualification Engine            | ⏳ Pending     |
-| Module 5 – Slack Notifications                    | ⏳ Pending     |
-| Module 6 – Calendly Integration                   | ⏳ Pending     |
-| Module 7 – End-to-End MVP Testing                 | ⏳ Pending     |
+Do not use “complete” to describe empty placeholders, unverified configurations, or documents that only describe intended future behaviour.
 
----
+## 7. Engineering lifecycle
 
-## 5. Supporting Directories
-
-| Directory         | Purpose                                                                                           |
-| ----------------- | ------------------------------------------------------------------------------------------------- |
-| **adr/**          | Architecture Decision Records (ADR-001 to ADR-004)                                                |
-| **api/**          | API documentation                                                                                 |
-| **assets/**       | Branding, diagrams, screenshots, and project assets                                               |
-| **examples/**     | Example implementations and reference material                                                    |
-| **integrations/** | Third-party integration configurations                                                            |
-| **javascript/**   | JavaScript source code                                                                            |
-| **journal/**      | Development journal and engineering notes                                                         |
-| **prompts/**      | AI prompt specifications                                                                          |
-| **scripts/**      | Utility and automation scripts                                                                    |
-| **templates/**    | Reusable project templates                                                                        |
-| **testing/**      | Test assets and quality assurance resources                                                       |
-| **workflows/**    | Automation workflow assets (Make blueprints for the MVP; n8n workflows for the planned migration) |
-
----
-
-## 6. Documentation Governance
-
-ClientPilot follows the Lewis Systems documentation-first engineering methodology.
-
-Every implementation module follows the engineering lifecycle:
+Every implementation change follows this lifecycle:
 
 ```text
 Requirements
-      ↓
+    ↓
 Design
-      ↓
+    ↓
 Build
-      ↓
+    ↓
 Test
-      ↓
+    ↓
 Document
-      ↓
+    ↓
 Git Commit
-      ↓
+    ↓
 Git Push
 ```
 
-Documentation is considered a deliverable of every module.
+A module can be marked complete only when its scope, implementation, tests, documentation, and version-control records are consistent.
 
-No implementation is considered complete until:
+## 8. Repository governance
 
-- Requirements are approved
-- Documentation is updated
-- Testing is completed
-- Changes are committed to Git
-- Changes are pushed to GitHub
-
----
-
-## 7. Repository Standards
-
-All engineering documentation must:
-
-- Follow the Lewis Systems documentation standards.
-- Use Semantic Versioning.
-- Be updated when implementation changes.
-- Reference related documents where appropriate.
-- Maintain consistent formatting and terminology.
-
-The documentation suite remains the authoritative source for project architecture, implementation, and engineering decisions.
-
----
-
-## 8. Notes
-
-This document serves as the master navigation reference for the ClientPilot engineering documentation.
-
-All engineering documents should be referenced from this index to ensure consistency across the repository.
-
-As new implementation modules are completed, this index should be updated to reflect:
-
-- New documentation
-- Module completion
-- Version changes
-- Repository growth
-
-The documentation suite currently supports the active development of ClientPilot and will continue evolving alongside the platform.
+- Keep this index aligned with the actual repository tree.
+- Keep the Project Status document as the operational progress record.
+- Record significant technology and architecture choices as ADRs.
+- Record implementation details in the relevant module documentation.
+- Keep credentials, access tokens, private customer data, and environment-specific secrets out of Git.
+- Update document versions and revision history when material changes are made.
+- Identify placeholders explicitly and avoid describing them as finished deliverables.
 
 ---
 
