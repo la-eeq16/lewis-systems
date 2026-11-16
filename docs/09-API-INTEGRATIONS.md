@@ -1,446 +1,123 @@
-# ClientPilot API Integrations
+# ClientPilot API and External Integrations
 
-Document Version: 1.2
-
-Product Version: 0.3.0
-
-Status: Active
-
-Company: Lewis Systems
-
-Product: ClientPilot
-
-Author: La-eeq Lewis
-
-Last Updated: 16 November 2026
+**Document Version:** 1.3  
+**Product Version:** 0.3.0  
+**Status:** Active – MVP integrations  
+**Company:** Lewis Systems  
+**Product:** ClientPilot  
+**Author:** La-eeq Lewis  
+**Last Updated:** 16 November 2026
 
 ---
 
-# 1. Purpose
+## 1. Purpose
 
-This document defines all external systems and APIs integrated with ClientPilot.
+This document records the external services used by ClientPilot, their current MVP role, and their implementation status. A service being listed does not prove every planned endpoint or capability is implemented.
 
-Each integration describes its business purpose, authentication requirements, data flow, error handling, security considerations, and future improvements.
+## 2. Integration principles
 
----
+- Integrations must serve a defined business requirement.
+- Use secure, least-privilege authentication.
+- Validate inbound and outbound data.
+- Handle transient and permanent failures appropriately.
+- Prevent duplicate writes or messages on retries.
+- Protect customer and personal information.
+- Keep credentials out of source code and exported documentation.
 
-# 2. Integration Principles
+## 3. Integration catalogue
 
-All integrations must:
-
-- Solve a business need.
-- Be independently replaceable.
-- Use secure authentication.
-- Log important events.
-- Handle failures gracefully.
-- Protect customer data.
-- Support future scalability.
-
----
-
-# 3. Integration Catalogue
-
-| Integration ID | Service | Purpose | Status |
-|----------------|---------|---------|--------|
-| API-001 | Google Forms | Lead Capture | Current MVP |
+| ID | Service | Current role | Status |
+|---|---|---|---|
+| API-001 | Google Forms | Prospect intake form | Current MVP |
 | API-002 | Google Sheets | Form response capture | Current MVP |
-| API-003 | Make | Workflow automation and rule-based qualification | Current MVP |
-| API-004 | OpenAI | AI processing | Planned |
-| API-005 | Airtable | CRM database | Current MVP |
-| API-006 | Gmail | Prospect outcome emails | Documented in Make workflow record |
-| API-007 | Calendly | Booking-link hand-off | Current link hand-off; event sync planned |
-| API-008 | Slack | Internal notifications | Planned |
-| API-009 | n8n | Future workflow platform | Migration option only |
-
----
-
-# 4. API-001 — Google Forms
-
-## Business Purpose
-
-Collect enquiries from prospective clients.
-
----
-
-## Primary Functions
-
-- Receive lead information.
-- Validate required fields.
-- Submit data to ClientPilot.
-
----
-
-## Data Sent
-
-- Company Name
-- Contact Name
-- Email
-- Phone Number
-- Industry
-- Revenue
-- Services Required
-- Budget
-- Urgency
-- Additional Notes
-
----
-
-## Data Received
-
-Completed enquiry submission.
-
----
-
-## Authentication
-
-Public form submission.
-
----
-
-## Error Handling
-
-- Missing required fields.
-- Invalid email address.
-- Submission failure.
-
----
-
-## Security Considerations
-
-- HTTPS only.
-- Validate submitted data.
-- Minimize unnecessary personal information.
-
----
-
-# 5. API-003 — Make
-
-## Business Purpose
-
-Automate ClientPilot workflows. Make is the selected MVP workflow platform. n8n is a future migration option, not a current execution dependency.
-
----
-
-## Primary Functions
-
-- Receive new lead.
-- Trigger qualification workflow.
-- Connect external services.
-- Handle workflow orchestration.
-
----
-
-## Authentication
-
-API Keys / Credentials (depending on connected service).
-
----
-
-## Error Handling
-
-- Retry failed workflow steps.
-- Log workflow failures.
-- Notify administrators.
-
----
-
-## Security Considerations
-
-- Secure credentials.
-- Role-based access.
-- Workflow audit logging.
-
----
-
-# 6. API-004 — OpenAI
-
-## Business Purpose
-
-Provide AI-powered lead analysis and content generation.
-
----
-
-## Primary Functions
-
-- Lead qualification.
-- Meeting preparation.
-- Executive summaries.
-- Follow-up email generation.
-- Service recommendations.
-
----
-
-## Data Sent
-
-Lead information required for AI processing.
-
----
-
-## Data Received
-
-Structured AI response.
-
----
-
-## Authentication
-
-API Key.
-
----
-
-## Error Handling
-
-- API unavailable.
-- Timeout.
-- Invalid response.
-- Rate limit exceeded.
-
----
-
-## Security Considerations
-
-- Do not send unnecessary sensitive data.
-- Validate AI responses.
-- Store API keys securely.
-
----
-
-# 7. API-005 — Airtable
-
-## Business Purpose
-
-Store ClientPilot business data.
-
----
-
-## Primary Functions
-
-- Create leads.
-- Update lead status.
-- Store AI results.
-- Track workflow progress.
-
----
-
-## Data Sent
-
-Lead records and workflow updates.
-
----
-
-## Data Received
-
-Record IDs and database responses.
-
----
-
-## Authentication
-
-Personal Access Token.
-
----
-
-## Error Handling
-
-- Retry failed updates.
-- Log synchronization failures.
-- Preserve data consistency.
-
----
-
-## Security Considerations
-
-- Restrict database permissions.
-- Protect access tokens.
-- Backup important records.
-
----
-
-# 8. API-007 — Calendly
-
-## Business Purpose
-
-Allow qualified prospects to book consultations.
-
----
-
-## Primary Functions
-
-- Display available time slots.
-- Schedule meetings.
-- Confirm bookings.
-
----
-
-## Data Sent
-
-Qualified lead information.
-
----
-
-## Data Received
-
-Booking confirmation.
-
----
-
-## Authentication
-
-OAuth / API Token.
-
----
-
-## Error Handling
-
-- Scheduling conflicts.
-- Booking failure.
-- Service unavailable.
-
----
-
-## Security Considerations
-
-- Protect booking links.
-- Verify booking ownership.
-
----
-
-# 9. API-008 — Slack
-
-## Business Purpose
-
-Notify internal staff about important business events.
-
----
-
-## Primary Functions
-
-- Lead notifications.
-- Workflow alerts.
-- Error notifications.
-
----
-
-## Data Sent
-
-Notification messages.
-
----
-
-## Data Received
-
-Delivery confirmation (where available).
-
----
-
-## Authentication
-
-Slack App Token.
-
----
-
-## Error Handling
-
-- Retry failed notifications.
-- Log failures.
-
----
-
-## Security Considerations
-
-- Limit channel access.
-- Protect authentication tokens.
-
----
-
-# 10. Overall Data Flow
-
-Prospective Client
-
-↓
-
+| API-003 | Make | Workflow orchestration and rule-based qualification | Current MVP |
+| API-004 | Airtable | Operational CRM datastore | Current MVP |
+| API-005 | Gmail | Configured prospect outcome emails via Make | Recorded in workflow implementation note |
+| API-006 | Calendly | Booking-link hand-off | Link hand-off recorded; event synchronisation planned |
+| API-007 | OpenAI | AI-assisted qualification and meeting preparation | Planned |
+| API-008 | Slack | Internal workflow notifications | Planned |
+| API-009 | n8n | Possible future workflow platform | Migration option only |
+
+## 4. Current MVP data flow
+
+```text
+Prospective client
+    ↓
 Google Forms
+    ↓
+Google Sheets
+    ↓
+Make – WF-001A
+    ↓
+Airtable – Company / Contact / Lead
+    ↓
+Make – WF-001B (rule-based qualification)
+    ↓
+Airtable – Lead / Qualification outcome
+    ├── Configured Gmail outcome email
+    └── Calendly booking-link hand-off for Qualified leads
+```
 
-↓
+OpenAI and Slack are not part of the current rule-based qualification path. Calendly event synchronisation is not assumed to be implemented. Sending a booking link is not proof of a confirmed appointment.
 
-Make
+## 5. Service responsibilities
 
-↓
+### Google Forms and Google Sheets
+- Capture prospect and company information.
+- Preserve form responses as the source submission.
+- Validate required values downstream before CRM creation.
+- Restrict access to response data.
 
-OpenAI
+### Make
+- Execute WF-001A intake and WF-001B rule-based qualification.
+- Keep workflow logic documented in the canonical Module 3 directory.
+- Record failures and use safe retries where configured.
+- Store connection credentials in Make's secure connection manager.
+- Export sanitised scenario blueprints to `workflows/make/` after significant changes.
 
-↓
+### Airtable
+- Store Companies, Contacts, Leads, Qualifications, Meetings, Activities, Workflow Logs, and Settings.
+- Preserve linked-record integrity.
+- Restrict base access and protect personal data.
+- Verify field types, linked-record relationships, and select options before changing mappings.
 
-Airtable
+### Gmail
+The 03 November 2026 Make implementation note records a qualified-lead booking email and a not-qualified follow-up email using Make's `google-email` v4 Send an Email module. It records that sending is skipped when Email Notifications Enabled is false or the Contact has no email. Confirm the current live configuration and delivery behaviour separately.
 
-↓
+### Calendly
+- Provide the configured booking URL to eligible prospects.
+- Do not mark a Meeting confirmed solely because the URL was sent.
+- Booking-event synchronisation and automatic Meeting status updates remain planned.
 
-Decision
+### OpenAI (planned)
+- May provide a separate recommendation, summary, or assisted analysis.
+- Must not silently override deterministic qualification without an approved policy.
+- Requires prompt/version management, output validation, privacy review, and human-review rules.
 
-↓
+### Slack (planned)
+- Intended for internal workflow and failure notifications.
+- Avoid unnecessary personal data in messages.
+- Requires channel access controls and failure handling.
 
-Qualified?
+### n8n (future option)
+n8n is not a current execution dependency. Reconsider only when the migration plan's business and operational prerequisites are met.
 
-├── Yes → Calendly
-└── No → Follow-up Email
+## 6. Security and error handling
 
-↓
+- Never hard-code API keys, OAuth tokens, or personal access tokens.
+- Use provider-managed connections or approved secret storage.
+- Limit access to the minimum required permissions.
+- Avoid placing personal information in unnecessary workflow logs or notifications.
+- Retry only transient failures and guard against duplicate records or messages.
+- Document manual recovery for failures requiring human intervention.
 
-Slack Notification
+## 7. Authoritative implementation references
 
-↓
-
-Workflow Complete
+- [System Architecture](04-SYSTEM-ARCHITECTURE.md)
+- [Workflow Design](07-WORKFLOW-DESIGN.md)
+- [Module 3 – Workflow Automation](modules/module-03-workflow-automation/README.md)
+- [ADR-004 – Make for the MVP](adr/ADR-004-make-automation-platform.md)
 
 ---
 
-# 11. Common Error Handling
-
-All integrations should:
-
-- Detect failures.
-- Retry temporary failures.
-- Log all errors.
-- Notify administrators where appropriate.
-- Preserve business data.
-
----
-
-# 12. Security Standards
-
-All integrations must:
-
-- Use HTTPS.
-- Encrypt data in transit.
-- Protect API credentials.
-- Follow least-privilege access.
-- Rotate credentials periodically.
-- Never expose secrets in source code.
-
----
-
-# 13. Future Integrations
-
-Planned future integrations include:
-
-- Microsoft 365
-- Gmail
-- WhatsApp Business
-- Xero
-- QuickBooks
-- HubSpot
-- Microsoft Teams
-- Stripe
-- DocuSign
-
----
-
-# 14. Current Status
-
-Phase
-
-API Integration Design
-
-Status
-
-🟢 Active Development
+© Lewis Systems. All rights reserved.
