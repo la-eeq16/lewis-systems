@@ -1,433 +1,226 @@
 # ClientPilot System Architecture
 
-Document Version: 2.1
-
-Product Version: 0.3.0
-
-Status: Active
-
-Company: Lewis Systems
-
-Product: ClientPilot
-
-Author: La-eeq Lewis
-
-Last Updated: 16 November 2026
+**Document Version:** 2.2  
+**Product Version:** 0.3.0  
+**Status:** Active – MVP Development  
+**Company:** Lewis Systems  
+**Product:** ClientPilot  
+**Author:** La-eeq Lewis  
+**Last Updated:** 16 November 2026
 
 ---
 
-# 1. Purpose
+## 1. Purpose and Scope
 
-This document defines the high-level architecture of ClientPilot.
+This document describes ClientPilot's logical architecture, component responsibilities, data movement, technology choices, and current implementation boundaries.
 
-The architecture focuses on business capabilities rather than specific technologies.
+The architecture is expressed in business capabilities first. The MVP uses specific third-party tools, but workflow requirements and business rules should remain portable where practical.
 
-This approach allows Lewis Systems to replace or upgrade technologies without changing the overall platform design.
+## 2. Architecture Overview
 
----
+ClientPilot is organised into logical components:
 
-# 2. Architecture Philosophy
+1. **Intake:** receives and validates prospective-client information.
+2. **CRM and Data:** stores companies, contacts, leads, qualifications, meetings, activities, settings, and workflow logs.
+3. **Qualification:** applies deterministic business rules and produces a score and outcome.
+4. **Communication:** sends configured prospect emails and, in a later module, internal notifications.
+5. **Scheduling:** provides a booking hand-off and later synchronises booking events.
+6. **Workflow Orchestration:** coordinates component interactions and error handling.
+7. **Administration and Monitoring:** maintains customer-specific settings and operational visibility.
+8. **AI Services (planned):** adds assisted analysis and meeting preparation after the rule-based MVP is validated.
 
-ClientPilot is built as a collection of business engines.
+## 3. Logical Architecture
 
-Each engine has a single responsibility.
+```text
+Prospective Client
+       |
+       v
+Intake Form (Google Forms)
+       |
+       v
+Response Capture (Google Sheets)
+       |
+       v
+Workflow Orchestration (Make)
+       |
+       +----> Validate Submission
+       |
+       +----> CRM (Airtable)
+       |         |
+       |         +--> Find/Create Company
+       |         +--> Find/Create Contact
+       |         +--> Create Lead
+       |
+       +----> Rule-Based Qualification (Make)
+       |         |
+       |         +--> Calculate component scores
+       |         +--> Determine qualification outcome
+       |         +--> Update Lead / Qualification
+       |
+       +----> Communication (Gmail; configured email steps)
+       |
+       +----> Booking Hand-off (Calendly link)
+       |
+       +----> Activity / Workflow Logging (Airtable, where configured)
 
-Benefits:
+Planned extensions:
+- OpenAI-assisted analysis and meeting preparation
+- Slack internal notifications
+- Calendly booking-event synchronisation
+- Enhanced monitoring and administrator alerts
+```
 
-- Easier maintenance
-- Easier testing
-- Easier scaling
-- Better documentation
-- Technology independence
+## 4. Component Responsibilities and Technology
 
----
+| Component | Responsibility | MVP technology / state |
+| --- | --- | --- |
+| Intake | Capture prospect fields | Google Forms |
+| Response capture | Make submission data available | Google Sheets |
+| Orchestration | Run intake and qualification scenarios | Make |
+| CRM | Store linked business records | Airtable |
+| Qualification | Apply deterministic scoring rules | Make WF-001B |
+| Prospect communication | Send configured email | Gmail, as recorded in workflow design |
+| Booking hand-off | Provide firm's booking link | Calendly link; synchronisation planned |
+| Internal notifications | Notify staff | Slack planned |
+| AI services | AI recommendations and meeting brief | OpenAI planned |
+| Monitoring | Record executions, errors, and outcomes | Airtable logging design; implementation verification outstanding |
 
-# 3. Platform Overview
+## 5. Workflow Scenario Boundaries
 
-                        ClientPilot Platform
+### WF-001A – Client Intake
 
-┌─────────────────────────────────────────────────────┐
-│                                                     │
-│                 ClientPilot Core                    │
-│                                                     │
-└─────────────────────────────────────────────────────┘
-                          │
-     ┌────────────────────┼────────────────────┐
-     │                    │                    │
-     ▼                    ▼                    ▼
+Expected responsibilities:
 
- Intake Engine    Qualification Engine    CRM Engine
+- Receive a new form response.
+- Standardise and validate input fields.
+- Search for an existing company.
+- Create or update the company.
+- Search for an existing contact.
+- Create or update the contact.
+- Create a lead linked to the company and primary contact.
 
-     │                    │                    │
+### WF-001B – Lead Qualification
 
-     ▼                    ▼                    ▼
+Expected responsibilities:
 
-Scheduling      AI Decision Engine   Communication Engine
+- Detect or receive a lead requiring qualification.
+- Retrieve the required lead fields.
+- Calculate component scores using the approved rule set.
+- Calculate the total score.
+- Assign a qualification outcome.
+- Update the lead and create/update the associated qualification record.
+- Perform configured follow-up or booking-link hand-off steps.
 
-     │                    │                    │
+These responsibilities are the documented design. The live scenario configuration and exported blueprints must be reviewed to verify exact module order, filters, mappings, and error routes.
 
-     ▼                    ▼                    ▼
+## 6. Qualification Architecture – Rule-Based MVP
 
-Analytics       Workflow Engine      Admin Engine
+The current MVP qualification path is deterministic and does not require an AI model.
 
----
+The documented score inputs are:
 
-# 4. Core Business Engines
-
-## 4.1 Intake Engine
-
-Purpose:
-
-Collect prospect information.
-
-Responsibilities:
-
-- Capture lead information
-- Validate required fields
-- Store raw submissions
-- Trigger qualification process
-
-Current Technology:
-
-- Google Forms
-
-Future Technology:
-
-- ClientPilot Web Portal
-- Website Forms
-- Chatbot Intake
-
----
-
-## 4.2 Qualification Engine
-
-Purpose:
-
-Determine whether a prospect is a suitable client.
-
-Responsibilities:
-
-- Review submitted information
-- Apply business rules
-- Assess qualification criteria
-- Generate qualification result
-
-Qualification Factors:
-
-- Revenue
-- Industry
-- Business Size
-- Services Needed
-- Budget
-- Urgency
-- Decision Maker Status
-
-### MVP Implementation (rule-based v1)
-
-WF-001B scores each lead out of 100 using:
-
-| Factor | Points |
-|---|---|
-| Annual revenue band | 0 / 10 / 20 / 30 |
+| Factor | Documented scoring |
+| --- | --- |
+| Annual revenue | 0 / 10 / 20 / 30 |
 | Service requested | 25 / 20 / 15 / 10 / 5 |
 | Urgency | 15 / 11 / 7 / 3 |
-| Number of employees | 2 / 4 / 6 / 8 / 10 |
-| Budget | 0 (not collected by the MVP form) |
+| Employee count | 2 / 4 / 6 / 8 / 10 |
+| Budget | 0; not collected by the current intake form |
 
-Industry and decision-maker status do not affect the score in v1.
+Industry and decision-maker status may be collected or validated, but do not contribute to the documented v1 score.
 
-Outcomes: **Qualified ≥ 64**, **Review Required 40–63**, **Not Qualified < 40**. The AI Decision Engine (Module 4) will supplement or replace this scoring.
+Outcome bands:
 
----
+- **Qualified:** score 64 or higher.
+- **Review Required:** score 40–63.
+- **Not Qualified:** score below 40.
 
-## 4.3 AI Decision Engine
+The component scoring tables, missing-value handling, maximum score, and boundary conditions must be verified against the live Make scenario. The Settings table contains threshold fields, but WF-001B is documented as using fixed thresholds at present. Dynamic Settings-driven thresholds remain planned.
 
-Purpose:
+AI must not silently change the rule-based score or outcome. Any later AI recommendation should be separately identified, tested, and subject to a defined human-review policy.
 
-Provide intelligent analysis of lead data.
+## 7. Data Architecture
 
-Responsibilities:
+Airtable is the current MVP CRM store. The conceptual entities are:
 
-- Lead qualification reasoning
-- Lead scoring
-- Opportunity assessment
-- Meeting preparation
+- Companies
+- Contacts
+- Leads
+- Qualifications
+- Meetings
+- Activities
+- Workflow Logs
+- Settings
 
-Outputs:
+The current Airtable implementation does not include a dedicated Organization table. Organization identifiers are recorded only in selected locations, and full per-record tenant isolation is not complete. The conceptual model describes the intended future multi-tenant design; it must not be mistaken for a security control already implemented.
 
-- Qualification Score
-- Qualification Explanation
-- Meeting Summary
+See [05-DATA-MODEL.md](05-DATA-MODEL.md) for entity definitions and implementation gaps.
 
-Current Technology:
+## 8. Integration and Trust Boundaries
 
-- Rule-based scoring in the MVP (WF-001B)
-- OpenAI (planned, Module 4)
+ClientPilot depends on external services. Each integration should be treated as an independent failure boundary.
 
-Future Technology:
+- Google Forms / Sheets provide intake and response data.
+- Make orchestrates workflows and accesses connected services.
+- Airtable stores CRM data.
+- Gmail sends configured prospect communication.
+- Calendly provides booking links; event synchronisation is planned.
+- Slack and OpenAI are planned extensions.
 
-- Multiple AI Providers
+Credentials must be stored in the providers' secure connection mechanisms or approved secret storage, not in source files, logs, exported blueprints, or public documentation.
 
----
+## 9. Error Handling and Observability
 
-## 4.4 CRM Engine
+The intended operational pattern is:
 
-Purpose:
+1. Detect a failed or invalid step.
+2. Preserve enough context to identify the affected workflow and record.
+3. Retry only when the error is transient and retrying is safe.
+4. Avoid duplicate CRM records or duplicate messages on retry.
+5. Record execution status and a useful error description.
+6. Alert an authorised administrator when manual intervention is required.
+7. Document the recovery action.
 
-Store and manage lead records.
+The full implementation of alerts, idempotency controls, and recovery routes remains to be verified and completed.
 
-Responsibilities:
+## 10. Security, Privacy, and Multi-Tenancy
 
-- Create lead records
-- Update lead status
-- Store qualification results
-- Maintain client history
+- Use least-privilege access for connected accounts.
+- Do not commit credentials, tokens, or customer data.
+- Minimise personal information included in notifications.
+- Restrict Airtable base and Make scenario access to authorised personnel.
+- Define retention and deletion procedures before handling live customer data.
+- Implement and test tenant isolation before serving multiple independent firms from a shared data environment.
 
-Current Technology:
+The current MVP should be treated as a single-customer implementation until multi-tenant isolation is designed, implemented, and tested.
 
-- Airtable
+## 11. Platform Strategy
 
-Future Technology:
+Make is the selected workflow platform for the MVP. n8n is a possible future migration option, not a current parallel implementation requirement. Any migration should be justified by operating cost, control, hosting, integration, or customer requirements.
 
-- PostgreSQL
-- Dedicated ClientPilot Database
+The workflow specifications and data model remain the platform-independent references. See [ADR-004](adr/ADR-004-make-automation-platform.md).
 
----
+## 12. Future Architecture Extensions
 
-## 4.5 Scheduling Engine
+- OpenAI-assisted lead analysis and meeting preparation.
+- Slack notifications and administrator alerts.
+- Calendly event synchronisation.
+- Dedicated administration interface.
+- Stronger tenant isolation and user management.
+- Dedicated relational database if scale and requirements justify it.
 
-Purpose:
+## 13. Architecture Acceptance Conditions
 
-Manage consultation bookings.
+Before the MVP is considered pilot-ready:
 
-Responsibilities:
-
-- Route qualified leads
-- Schedule consultations
-- Track bookings
-- Manage appointment data
-
-Current Technology:
-
-- Calendly booking link sent by email (automated booking sync planned, Module 6)
-
-Future Technology:
-
-- Native ClientPilot Scheduler
-
----
-
-## 4.6 Communication Engine
-
-Purpose:
-
-Manage internal and external communication.
-
-Responsibilities:
-
-- Team notifications
-- Prospect communications
-- Follow-up messaging
-- Status updates
-
-Current Technology:
-
-- Email (Gmail)
-- Slack (planned, Module 5)
-
-Future Technology:
-
-- WhatsApp
-- SMS
-- Client Portal Messaging
+- WF-001A and WF-001B match the approved workflow and data mappings.
+- Score calculations and outcome boundaries pass test cases.
+- Duplicate and retry behaviour is understood and tested.
+- CRM links and workflow logs are verified.
+- Integration failures have documented recovery steps.
+- Security and customer-data handling have been reviewed.
+- Make blueprint exports are sanitised and version-controlled.
 
 ---
 
-## 4.7 Workflow Engine
-
-Purpose:
-
-Coordinate automation processes.
-
-Responsibilities:
-
-- Trigger workflows
-- Route data
-- Handle business logic
-- Connect system components
-
-Current Technology:
-
-- Make (MVP)
-
-Future Technology:
-
-- n8n + Custom Services (planned migration – see ADR-004)
-
----
-
-## 4.8 Analytics Engine
-
-Purpose:
-
-Measure business performance.
-
-Responsibilities:
-
-- Lead analytics
-- Conversion tracking
-- Qualification metrics
-- Operational reporting
-
-Metrics:
-
-- Response Time
-- Lead Quality
-- Booking Rate
-- Conversion Rate
-- Time Saved
-
----
-
-## 4.9 Administration Engine
-
-Purpose:
-
-Manage platform configuration.
-
-Responsibilities:
-
-- Business rules
-- Qualification thresholds
-- User settings
-- System monitoring
-
-Future Technology:
-
-- ClientPilot Admin Dashboard
-
----
-
-# 5. Version 1 Workflow
-
-Lead Submission
-        │
-        ▼
-Intake Engine
-        │
-        ▼
-Qualification Engine
-        │
-        ▼
-AI Decision Engine
-        │
-        ▼
-Lead Score Generated
-        │
-        ▼
-
- ┌───────────────┐
- │ Qualified?    │
- └───────────────┘
-
-      YES                NO
-       │                  │
-       ▼                  ▼
-
-Scheduling Engine   Communication Engine
-       │                  │
-       ▼                  ▼
-
-Calendly Booking   Follow-up Email
-
-       │
-       ▼
-
-CRM Engine
-
-       │
-       ▼
-
-Communication Engine
-
-       │
-       ▼
-
-Slack Notification
-
-       │
-       ▼
-
-AI Meeting Summary
-
----
-
-# 6. Architecture Principles
-
-1. Business First
-
-Technology exists to support business outcomes.
-
----
-
-2. Systems First
-
-Design capabilities before selecting tools.
-
----
-
-3. AI Native
-
-AI is a core component of the platform.
-
----
-
-4. Modular Design
-
-Each engine can evolve independently.
-
----
-
-5. Documentation First
-
-Every system component must be documented.
-
----
-
-6. Scalability
-
-The architecture must support future growth.
-
----
-
-# 7. Future Architecture
-
-Future versions of ClientPilot may include:
-
-- Client Portal
-- Proposal Engine
-- Document Collection Engine
-- Billing Engine
-- Knowledge Engine
-- Voice AI Engine
-- Reporting Dashboard
-
-These capabilities will integrate into the existing architecture without changing the core platform design.
-
----
-
-# 8. Implementation Note
-
-For the MVP the Workflow Engine is implemented on **Make** (EU region). The architecture is technology-independent, and a migration to n8n is planned once the platform matures (ADR-004). Business rules should be kept in the Airtable Settings table where possible so that they survive a platform change.
-
----
-
-# 9. Current Status
-
-Phase
-
-Architecture Design
-
-Status
-
-🟢 Active Development
+© Lewis Systems. All rights reserved.
