@@ -9,13 +9,13 @@
 
 ## 1. Legacy notice
 
-This directory contains earlier n8n-oriented design documents and workflow artefacts. It is retained for historical reference and must not be interpreted as the current ClientPilot implementation.
+This directory contains earlier n8n-oriented design documents and workflow artefacts, plus the superseded `WF-001-MAKE-IMPLEMENTATION.md` record that documented the initial Make build. It is retained for historical reference and must not be interpreted as the current canonical ClientPilot implementation. The Make implementation details have been carried forward into the canonical Module 3 Make records.
 
 **Make is the selected automation platform for the current MVP.** The canonical, platform-neutral Module 3 documentation is now located at [docs/modules/module-03-workflow-automation/README.md](../module-03-workflow-automation/README.md).
 
 ## 2. How to use this directory
 
-- Treat documents here as historical design inputs, not verified current specifications.
+- Treat documents here as historical design inputs, not verified current specifications.\n- The legacy Make implementation note is a historical source; use the canonical Make records for current documentation.
 - Do not assume an n8n workflow is deployed or active.
 - Review and selectively reuse useful concepts only after comparing them with the canonical workflow requirements.
 - Do not use legacy n8n JSON exports as production workflows without inspection, sanitisation, and testing.
