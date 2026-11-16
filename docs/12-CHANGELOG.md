@@ -6,7 +6,7 @@ This project follows the principles of **Keep a Changelog** and **Semantic Versi
 
 ---
 
-# [Unreleased] - 16 November 2026
+# [Unreleased] - 16 November 2026\n\n## Repository Quality – Stage 4\n\n- Added root `.gitignore`, contribution guidance, security standards, and a pull request template.\n- Added `workflows/make/README.md` to define the location and sanitisation requirements for Make exports; actual exports remain outstanding.\n- Added the repository quality audit and corrected README, ADR-004, and integration catalogue references.\n- Sanitised spreadsheet, sheet, credential-reference, and instance metadata in the inactive legacy n8n workflow JSON.\n- Preserved empty placeholders pending owner review; no licence was selected.\n
 
 ## Added
 
