@@ -15,7 +15,8 @@ This directory contains earlier n8n-oriented design documents and workflow artef
 
 ## 2. How to use this directory
 
-- Treat documents here as historical design inputs, not verified current specifications.\n- The legacy Make implementation note is a historical source; use the canonical Make records for current documentation.
+- Treat documents here as historical design inputs, not verified current specifications.
+- The legacy Make implementation note is a historical source; use the canonical Make records for current documentation.
 - Do not assume an n8n workflow is deployed or active.
 - Review and selectively reuse useful concepts only after comparing them with the canonical workflow requirements.
 - Do not use legacy n8n JSON exports as production workflows without inspection, sanitisation, and testing.
